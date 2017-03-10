@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+
+  "name": "Like Facebook",
+  "description": "Đi like thuê",
+  "version": "0.13",
+
+  "author" : "Anh Hồng",
+  
+  "icons": { "16": "icon.png",
+           "48": "icon.png",
+          "128": "icon.png" },
+   "browser_action": {
+   		"default_icon": {
+   			"16": "icon.png",
+   			"24": "icon.png",
+   			"32": "icon.png"
+   		},
+   		"default_title": "Like dạo",
+   		"default_popup": "popup.html"
+   	},
+	"content_scripts": [
+		{
+			"matches": ["*://*.facebook.com/*"],
+			"js": ["js/jquery.js", "js/content.js"]
+		}
+	]
+}
