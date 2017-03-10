@@ -1,0 +1,40 @@
+*{
+	margin: 0px;
+}
+.like-btn{
+	position: relative;
+	padding: 5px 10px;
+	margin: 0px ;
+	border: 1px solid #0D6;
+	font-family: "Nunito", sans-serif;
+	font-size: 15px;
+	color: #FFF;
+	text-decoration: none;
+
+	transition: all 0.5s;
+
+	background: #0D6;
+	min-width: 100%;
+}
+.like-btn:hover{
+	text-decoration: none;
+	color: #0C5;
+	border-color: #0C5;
+	background: #FFF;
+}
+.like-btn span{
+	text-align: left;
+	display: inline-block;
+	position: relative;
+
+	transition: padding-right 0.5s;
+}
+.like-btn:hover span, .like-btn:active span {
+	padding-right: 25px;
+}
+p{
+	font-size: 16px;
+	text-align: center;
+	padding: 5px 5px;
+	font-family: Bedrock;
+}
