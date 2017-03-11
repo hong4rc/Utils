@@ -1,26 +1,26 @@
 *{
 	margin: 0px;
 }
-.like-btn{
+button {
+	outline: none;
 	position: relative;
-	padding: 5px 10px;
-	margin: 0px ;
 	border: 1px solid #0D6;
-	font-family: "Nunito", sans-serif;
-	font-size: 15px;
 	color: #FFF;
-	text-decoration: none;
-
-	transition: all 0.5s;
-
-	background: #0D6;
-	min-width: 100%;
 }
-.like-btn:hover{
-	text-decoration: none;
+button:hover{
 	color: #0C5;
 	border-color: #0C5;
 	background: #FFF;
+}
+.like-btn{
+	padding: 5px 10px;
+	margin: 0px ;
+	font-family: "Nunito", sans-serif;
+	font-size: 15px;
+	transition: all 0.5s;
+
+	background: #0C5;
+	min-width: 100%;
 }
 .like-btn span{
 	text-align: left;
@@ -43,32 +43,25 @@ p{
 /* Clearfix */
 .tab-links {
 }
-.tab-links span {
-	text-align: center;
-	width: 24%;
-    margin:0px 0px;
+button.cc {
+	width: 25%;
     float:left;
     list-style:none;
-	border: 1px solid #0D6;
-    padding:4px 0px;
+    padding:4px 1px;
+    margin: 1px 0px;
     display:inline-block;
-    border-radius:2px;
+    border-radius:12px;
     background:#0D6;
     font-size:10px;
-    transition:all linear 0.15s;
+    transition:all linear 0.4s;
 }
 
-span.active, span:hover, span.active:hover {
+button.cc.active {
     background:#fff;
-    color:#4c4c4c;
-}.active a{
-	text-color :#f0f;
+    color: #0C5;
 }
-
-/*----- Content of Tabs -----*/
-.tab-content {
-    border-radius:3px;
-    background:#fff;
+button.cc:hover{
+	background: #fff;
 }
 
 .tab {
@@ -79,12 +72,5 @@ span.active, span:hover, span.active:hover {
     display:block;
 }
 .con-tab{
-	padding: 2px;
-	border: 3px double #8A2BE2;
-	height: 120px
-}
-span a{
-	width: 100%;
-	text-align: center;
-    text-decoration:none;
+	min-height: 125px
 }

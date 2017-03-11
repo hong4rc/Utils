@@ -6,15 +6,15 @@ $(document).ready(function(){
 });
 
 function tab (){
-	jQuery('.tabs .tab-links a').on('click', function(e)  {
-		var currentAttrValue = jQuery(this).attr('href');
+	jQuery('.tabs .tab-links button').on('click', function(e)  {
+		var currentAttrValue = jQuery(this).attr('flag');
  
         // Show/Hide Tabs
         // jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
 
         jQuery('.tabs ' + currentAttrValue).slideDown(400).siblings().slideUp(400);
         // Change/remove current tab to active
-        jQuery(this).parent('.tab-links').addClass('active').siblings().removeClass('active');
+        jQuery(this).addClass('active').siblings().removeClass('active');
  console.log(this);
         e.preventDefault();
     });
