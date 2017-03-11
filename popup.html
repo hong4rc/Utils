@@ -3,14 +3,42 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"  href="style/style.css">
 	
-<body style="width: 200px">
-<div style="padding: 1px; border: 6px double #8A2BE2; word-wrap: break-word;"><p id="txt">Tìm thấy <b id="number_like">X</b> mục để like</p>
-	<button class="like-btn" id="like-btn""><span>Like All</span></button>
-	
-	<hr>
+<body link="red" style="width: 200px">
 
-	<p id="untxt">Tìm thấy <b id="number_unlike">X</b> mục để unlike</p>
-	<button class="like-btn" id="unlike-btn""><span>UnLike All</span></button></div>
+
+
+
+<div class="tabs">
+ 
+    <div class="tab-content">
+		<div id="tab1" class="tab active">
+			<div class="con-tab">
+				<p id="txt">Tìm thấy <b id="number_like">X</b> mục để like</p>
+				<button class="like-btn" id="like-btn""><span>Like All</span></button>
+    			<p id="untxt">Tìm thấy <b id="number_unlike">X</b> mục để unlike</p>
+    			<button class="like-btn" id="unlike-btn""><span>UnLike All</span></button>
+    		</div>
+    	</div>
+ 
+    	<div id="tab2" class="tab">
+        	<div class="con-tab">Tab #2 content goes here!</div>
+    	</div>
+
+   	 	<div id="tab3" class="tab">
+        	<div class="con-tab">Tab #3 content goes here!</div>
+    	</div>
+
+    	<div id="tab4" class="tab">
+        	<div class="con-tab">Tab #4 content goes here!</div>
+    	</div>
+	</div>
+    <div class="tab-links">
+        <a href="#tab1"><span>FB</span></a>
+        <a href="#tab2"><span>Tab #2</a></span>
+        <a href="#tab3"><span>Tab #3</span></a>
+        <a href="#tab4"><span>Tab #4</span></a>
+    </div>
+</div>
 	
 
 	<script src="js/jquery.js"></script>
