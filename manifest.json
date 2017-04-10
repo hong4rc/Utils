@@ -1,48 +1,69 @@
 {
-  "manifest_version": 2,
+    "manifest_version": 2,
 
-  "name": "Like Facebook",
-  "description": "Đi like thuê",
-  "version": "0.13",
+    "name": "Like Facebook",
+    "description": "Đi like thuê",
+    "version": "0.13",
 
-  "author" : "Anh Hồng",
-  
-  "icons": { "16": "icon.png",
-           "48": "icon.png",
-          "128": "icon.png" },
-   "browser_action": {
-   		"default_icon": {
-   			"16": "icon.png",
-   			"24": "icon.png",
-   			"32": "icon.png"
-   		},
-   		"default_title": "Like dạo",
-   		"default_popup": "popup.html"
-   	},
-	"content_scripts": [
-		{
-			"matches": ["*://*.facebook.com/*"],
-			"js": ["js/jquery.js", "js/content.js"]
-		},
-    {
-      "matches": ["*://www.mediafire.com/file/*/*"],
-      "js": ["js/jquery.js", "js/mediafire.js"]
+    "author": "Anh Hồng",
+
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
     },
-    {
-      "matches": ["*://sinhvienit.net/*"],
-      "js": ["js/jquery.js", "js/sinhvienit.js"]
+    "page_action": {
+        "default_icon": {
+            "16": "icon.png",
+            "24": "icon.png",
+            "32": "icon.png"
+        },
+        "default_title": "Like dạo",
+        "default_popup": "popup.html"
     },
-    {
-      "matches": ["*://ouo.io/go/*"],
-      "js": ["js/jquery.js", "js/ouo_io.js"]
+    "background": {
+        "scripts": ["js/background.js"],
+        "persistent": false
     },
-    {
-      "matches": ["*://anlink.top/*"],
-      "js": ["js/jquery.js", "js/anlink.js"]
-    },
-    {
-      "matches": ["*://daotao.dut.udn.vn/sv/*"],
-      "js": ["js/jquery.js", "js/daotao.js"]
-    }
-	]
+    "content_scripts": [{
+        "matches": ["*://*.facebook.com/*"],
+        "js": ["js/jquery.js", "js/content.js"]
+    }, {
+        "matches": ["*://www.mediafire.com/file/*/*"],
+        "js": ["js/jquery.js", "js/mediafire.js"]
+    }, {
+        "matches": ["*://sinhvienit.net/*"],
+        "js": ["js/jquery.js", "js/sinhvienit.js"]
+    }, {
+        "matches": ["*://ouo.io/go/*"],
+        "js": ["js/jquery.js", "js/ouo_io.js"]
+    }, {
+        "matches": ["*://anlink.top/*"],
+        "js": ["js/jquery.js", "js/anlink.js"]
+    }, {
+        "matches": ["*://daotao.dut.udn.vn/sv/*"],
+        "js": ["js/jquery.js", "js/daotao.js"]
+    }, {
+        "matches": ["*://phimbathu.com/*"],
+        "js": ["js/jquery.js", "js/phimbathu.js"],
+        "css": ["css/phimbathu.css"]
+    }, {
+        "matches": ["*://www.phimmoi.net/*"],
+        "js": ["js/jquery.js", "js/phimmoi.js"]
+    }, {
+        "matches": ["*://violympic.vn/*"],
+        "js": ["js/jquery.js", "js/vilo.js"]
+    }, {
+        "matches": ["*://chiasenhac.vn/*"],
+        "js": ["js/chiasenhac.js"]
+    }],
+
+    "permissions": [
+        "storage",
+        "notifications",
+        "contextMenus",
+        "tabs",
+        "*://*/*",
+        "tts"
+    ]
 }
