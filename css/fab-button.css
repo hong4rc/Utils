@@ -1,0 +1,38 @@
+.fab-button{
+  box-sizing: border-box;
+  background-color: #F44336;
+  margin: 2px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  color: #FFF;
+  font-size: 25px;
+  box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+}
+.fab-text{
+  box-sizing: border-box;
+  background-color: #5890ff;
+  right: 0px;
+  bottom: 0px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  color: #FFF;
+  font-size: 12px;
+  box-shadow: 0 0 -2px rgba(0,0,0,.14), 0 -2px -4px rgba(0,0,0,.28);
+  z-index:12;
+  position: absolute;
+}
+.fab-button:hover{
+  -webkit-transform: scale(1.1);
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+
+.fab-frame{
+  z-index:12;
+  position: fixed;
+}

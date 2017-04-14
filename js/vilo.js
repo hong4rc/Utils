@@ -1,1 +1,0 @@
-﻿$('script [src=\"build/c3/states/GameOver.js\"]').remove();

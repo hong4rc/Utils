@@ -27,7 +27,8 @@
     },
     "content_scripts": [{
         "matches": ["*://*.facebook.com/*"],
-        "js": ["js/jquery.js", "js/content.js"]
+        "js": ["js/jquery.js", "js/facebook.js"],
+        "css": ["css/fab-button.css"]
     }, {
         "matches": ["*://www.mediafire.com/file/*/*"],
         "js": ["js/jquery.js", "js/mediafire.js"]
@@ -46,13 +47,10 @@
     }, {
         "matches": ["*://phimbathu.com/*"],
         "js": ["js/jquery.js", "js/phimbathu.js"],
-        "css": ["css/phimbathu.css"]
+        "css": ["css/fab-button.css"]
     }, {
         "matches": ["*://www.phimmoi.net/*"],
         "js": ["js/jquery.js", "js/phimmoi.js"]
-    }, {
-        "matches": ["*://violympic.vn/*"],
-        "js": ["js/jquery.js", "js/vilo.js"]
     }, {
         "matches": ["*://chiasenhac.vn/*"],
         "js": ["js/chiasenhac.js"]
