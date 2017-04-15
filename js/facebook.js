@@ -30,8 +30,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 function addLikeButton() {
-    var news = $('#contentArea div')[0];
-    $(document.body).append('<div class="fab-frame"><button id="fab-like" class="fab-button">&#10084;</button><button class="fab-text">0</button></div>');
+    $(document.body).append('<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button class="fab-text fab">0</button></div>');
     $(".fab-frame").css({
         "right": "20px",
         "bottom": "90px"
@@ -48,9 +47,9 @@ function addLikeButton() {
     }, function() {
         setLike();
     });
-    setMargin(news);
+    setMargin();
     $(window).resize(function(event) {
-        setMargin(news);
+        setMargin();
     });
 }
 
@@ -58,7 +57,8 @@ function setLike() {
     $('.fab-text').html(count_like());
 }
 
-function setMargin(element) {
+function setMargin() {
+    var element = $('#contentArea div')[0];
     var marginRight = getMarginRight(element) - $('.fab-frame').width() / 2;
     if(marginRight < 0) {
         marginRight = 0;

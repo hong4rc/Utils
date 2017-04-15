@@ -2,6 +2,7 @@ var link = $(".btn-see").attr('href');
 if(link !== undefined) {
     window.location.href = link;
 }
+$('#balloon_left_2').remove();
 var board = $('.episodes').length;
 if(board === 1) {
     addFAB();
@@ -56,10 +57,10 @@ function addButton() {
     var prev = $($(cc).prev())[0];
     var next = $($(cc).next())[0];
     if(prev) {
-        $('.fab-frame').append('<button id="btn-prev" class="fab-button">⬸</button>');
+        $('.fab-frame').append('<button id="btn-prev" class="fab-button fab">⬸</button>');
     }
     if(next) {
-        $('.fab-frame').append('<button id="btn-next" class="fab-button">⤑</button>');
+        $('.fab-frame').append('<button id="btn-next" class="fab-button fab">⤑</button>');
     }
     $('#btn-next').click(function(event) {
         next.click();
