@@ -46,14 +46,17 @@
         "js": ["js/jquery.js", "js/daotao.js"]
     }, {
         "matches": ["*://phimbathu.com/*"],
-        "js": ["js/jquery.js", "js/phimbathu.js"],
-        "css": ["css/fab-button.css"]
+        "js": ["js/jquery.js", "js/phimbathu.js", "js/bootstrap.min.js"],
+        "css": ["css/fab-button.css", "css/bootstrap.min.css"]
     }, {
         "matches": ["*://www.phimmoi.net/*"],
         "js": ["js/jquery.js", "js/phimmoi.js"]
     }, {
         "matches": ["*://chiasenhac.vn/*"],
         "js": ["js/chiasenhac.js"]
+    }, {
+        "matches": ["*://id.zing.vn/v2/register/*"],
+        "js": ["js/zing.js"]
     }],
 
     "permissions": [

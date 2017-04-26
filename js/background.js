@@ -8,20 +8,20 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 var menuItem = {
     id: "anhhong",
-    title: "Speak",
+    title: "Translate with oxford",
     contexts: ["selection"]
 }
 chrome.contextMenus.create(menuItem);
 chrome.contextMenus.onClicked.addListener(function(data) {
     if (data.menuItemId === "anhhong" && data.selectionText) {
-        var link = 'https://code.responsivevoice.org/getvoice.php?tl=vi&rate=0.5&vol=1&t=';
+        var link = 'http://www.oxfordlearnersdictionaries.com/definition/english/get-out_2?q=';
         link += encodeURI(data.selectionText);
         var createData = {
             url: link,
             type: "popup",
             top: 5,
             left: 5,
-            width: 500,
+            width: 800,
             height: 500,
         }
         chrome.windows.create(createData, function() {});

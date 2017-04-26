@@ -1,3 +1,4 @@
+onLoad();
 var link = $(".btn-see").attr('href');
 if(link !== undefined) {
     window.location.href = link;
@@ -6,8 +7,15 @@ $('#balloon_left_2').remove();
 var board = $('.episodes').length;
 if(board === 1) {
     addFAB();
+    $('div.list-episode a').addClass('btn btn-primary')
 }
 
+function onLoad(argument) {
+    $('li.menu-item ul').addClass('btn btn-default');
+    $('.float-ads').remove();
+    $('#balloon_left_1').remove();
+    $('ul.container').addClass('nav nav-pills');
+}
 function addFAB() {
     addButton();
     addEventMove();
