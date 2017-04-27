@@ -20,9 +20,9 @@ chrome.contextMenus.onClicked.addListener(function(data) {
         var createData = {
             url: link,
             type: "popup",
-            top: 5,
-            left: 5,
-            width: 800,
+            top: 100,
+            left: 100,
+            width: 900,
             height: 500,
         }
         chrome.windows.create(createData, function() {});
