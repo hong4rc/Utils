@@ -4,7 +4,10 @@ a.weakReference{
 a._wpv{
   color: #2f82d5 !important;
   text-decoration: underline !important;
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-family: Monospace !important;
+}
+#sideNav, .noGrip, a.profileLink, span.fwb.fcg a{
+  font-family: Monospace !important;
 }
 .fab-button{
   background-color: #F44336;
