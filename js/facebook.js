@@ -1,3 +1,6 @@
+$( document ).ajaxStart(function() {
+    console.log('ajaxStart');
+});
 addFriend("99+");
 addLikeButton();
 chrome.runtime.sendMessage({

@@ -6,8 +6,11 @@ a._wpv{
   text-decoration: underline !important;
   font-family: Monospace !important;
 }
-#sideNav, .noGrip, div._r_m, a.profileLink, span.fwb.fcg a{
+#sideNav, .noGrip, div._r_m,div._2pi4, a.profileLink, span.fwb.fcg a{
   font-family: Monospace !important;
+}
+div._568z em{
+  color: #f00 !important;
 }
 .fab-button{
   background-color: #F44336;
