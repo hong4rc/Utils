@@ -28,7 +28,7 @@
     "content_scripts": [{
         "matches": ["*://*.facebook.com/*"],
         "js": ["js/jquery.js", "js/facebook.js"],
-        "css": ["css/fab-button.css"]
+        "css": ["css/fab-button.css", "css/fb.css"]
     }, {
         "matches": ["*://*.youtube.com/*"],
         "js": ["js/jquery.js", "js/youtube.js"],
@@ -51,7 +51,7 @@
     }, {
         "matches": ["*://phimbathu.com/*"],
         "js": ["js/jquery.js", "js/phimbathu.js", "js/bootstrap.min.js"],
-        "css": ["css/fab-button.css", "css/bootstrap.min.css"]
+        "css": ["css/fab-button.css", "css/phimbathu.css"]
     }, {
         "matches": ["*://www.phimmoi.net/*"],
         "js": ["js/jquery.js", "js/phimmoi.js"]

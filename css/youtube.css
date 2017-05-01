@@ -1,3 +1,6 @@
 ytd-playlist-panel-video-renderer[selected], li.currently-playing,li.currently-playing h4.yt-ui-ellipsis{
 	background: #555  !important;
 }
+ytd-compact-video-renderer{
+	border-right: 1px solid #696f79;
+}

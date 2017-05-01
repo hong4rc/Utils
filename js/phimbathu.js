@@ -12,9 +12,30 @@ if(board === 1) {
 
 function onLoad(argument) {
     $('li.menu-item ul').addClass('btn btn-default');
+    $('.list-episode>a').each(function(index) {
+        var  string = $(this).html();
+        var ch = string.split("-").length;
+        if (ch === 3 || string.length > 10) {
+            $(this).addClass('three-col');
+            //$(this).css('width', '131px');
+        } else if (ch === 2) {
+            $(this).addClass('two-col');
+            //$(this).css('width', '86px');
+        }
+    });
     $('.float-ads').remove();
     $('#balloon_left_1').remove();
-    $('ul.container').addClass('nav nav-pills');
+    //$('ul.container').addClass('nav nav-pills');
+
+    //change icon -> glyphicon 
+    $('i.fa.fa-home').addClass('glyphicon glyphicon-home');
+    $('i.fa.fa-align-center').addClass('glyphicon glyphicon-tasks');
+    $('i.fa.fa-globe').addClass('glyphicon glyphicon-globe');
+    $('i.fa.fa-camera-retro').addClass('glyphicon glyphicon-camera');
+    $('i.fa.fa-film').addClass('glyphicon glyphicon-film');
+    $('i.fa.fa-lightbulb-o').addClass('glyphicon glyphicon-fire');
+    $('i.fa.fa-comment').addClass('glyphicon glyphicon-comment');
+    $('i.fa.fa-video-camera').addClass('glyphicon glyphicon-facetime-video');
 }
 function addFAB() {
     addButton();
