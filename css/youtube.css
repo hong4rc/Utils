@@ -2,5 +2,8 @@ ytd-playlist-panel-video-renderer[selected], li.currently-playing,li.currently-p
 	background: #555  !important;
 }
 ytd-compact-video-renderer{
-	border-right: 1px solid #696f79;
+	border-right: 5px solid #696f79;
+}
+ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
+	border-right: 5px solid #696f79;
 }

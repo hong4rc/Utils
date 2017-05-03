@@ -12,3 +12,18 @@ a._wpv{
 div._568z em{
   color: #f00 !important;
 }
+li._42fz[data-id="100008187521677"],
+li._42fz[data-id="100011401676480"],
+li._42fz[data-id="100004061350564"]{	/*your best friend*/
+	border-left: solid #38f;
+	border-right: solid 0.5px #f0f;
+}
+._3u6q ._2s1y{
+	background: #7713f1 !important;
+}
+a._8_2[href="https://www.facebook.com/bugcolor"]{ /*your profile*/
+    background-image: url(/rsrc.php/v3/yC/r/QRYlLwFgbbH.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: 125px -28px;
+}

@@ -1,6 +1,3 @@
-$( document ).ajaxStart(function() {
-    console.log('ajaxStart');
-});
 addFriend("99+");
 addLikeButton();
 chrome.runtime.sendMessage({
@@ -33,7 +30,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 function addLikeButton() {
-    $(document.body).append('<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button class="fab-text fab">0</button></div>');
+    $(document.body).append('<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button id = "fab-text" class="fab-text fab">0</button></div>');
     $(".fab-frame").css({
         "right": "20px",
         "bottom": "90px"
@@ -44,6 +41,9 @@ function addLikeButton() {
     $('#fab-like').click(function(event) {
         like('like');
         setLike();
+    });
+    $('#fab-text').click(function(event) {
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
     });
     $('#fab-like').hover(function() {
         setLike();
