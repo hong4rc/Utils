@@ -21,9 +21,18 @@ li._42fz[data-id="100004061350564"]{	/*your best friend*/
 ._3u6q ._2s1y{
 	background: #7713f1 !important;
 }
+a._8_2[href="https://www.facebook.com/phony.97"],
 a._8_2[href="https://www.facebook.com/bugcolor"]{ /*your profile*/
     background-image: url(/rsrc.php/v3/yC/r/QRYlLwFgbbH.png);
     background-repeat: no-repeat;
     background-size: auto;
-    background-position: 125px -28px;
+    background-position: calc(100% + 3px) -28px;
+}
+._55y4 .homeSideNav .navHeader {
+    background-color: #f6f7f9;
+    border: 1px solid #dddfe2;
+    border-radius: 2px;
+    padding-left: 9px !important;
+    margin-left: -5px !important;
+    margin-right: -1px !important;
 }

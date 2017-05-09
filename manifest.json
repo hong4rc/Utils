@@ -12,7 +12,7 @@
         "48": "icon.png",
         "128": "icon.png"
     },
-    "page_action": {
+    "browser_action": {
         "default_icon": {
             "16": "icon.png",
             "24": "icon.png",
@@ -23,7 +23,7 @@
     },
     "background": {
         "scripts": ["js/background.js"],
-        "persistent": false
+        "persistent": true
     },
     "content_scripts": [{
         "matches": ["*://*.facebook.com/*"],
@@ -40,7 +40,7 @@
         "matches": ["*://sinhvienit.net/*"],
         "js": ["js/jquery.js", "js/sinhvienit.js"]
     }, {
-        "matches": ["*://ouo.io/go/*"],
+        "matches": ["*://ouo.io/go/*", "*://ouo.press/go/*"],
         "js": ["js/jquery.js", "js/ouo_io.js"]
     }, {
         "matches": ["*://anlink.top/*"],
@@ -64,6 +64,8 @@
     }],
 
     "permissions": [
+        "webRequest",
+        "webRequestBlocking",
         "storage",
         "notifications",
         "contextMenus",
