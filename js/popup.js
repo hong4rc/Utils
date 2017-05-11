@@ -6,10 +6,15 @@ setClick();
 
 function anim(now) {
     if (now == '0') {
-        $('.enable .glyphicon').addClass('glyphicon-unchecked').removeClass('glyphicon-check');
+        $('.checkbox .glyphicon').addClass('glyphicon-unchecked').removeClass('glyphicon-check')
+            .parent().addClass('btn-info').removeClass('btn-success');
     } else {
-        $('.enable .glyphicon').addClass('glyphicon-check').removeClass('glyphicon-unchecked');
+        $('.checkbox .glyphicon').addClass('glyphicon-check').removeClass('glyphicon-unchecked')
+            .parent().removeClass('btn-info').addClass('btn-success');;
     }
+}
+function getId(param) {
+    return $(param).attr('id');
 }
 function setClick() {
     $('.save').click(function () {
@@ -27,19 +32,22 @@ function setClick() {
         $('.list').empty();
         save();
     });
-    $('.enable').click(function () {
+    $('.checkbox').click(function () {
         var now = $(this).attr('aria-valuenow');
-        if(now == '0'){
+        if (now + '' === '0'){
             now = 1;
-        } else{
+        } else {
             now = 0;
         }
-        anim(now);
-        $(this).attr('aria-valuenow', now);
-        chrome.storage.sync.set({'isEnable': now});
+        updateStatus(this, now);
+        var id = getId(this);
+        setOption(id, now);
     });
+    // $('#option .checkbox').click(function () {
+    //
+    // })
     $('.import').click(function () {
-        var arr = getBlockRequest();
+        //var arr = getBlockRequest();
     })
 }
 function save() {
@@ -54,20 +62,45 @@ function save() {
         // Notify that we saved.
         console.info('Settings saved');
     });
-
-    $('.list').empty();
     getBlockRequest();
 }
+function updateStatus(element, now) {
+    $(element).attr('aria-valuenow', now +0);
+    if (now == 0) {
+        $(element).children('.glyphicon').addClass('glyphicon-unchecked').removeClass('glyphicon-check');
+        $(element).addClass('btn-info').removeClass('btn-success');
+    } else {
+        $(element).children('.glyphicon').addClass('glyphicon-check').removeClass('glyphicon-unchecked')
+        $(element).removeClass('btn-info').addClass('btn-success');
+    }
+}
+function init(data) {
+    var now = (data.isEnable == 0) ? 0 : 1;         //default: 1
+    updateStatus('#isEnable', now);
+    now = (data.seenChat == 0) ? 0 : 1;             //default: 1
+    updateStatus('#seenChat', now);
+    now = (data.typingChat == 0) ? 0 : 1;           //default: 1
+    updateStatus('#typingChat', now);
+    now = (data.typingPost == 1) ? 1 : 0;           //default: 0
+    updateStatus('#typingPost', now);
+    now = (data.stopTimeline == 0) ? 0 : 1;             //default: 1
+    updateStatus('#stopTimeline', now);
+}
 function getBlockRequest() {
-    chrome.storage.sync.get(['blockRequest', 'isEnable'], function(data) {
-        var now = data.isEnable;
-        anim(now)
-        $('.enable').attr('aria-valuenow', now);
-        data.blockRequest.forEach(function(element) {
-            add(element);
-            console.info(element);
-        });
-        return data.blockRequest;
+    $('.list').empty();
+    chrome.storage.sync.get(['blockRequest', 'isEnable', 'seenChat', 'typingChat', 'typingPost', 'stopTimeline'], function(data) {
+        //var now = 1 - !data.isEnable;                 //default: 1
+        init(data);
+        if (data.blockRequest && data.blockRequest.length > 0){
+            data.blockRequest.forEach(function(element) {
+                add(element);
+                console.info(element);
+            });
+            return data.blockRequest;
+        } else {
+            add('');
+            return [];
+        }
     });
 }
 function add(element) {
@@ -86,4 +119,22 @@ function add(element) {
 function remove(element) {
     console.warn('remove : ' + element);
     $(element).parent().remove();
+}
+function setOption(id, now) {
+    console.info('id  = ' + id + ';  now = ' + now);
+    var tmp = {};
+    tmp[id] = now;
+    id && chrome.storage.sync.set(tmp);
+}
+
+
+//:TODO set , get option
+function getOption(option, value) {
+    chrome.storage.sync.get(option, function(data) {
+        data.option = data.option || [];
+        if (data.option.hasOwnProperty(index)){
+            return data.option[index];
+        }
+        return value;
+    });
 }

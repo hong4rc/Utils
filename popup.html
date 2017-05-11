@@ -10,24 +10,50 @@
     <title>Http Block</title>
 </head>
 <body>
-<div class="container">
-    <h4 class="text-center">Block request http(s)</h4>
-    <div class="blocked btn-group btn-group-justified">
-        <span class="enable btn btn-info"><i class="glyphicon glyphicon-check"></i></span>
-        <span class="import btn btn-default">
-            <i class="glyphicon glyphicon-import"></i>
-            <input class="file" type="file">
-        </span>
-        <span class="export btn btn-default">
-            <i class="glyphicon glyphicon-export"></i>
-        </span>
-        <span class="btn btn-success add"><i class="glyphicon glyphicon-plus-sign"></i></span>
+<div class="container panel panel-primary">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#block-request">Block request http(s)</a></li>
+        <li><a data-toggle="tab" href="#option">Option Facebook</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="block-request" class="tab-pane fade in active">
+            <div class="blocked btn-group btn-group-justified">
+                <span id="isEnable" class="checkbox btn btn-success">
+                    <i class="glyphicon glyphicon-check"></i></span>
+                <span class="import btn btn-default">
+                    <i class="glyphicon glyphicon-import"></i><input class="file" type="file"></span>
+                <span class="export btn btn-default">
+                    <i class="glyphicon glyphicon-export"></i></span>
+                <span class="btn btn-success add"><i class="glyphicon glyphicon-plus-sign"></i></span>
+            </div>
+            <div class="list"></div>
+            <div class="btn-group btn-group-justified">
+                <span class="save btn btn-success" data-toggle="modal" data-target=".save-dialog"><i class="glyphicon glyphicon-save"></i></span>
+                <span class="removeall btn btn-danger" data-toggle="modal" data-target=".remove-dialog"><i class="glyphicon glyphicon-trash"></i></span>
+            </div>
+        </div>
+        <div id="option" class="tab-pane fade">
+            <div class="panel-body btn-group-vertical">
+                <span id="seenChat" class="checkbox btn btn-success">
+                    <i class="col-xs-2 glyphicon glyphicon-check"></i>
+                    <div class="text-left">Block the "seen" of Messenger</div>
+                </span>
+                <span id="typingChat" class="checkbox btn btn-success">
+                    <i class="col-xs-2 glyphicon glyphicon-check"></i>
+                    <div class="text-left">Block the typing indicator of Messenger</div>
+                </span>
+                <span id="typingPost" class="checkbox btn btn-success">
+                    <i class="col-xs-2 glyphicon glyphicon-check"></i>
+                    <div class="text-left">Block the typing indicator on Post</div>
+                </span>
+                <span id="stopTimeline" class="checkbox btn btn-success">
+                    <i class="col-xs-2 glyphicon glyphicon-check"></i>
+                    <div class="text-left" pattern='*://*.facebook.com/ajax/pagelet/generic.php/LitestandTailLoadPagelet*'>Stop your timeline</div>
+                </span>
+            </div>
+        </div>
     </div>
-    <div class="list"></div>
-    <div class="btn-group btn-group-justified">
-        <span class="save btn btn-success" data-toggle="modal" data-target=".save-dialog"><i class="glyphicon glyphicon-save"></i></span>
-        <span class="removeall btn btn-danger" data-toggle="modal" data-target=".remove-dialog"><i class="glyphicon glyphicon-trash"></i></span>
-    </div>
+
 </div>
 
 <div class="modal fade save-dialog">
