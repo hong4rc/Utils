@@ -21,6 +21,10 @@
         "default_title": "Like dạo",
         "default_popup": "popup.html"
     },
+    "options_ui": {
+        "chrome_style": true,
+        "page": "popup.html"
+    },
     "background": {
         "scripts": ["js/background.js"],
         "persistent": true

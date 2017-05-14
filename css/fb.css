@@ -22,7 +22,7 @@ li._42fz[data-id="100004061350564"]{	/*your best friend*/
 	background: #7713f1 !important;
 }
 a._8_2[href="https://www.facebook.com/phony.97"],
-a._8_2[href="https://www.facebook.com/bugcolor"]{ /*your profile*/
+a._8_2[href="https://www.facebook.com/RemoveU"]{ /*your profile*/
     background-image: url(/rsrc.php/v3/yC/r/QRYlLwFgbbH.png);
     background-repeat: no-repeat;
     background-size: auto;
@@ -35,4 +35,7 @@ a._8_2[href="https://www.facebook.com/bugcolor"]{ /*your profile*/
     padding-left: 9px !important;
     margin-left: -5px !important;
     margin-right: -1px !important;
+}
+.fbNub._50mz.minimized {
+    width: 80px !important;
 }

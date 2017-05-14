@@ -3,7 +3,16 @@ var frame2 = '"><span class="remove input-group-addon btn btn-danger"><i class="
 
 getBlockRequest();
 setClick();
+addShortcut();
 
+function addShortcut() {
+    $(document).keydown(function(evt){
+        if (evt.keyCode==83 && (evt.ctrlKey)){
+            evt.preventDefault();
+            save();
+        }
+    });
+}
 function anim(now) {
     if (now == '0') {
         $('.checkbox .glyphicon').addClass('glyphicon-unchecked').removeClass('glyphicon-check')
@@ -75,21 +84,16 @@ function updateStatus(element, now) {
     }
 }
 function init(data) {
-    var now = (data.isEnable == 0) ? 0 : 1;         //default: 1
-    updateStatus('#isEnable', now);
-    now = (data.seenChat == 0) ? 0 : 1;             //default: 1
-    updateStatus('#seenChat', now);
-    now = (data.typingChat == 0) ? 0 : 1;           //default: 1
-    updateStatus('#typingChat', now);
-    now = (data.typingPost == 1) ? 1 : 0;           //default: 0
-    updateStatus('#typingPost', now);
-    now = (data.stopTimeline == 0) ? 0 : 1;             //default: 1
-    updateStatus('#stopTimeline', now);
+    updateStatus('#isEnable', data.isEnable);
+    updateStatus('#seenChat', data.seenChat);
+    updateStatus('#typingChat', data.typingChat);
+    updateStatus('#typingPost', data.typingPost);
+    updateStatus('#stopTimeline', data.stopTimeline);
+    updateStatus('#stopGroup', data.stopGroup);
 }
 function getBlockRequest() {
     $('.list').empty();
-    chrome.storage.sync.get(['blockRequest', 'isEnable', 'seenChat', 'typingChat', 'typingPost', 'stopTimeline'], function(data) {
-        //var now = 1 - !data.isEnable;                 //default: 1
+    chrome.storage.sync.get({'blockRequest': [], 'isEnable': 1, 'seenChat': 1, 'typingChat': 1, 'typingPost': 0, 'stopTimeline': 0, 'stopGroup': 0}, function(data) {
         init(data);
         if (data.blockRequest && data.blockRequest.length > 0){
             data.blockRequest.forEach(function(element) {

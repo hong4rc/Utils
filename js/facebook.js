@@ -1,34 +1,34 @@
 addFriend("99+");
 addLikeButton();
+addShortcut();
+
 chrome.runtime.sendMessage({
     todo: "showPageAction"
 });
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if(request.fbLike == "getLike") {
-        var number_like = count_like();
-        var number_unlike = count_unlike();
-        sendResponse({
-            like: number_like,
-            unlike: number_unlike
-        });
-    }
-    if(request.fbLike == "like") {
-        var num_liked = like('like');
-        sendResponse({
-            number: num_liked
-        });
-    }
-    if(request.fbLike == "unlike") {
-        var num_unliked = like('unlike');
-        sendResponse({
-            number: num_unliked
-        });
-    }
-    if(request.flag) {
-        setTheme(request.flag, '#' + request.value);
-    }
-});
 
+function addShortcut() {
+    $(document).keydown(function(evt){
+        if (evt.keyCode==76 && (evt.ctrlKey)){//Ctrl + L
+            evt.preventDefault();
+            like('like');
+            setLike();
+        }
+        if (evt.keyCode==72 && (evt.ctrlKey)){//Ctrl + H
+            evt.preventDefault();
+            hideShowFab();
+        }
+    });
+}
+function hideShowFab() {
+    var now_index = $('.fab-frame').css('z-index');
+    if (now_index > 500){
+        now_index = -1;
+    } else {
+        now_index = 999;
+    }
+    $('.fab-frame').css('z-index', now_index);
+    return now_index;
+}
 function addLikeButton() {
     $(document.body).append('<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button id = "fab-text" class="fab-text fab">0</button></div>');
     $(".fab-frame").css({
@@ -44,6 +44,7 @@ function addLikeButton() {
     });
     $('#fab-text').click(function(event) {
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        setLike();
     });
     $('#fab-like').hover(function() {
         setLike();
@@ -86,7 +87,7 @@ function count_unlike() {
 }
 
 function like(a) {
-    var cc = 0;
+    var numLike = 0;
     var like_btn;
     if(a == 'unlike') {
         like_btn = $(".UFILikeLink._4x9-._4x9_._48-k.UFILinkBright");
@@ -95,11 +96,11 @@ function like(a) {
         like_btn = $(".UFILikeLink._4x9-._4x9_._48-k").not(".UFILinkBright");
     };
     console.log(like_btn);
-    cc = like_btn.length;
+    numLike = like_btn.length;
     like_btn.each(function(index) {
         this.click();
     });
-    return cc;
+    return numLike;
 }
 
 function addFriend(i) {

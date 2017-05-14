@@ -5,9 +5,17 @@ var menuItem = {
 };
 chrome.contextMenus.create(menuItem);
 function initFB() {
-    chrome.storage.sync.set({'seenChat': 1, 'stopTimeline': 1, 'typingChat': 1, 'typingPost': 0}, function () {
-        console.log('Init settings Facebook successfull !!!');
+    chrome.storage.sync.get({'seenChat': 1, 'typingChat': 1, 'typingPost': 0, 'stopTimeline': 0, 'stopGroup': 0}, function(data) {
+        chrome.storage.sync.set({'seenChat': data.seenChat,
+                'stopTimeline': data.stopTimeline,
+                'typingChat': data.typingChat,
+                'typingPost': data.typingPost,
+                'stopGroup': data.stopGroup},
+            function () {
+            console.log('Init settings Facebook successfull !!!');
+        });
     });
+
 }
 chrome.runtime.onInstalled.addListener(function() {
     initFB();
@@ -33,7 +41,7 @@ chrome.storage.onChanged.addListener(function (change) {
         stopBlock();
         checkEnable(!(change.isEnable) || change.isEnable.newValue === 1);
     }
-    if (change.seenChat || change.typingChat || change.typingPost || change.stopTimeline){
+    if (change.seenChat || change.typingChat || change.typingPost || change.stopTimeline || change.stopGroup){
         stopBlockFB();
         checkFacebook();
     }
@@ -75,16 +83,19 @@ function startBlock(){
     });
 }
 function checkFacebook() {
+    console.log('Starting checkFacebook');
     var blockRequestFb = [];
     var keyFb =
         ['seenChat',
-        'typingChat',
-        'typingPost',
-        'stopTimeline'];
+            'typingChat',
+            'typingPost',
+            'stopTimeline',
+            'stopGroup'];
     var valueFb = ['*://*/ajax/mercury/change_read_status.php*',
         '*://*.facebook.com/ajax/messaging/typ.php?dpr*',
         '*://*.facebook.com/ufi/typing/*',
-        '*://*.facebook.com/ajax/pagelet/generic.php/LitestandTailLoadPagelet*'
+        '*://*.facebook.com/ajax/pagelet/generic.php/LitestandTailLoadPagelet*',
+        '*://*.facebook.com/ajax/pagelet/generic.php/GroupEntstreamPagelet*'
     ];
     chrome.storage.sync.get(keyFb, function(data) {
         for(index in keyFb){

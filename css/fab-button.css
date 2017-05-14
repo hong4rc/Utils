@@ -31,6 +31,6 @@
 }
 
 .fab-frame{
-  z-index:12;
+  z-index:999;
   position: fixed;
 }
