@@ -52,12 +52,17 @@ function setClick() {
         var id = getId(this);
         setOption(id, now);
     });
-    // $('#option .checkbox').click(function () {
-    //
-    // })
-    $('.import').click(function () {
-        //var arr = getBlockRequest();
-    })
+    $(".import input[type=file]").change(function(){
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            result = event.target.result;
+            var newList = result.split(",");
+            setOption('blockRequest', newList);
+            getBlockRequest();
+        };
+        var cc = $(this).get(0).files[0];
+        reader.readAsText(cc);
+    });
 }
 function save() {
     var blockRequest = [];
@@ -95,16 +100,15 @@ function getBlockRequest() {
     $('.list').empty();
     chrome.storage.sync.get({'blockRequest': [], 'isEnable': 1, 'seenChat': 1, 'typingChat': 1, 'typingPost': 0, 'stopTimeline': 0, 'stopGroup': 0}, function(data) {
         init(data);
-        if (data.blockRequest && data.blockRequest.length > 0){
+        if (data.blockRequest.length > 0){
             data.blockRequest.forEach(function(element) {
                 add(element);
                 console.info(element);
             });
-            return data.blockRequest;
         } else {
             add('');
-            return [];
         }
+        $('.export').attr("href", "data:text/plain;base64," + btoa(data.blockRequest.toString()));
     });
 }
 function add(element) {

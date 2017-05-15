@@ -4,6 +4,20 @@ var menuItem = {
     contexts: ["selection"]
 };
 chrome.contextMenus.create(menuItem);
+
+// test
+chrome.webRequest.onBeforeRequest.addListener(
+    aa,
+    {
+        urls: ['*://*.facebook.com/pull?*&state=active*']
+    },
+    ["blocking"]
+);
+function aa(details) {
+    console.log(details);
+    var newUrl = details.url.replace('&state=active', '&state=offline')
+    return {redirectUrl: newUrl}
+}
 function initFB() {
     chrome.storage.sync.get({'seenChat': 1, 'typingChat': 1, 'typingPost': 0, 'stopTimeline': 0, 'stopGroup': 0}, function(data) {
         chrome.storage.sync.set({'seenChat': data.seenChat,

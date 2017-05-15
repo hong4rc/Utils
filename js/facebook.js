@@ -1,3 +1,4 @@
+const MAX_LIKE = 25;
 addFriend("99+");
 addLikeButton();
 addShortcut();
@@ -10,7 +11,7 @@ function addShortcut() {
     $(document).keydown(function(evt){
         if (evt.keyCode==76 && (evt.ctrlKey)){//Ctrl + L
             evt.preventDefault();
-            like('like');
+            like();
             setLike();
         }
         if (evt.keyCode==72 && (evt.ctrlKey)){//Ctrl + H
@@ -21,10 +22,10 @@ function addShortcut() {
 }
 function hideShowFab() {
     var now_index = $('.fab-frame').css('z-index');
-    if (now_index > 500){
+    if (now_index > 200){
         now_index = -1;
     } else {
-        now_index = 999;
+        now_index = 399;
     }
     $('.fab-frame').css('z-index', now_index);
     return now_index;
@@ -39,11 +40,11 @@ function addLikeButton() {
         "background-color": "#f25268"
     });
     $('#fab-like').click(function(event) {
-        like('like');
+        like();
         setLike();
     });
     $('#fab-text').click(function(event) {
-        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        $("html, body").animate({ scrollTop: $(document).height() }, "fast");
         setLike();
     });
     $('#fab-like').hover(function() {
@@ -80,24 +81,16 @@ function count_like() {
     var number = $(".UFILikeLink._4x9-._4x9_._48-k").not(".UFILinkBright").length;
     return number;
 }
-
-function count_unlike() {
-    var number = $(".UFILikeLink._4x9-._4x9_._48-k.UFILinkBright").length;
-    return number;
-}
-
 function like(a) {
     var numLike = 0;
-    var like_btn;
-    if(a == 'unlike') {
-        like_btn = $(".UFILikeLink._4x9-._4x9_._48-k.UFILinkBright");
-    };
-    if(a == 'like') {
-        like_btn = $(".UFILikeLink._4x9-._4x9_._48-k").not(".UFILinkBright");
-    };
+    var like_btn = $(".UFILikeLink._4x9-._4x9_._48-k").not(".UFILinkBright");
     console.log(like_btn);
     numLike = like_btn.length;
     like_btn.each(function(index) {
+        if (index > MAX_LIKE){
+            return numLike;
+        }
+        console.log("index : " + index);
         this.click();
     });
     return numLike;
