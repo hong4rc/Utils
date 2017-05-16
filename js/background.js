@@ -5,19 +5,12 @@ var menuItem = {
 };
 chrome.contextMenus.create(menuItem);
 
-// test
-chrome.webRequest.onBeforeRequest.addListener(
-    aa,
-    {
-        urls: ['*://*.facebook.com/pull?*&state=active*']
-    },
-    ["blocking"]
-);
-function aa(details) {
-    console.log(details);
-    var newUrl = details.url.replace('&state=active', '&state=offline')
-    return {redirectUrl: newUrl}
-}
+chrome.storage.sync.get({'isEnable': 1}, function(data) {
+    if (data.isEnable == 1){
+        startBlock();
+    }
+});
+
 function initFB() {
     chrome.storage.sync.get({'seenChat': 1, 'typingChat': 1, 'typingPost': 0, 'stopTimeline': 0, 'stopGroup': 0}, function(data) {
         chrome.storage.sync.set({'seenChat': data.seenChat,
@@ -51,36 +44,42 @@ chrome.contextMenus.onClicked.addListener(function(data) {
     }
 });
 chrome.storage.onChanged.addListener(function (change) {
-    if(change.blockRequest){
-        stopBlock();
-        checkEnable(!(change.isEnable) || change.isEnable.newValue === 1);
-    }
+    chrome.storage.sync.get({'isEnable': 1}, function(data) {
+        if (change.isEnable){
+            if (data.isEnable == 1){
+                startBlock();
+            } else {
+                console.log('Stoping Block');
+                stopBlock();
+            }
+        } else if (data.isEnable == 1 && change.blockRequest){
+            startBlock();
+        }
+    });
     if (change.seenChat || change.typingChat || change.typingPost || change.stopTimeline || change.stopGroup){
-        stopBlockFB();
         checkFacebook();
     }
 });
 function stopBlock() {
-    chrome.webRequest.onBeforeRequest.removeListener(stopBlockFB);
+    chrome.webRequest.onBeforeRequest.removeListener(blockedRequest);
 }
 function stopBlockFB() {
     console.info('stopFb');
     chrome.webRequest.onBeforeRequest.removeListener(blockedFb);
 }
 function blockedRequest(detail){
-    console.info( 'Blocked :  ' + detail.url);
+    console.info(getTime() + ' |Blocked :  ' + detail.url);
     return {cancel: true};
 }
-function checkEnable(check) {
-
-    if (check){
-        startBlock();
-    } else {
-        console.log('Stoping Block');
-        stopBlock();
-    }
+function getTime(){
+    var currentdate = new Date();
+    var datetime =currentdate.getHours() + ":"
+        + currentdate.getMinutes() + ":"
+        + currentdate.getSeconds();
+    return datetime;
 }
 function startBlock(){
+    stopBlock();
     console.log('Starting Block');
     chrome.storage.sync.get('blockRequest', function(data) {
         data.blockRequest && data.blockRequest.length > 0 && chrome.webRequest.onBeforeRequest.addListener(
@@ -97,6 +96,7 @@ function startBlock(){
     });
 }
 function checkFacebook() {
+    stopBlockFB();
     console.log('Starting checkFacebook');
     var blockRequestFb = [];
     var keyFb =
@@ -126,6 +126,6 @@ function checkFacebook() {
     });
 }
 function blockedFb(detail){
-    console.info( 'Blockedfb :  ' + detail.url);
+    console.info(getTime() + ' |Blockedfb :  ' + detail.url);
     return {cancel: true};
 }
