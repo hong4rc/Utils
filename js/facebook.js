@@ -8,13 +8,15 @@ chrome.runtime.sendMessage({
 });
 
 function addShortcut() {
-    $(document).keydown(function(evt){
-        if (evt.keyCode==76 && (evt.ctrlKey)){//Ctrl + L
+    $(document).keydown(function(evt) {
+        if (evt.keyCode == 76 && (evt.ctrlKey)) {
+            //Ctrl + L
             evt.preventDefault();
             like();
             setLike();
         }
-        if (evt.keyCode==72 && (evt.ctrlKey)){//Ctrl + H
+        if (evt.keyCode == 72 && (evt.ctrlKey)) {
+            //Ctrl + H
             evt.preventDefault();
             hideShowFab();
         }
@@ -22,7 +24,7 @@ function addShortcut() {
 }
 function hideShowFab() {
     var now_index = $('.fab-frame').css('z-index');
-    if (now_index > 200){
+    if (now_index > 200) {
         now_index = -1;
     } else {
         now_index = 399;
@@ -44,7 +46,9 @@ function addLikeButton() {
         setLike();
     });
     $('#fab-text').click(function(event) {
-        $("html, body").animate({ scrollTop: $(document).height() }, "fast");
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, "fast");
         setLike();
     });
     $('#fab-like').hover(function() {
@@ -65,7 +69,7 @@ function setLike() {
 function setMargin() {
     var element = $('#contentArea div')[0];
     var marginRight = getMarginRight(element) - $('.fab-frame').width() / 2;
-    if(marginRight < 0) {
+    if (marginRight < 0) {
         marginRight = 0;
     }
     $(".fab-frame").css({
@@ -87,7 +91,7 @@ function like(a) {
     console.log(like_btn);
     numLike = like_btn.length;
     like_btn.each(function(index) {
-        if (index > MAX_LIKE){
+        if (index > MAX_LIKE) {
             return numLike;
         }
         console.log("index : " + index);

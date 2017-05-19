@@ -62,9 +62,6 @@
     }, {
         "matches": ["*://chiasenhac.vn/*"],
         "js": ["js/jquery.js", "js/chiasenhac.js"]
-    }, {
-        "matches": ["*://id.zing.vn/v2/register/*"],
-        "js": ["js/zing.js"]
     }],
 
     "permissions": [
