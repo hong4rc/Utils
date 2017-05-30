@@ -60,8 +60,8 @@
         "matches": ["*://www.phimmoi.net/*"],
         "js": ["js/jquery.js", "js/phimmoi.js"]
     }, {
-        "matches": ["*://chiasenhac.vn/*"],
-        "js": ["js/jquery.js", "js/chiasenhac.js"]
+        "matches": ["*://linkneverdie.com/*"],
+        "css": ["css/linkneverdie.css"]
     }],
 
     "permissions": [

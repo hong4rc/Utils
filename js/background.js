@@ -1,19 +1,37 @@
-var menuItem = {
-    id: "anhhong",
-    title: "Translate with vdict",
-    contexts: ["selection"]
-};
-chrome.contextMenus.create(menuItem);
-
-chrome.storage.sync.get({
-    'isEnable': 1
-}, function(data) {
-    if (data.isEnable == 1) {
-        startBlock();
-    }
-});
-
-function initFB() {
+!function createMenuIteam() {
+    var menuItem = {
+        id: "anhhong",
+        title: "Translate with vdict",
+        contexts: ["selection"]
+    };
+    chrome.contextMenus.create(menuItem);
+    chrome.contextMenus.onClicked.addListener(function(data) {
+        if (data.menuItemId === "anhhong" && data.selectionText) {
+            var link = 'https://vdict.com/';
+            var dt = encodeURI(data.selectionText);
+            link += dt + ',1,0,0.html';
+            var createData = {
+                url: link,
+                type: "popup",
+                top: 100,
+                left: 100,
+                width: 900,
+                height: 500
+            };
+            chrome.windows.create(createData, function() {});
+        }
+    });
+}();
+!function initIsEnable() {
+    chrome.storage.sync.get({
+        'isEnable': 1
+    }, function(data) {
+        if (data.isEnable == 1) {
+            startBlock();
+        }
+    });
+}();
+!function initFB() {
     chrome.storage.sync.get({
         'seenChat': 1,
         'typingChat': 1,
@@ -32,25 +50,7 @@ function initFB() {
         });
         checkFacebook();
     });
-
-}
-initFB();
-chrome.contextMenus.onClicked.addListener(function(data) {
-    if (data.menuItemId === "anhhong" && data.selectionText) {
-        var link = 'https://vdict.com/';
-        var dt = encodeURI(data.selectionText);
-        link += dt + ',1,0,0.html';
-        var createData = {
-            url: link,
-            type: "popup",
-            top: 100,
-            left: 100,
-            width: 900,
-            height: 500
-        };
-        chrome.windows.create(createData, function() {});
-    }
-});
+}();
 chrome.storage.onChanged.addListener(function(change) {
     chrome.storage.sync.get({
         'isEnable': 1
@@ -70,24 +70,39 @@ chrome.storage.onChanged.addListener(function(change) {
         checkFacebook();
     }
 });
+
 function stopBlock() {
     chrome.webRequest.onBeforeRequest.removeListener(blockedRequest);
 }
+
 function stopBlockFB() {
     console.info('stopFb');
     chrome.webRequest.onBeforeRequest.removeListener(blockedFb);
 }
+
 function blockedRequest(detail) {
     console.info(getTime() + ' |Blocked :  ' + detail.url);
     return {
         cancel: true
     };
 }
+
 function getTime() {
     var currentdate = new Date();
     var datetime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
     return datetime;
 }
+function floorTime(time) {
+    time = Math.abs(time);
+    var tenth = Math.floor(time / 10);
+    if (tenth == 0) {
+        time = '0' + time;
+    } else if (tenth >= 6) {
+        time = 59;
+    }
+    return time;
+}
+
 function startBlock() {
     stopBlock();
     console.log('Starting Block');
@@ -101,6 +116,7 @@ function startBlock() {
         console.log('\n   -------- Anh Hồng --------\n');
     });
 }
+
 function checkFacebook() {
     stopBlockFB();
     console.log('Starting checkFacebook');
@@ -117,8 +133,22 @@ function checkFacebook() {
         }, ["blocking"]);
     });
 }
+
 function blockedFb(detail) {
     console.info(getTime() + ' |Blockedfb :  ' + detail.url);
+    return {
+        cancel: true
+    };
+}
+!function blockLinkneverDie() {
+    var listLinkNewverdie = ["*://*.google-analytics.com/analytics.js", "*://*.popclck.net/*", "*://*.scorecardresearch.com/*", "*://adsire.com/*"]
+    chrome.webRequest.onBeforeRequest.addListener(logLinkneverdie, {
+        urls: listLinkNewverdie
+    }, ["blocking"]);
+}();
+
+function logLinkneverdie(detail) {
+    console.info(getTime() + ' |BlockedDie :  ' + detail.url);
     return {
         cancel: true
     };

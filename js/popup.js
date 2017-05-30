@@ -67,9 +67,10 @@ function setClick() {
 function save() {
     var blockRequest = [];
     $('.list input').each(function (index) {
-        var urlBlock = $(this).val().replace(/^\s+|\s+$/gm,'');
+        var urlBlock = $(this).val().replace(/^\s+|\s+$/gm,'').split(",");
+        console.log(":" + urlBlock);
         if(urlBlock){
-            blockRequest.push(urlBlock);
+            blockRequest = blockRequest.concat(urlBlock);
         }
     });
     chrome.storage.sync.set({'blockRequest': blockRequest}, function() {
