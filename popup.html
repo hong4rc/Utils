@@ -12,12 +12,12 @@
 <body>
 <div class="container panel panel-primary">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#block-request">Block request http(s)</a></li>
-        <li><a data-toggle="tab" href="#option">Option Facebook</a></li>
+        <li class="active"><a data-toggle="tab" href="#option">Option Facebook</a></li>
+        <li><a data-toggle="tab" href="#block-request">Block request http(s)</a></li>
     </ul>
     <div class="tab-content">
-        <div id="block-request" class="tab-pane fade in active">
-            <div class="blocked btn-group btn-group-justified">
+        <div id="block-request" class="tab-pane fade">
+            <div class="btn-group btn-group-justified">
                 <span id="isEnable" class="checkbox btn btn-success">
                     <i class="glyphicon glyphicon-check"></i></span>
                 <span class="import btn btn-default">
@@ -32,8 +32,17 @@
                 <span class="removeall btn btn-danger" data-toggle="modal" data-target=".remove-dialog"><i class="glyphicon glyphicon-trash"></i></span>
             </div>
         </div>
-        <div id="option" class="tab-pane fade">
+        <div id="option" class="tab-pane fade in active">
             <div class="panel-body btn-group-vertical">
+                <div class="input-group form-group">
+                    <input type="text" id="ringtone" class="form-control" value="">
+                    <span class="default-music input-group-addon btn btn-primary">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </span>
+                    <span class="save-music input-group-addon btn btn-success">
+                        <i class="glyphicon glyphicon-play-circle"></i>
+                    </span>
+                </div>
                 <span id="seenChat" class="checkbox btn btn-success">
                     <i class="col-xs-2 glyphicon glyphicon-check"></i>
                     <div class="text-left">Block the "seen" of Messenger</div>

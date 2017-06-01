@@ -1,9 +1,13 @@
-ytd-playlist-panel-video-renderer[selected], li.currently-playing,li.currently-playing h4.yt-ui-ellipsis{
-	background: #555  !important;
+ytd-playlist-panel-video-renderer[selected], li.currently-playing, li.currently-playing h4.yt-ui-ellipsis{
+    background: #555555 !important;
+    transition: all .3s cubic-bezier(.4, 0, .2, 1);
+}
+ytd-playlist-panel-video-renderer:hover{
+    background: #424242 !important;
 }
 ytd-compact-video-renderer{
-	border-right: 5px solid #696f79;
+    border-right: 5px solid #696f79;
 }
 ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
-	border-right: 5px solid #696f79;
+    border-right: 5px solid #696f79;
 }
