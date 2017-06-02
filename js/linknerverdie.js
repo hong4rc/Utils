@@ -1,0 +1,1 @@
+$('#wrapper').removeClass('adsbygoogle').removeAttr('hidden');

@@ -1,4 +1,4 @@
-const fbRingtone = ['*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3'];
+const fbRingtone = ['*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3', '*://*.facebook.com/rsrc.php/yO/r/kTasEyE42gs.ogg'];
 !function createMenuIteam(){
 	var menuItem = {
 		id: "anhhong",
@@ -53,14 +53,32 @@ const fbRingtone = ['*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3'];
 			console.log('Init settings Facebook successfull !!!');
 		});
 		checkFacebook();
+		checkringtone(data.ringtone);
 	});
 }();
-var ringtune = {
+var ringtone = {
 	block: function(){
 	},
 	remove: function(){
 	}
 };
+function checkringtone(valueURL){
+
+	console.log('ringtone' + valueURL);
+	ringtone.remove();
+	if(valueURL){
+		ringtone.block = function(){
+			return {redirectUrl: valueURL}
+		};
+		ringtone.remove = function(){
+			chrome.webRequest.onBeforeRequest.removeListener(ringtone.block);
+		};
+
+		chrome.webRequest.onBeforeRequest.addListener(ringtone.block, {
+			urls: fbRingtone
+		}, ["blocking", "requestBody"]);
+	}
+}
 chrome.storage.onChanged.addListener(function(change){
 	chrome.storage.sync.get({
 		'isEnable': 1
@@ -80,20 +98,7 @@ chrome.storage.onChanged.addListener(function(change){
 		checkFacebook();
 	}
 	if(change.ringtone){
-		console.log('ringtone');
-		ringtune.remove();
-		if(change.ringtone.newValue){
-			ringtune.block = function(){
-				return {redirectUrl: change.ringtone.newValue}
-			};
-			ringtune.remove = function(){
-				chrome.webRequest.onBeforeRequest.removeListener(ringtune.block);
-			};
-
-			chrome.webRequest.onBeforeRequest.addListener(ringtune.block, {
-				urls: fbRingtone
-			}, ["blocking"]);
-		}
+		checkringtone(change.ringtone.newValue);
 	}
 });
 
