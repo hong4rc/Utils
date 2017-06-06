@@ -2,7 +2,7 @@ ytd-playlist-panel-video-renderer[selected], li.currently-playing, li.currently-
     background: #555555 !important;
     transition: all .3s cubic-bezier(.4, 0, .2, 1);
 }
-ytd-playlist-panel-video-renderer:hover{
+ytd-playlist-panel-video-renderer:hover, yt-live-chat-text-message-renderer:hover{
     background: #424242 !important;
 }
 ytd-compact-video-renderer{
@@ -10,4 +10,12 @@ ytd-compact-video-renderer{
 }
 ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
     border-right: 5px solid #696f79;
+}
+#quickview{
+    background: #555;
+    visibility: hidden;
+    position: fixed;
+    z-index: 1;
+    bottom: 0px;
+    right: 0px;
 }

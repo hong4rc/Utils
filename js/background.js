@@ -64,7 +64,7 @@ var ringtone = {
 };
 function checkringtone(valueURL){
 
-	console.log('ringtone' + valueURL);
+	console.log('ringtone : ' + valueURL);
 	ringtone.remove();
 	if(valueURL){
 		ringtone.block = function(){
