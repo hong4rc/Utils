@@ -11,11 +11,55 @@ ytd-compact-video-renderer{
 ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
     border-right: 5px solid #696f79;
 }
+.ytp-pause-overlay.ytp-scroll-min{
+    display: none;
+}
 #quickview{
-    background: #555;
     visibility: hidden;
     position: fixed;
-    z-index: 1;
-    bottom: 0px;
-    right: 0px;
+    z-index: 2000;
+    bottom: 0;
+    right: 0;
+}
+.controller *{
+    color: #fff;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+#quickview:hover .controller{
+    opacity: 1;
+}
+.controller{
+    font-size: 1.6rem;
+    color: #fff;
+    opacity: 0;
+    -webkit-transition: opacity .5s ease-in-out;
+    display: inline-block;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.73));
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.controller .btn-group{
+    text-align: right;
+    float: left;
+    display: inline-block;
+}
+.btn-group button{
+    transition: .5s cubic-bezier(0.4,0.0,1,1);
+    padding: 2px;
+    height: 36px;
+    width: 36px;
+    background-color: transparent;
+    border: none;
+    float: left;
+}
+.zoom[zoom='in']{
+    -webkit-transform: rotate(180deg);
+}
+.btn-group button:hover{
+    transition: .1s cubic-bezier(0.0,0.0,0.2,1);
 }

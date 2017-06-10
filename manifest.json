@@ -64,7 +64,7 @@
         "js": ["js/jquery.js", "js/linknerverdie.js"],
         "css": ["css/linkneverdie.css"]
     }],
-
+    "web_accessible_resources": ["frame.html"],
     "permissions": [
         "webRequest",
         "webRequestBlocking",

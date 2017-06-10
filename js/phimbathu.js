@@ -121,8 +121,7 @@ function addEventMove(){
 			});
 			return false;
 		}
-	}
-	;
+	};
 	$(document).mouseup(function(event){
 		dragging = false;
 		event.cancelBubble = true;

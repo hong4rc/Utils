@@ -1,6 +1,6 @@
 const MAX_LIKE = 25;
 
-!function addShortcut(){
+function addShortcut(){
 	$(document).keydown(function(evt){
 		if(evt.keyCode == 76 && (evt.ctrlKey)){
 			//Ctrl + L
@@ -14,7 +14,7 @@ const MAX_LIKE = 25;
 			hideShowFab();
 		}
 	});
-}();
+};
 
 function hideShowFab(){
 	var now_index = $('.fab-frame').css('z-index');
@@ -27,34 +27,38 @@ function hideShowFab(){
 	return now_index;
 }
 !function addLikeButton(){
-	$(document.body)
-		.append('<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button id = "fab-text" class="fab-text fab">0</button></div>');
-	$(".fab-frame").css({
-		"right": "20px",
-		"bottom": "90px"
-	});
-	$('.fab-button').css({
-		"background-color": "#f25268"
-	});
-	$('#fab-like').click(function(event){
-		like();
-		setLike();
-	});
-	$('#fab-text').click(function(event){
-		$("html, body").animate({
-			scrollTop: $(document).height()
-		}, "fast");
-		setLike();
-	});
-	$('#fab-like').hover(function(){
-		setLike();
-	}, function(){
-		setLike();
-	});
-	setMargin();
-	$(window).resize(function(event){
-		setMargin();
-	});
+    if($('#contentArea div')[0] || $('#pagelet_timeline_main_column').length){
+        $(document.body)
+        .append('<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button id = "fab-text" class="fab-text fab">0</button></div>');
+        $(".fab-frame").css({
+            "right": "20px",
+            "bottom": "90px"
+        });
+        $('.fab-button').css({
+            "background-color": "#f25268"
+        });
+        $('#fab-like').click(function(event){
+            like();
+            setLike();
+        });
+        $('#fab-text').click(function(event){
+            $("html, body").animate({
+                scrollTop: $(document).height()
+            }, "fast");
+            setLike();
+        });
+        $('#fab-like').hover(function(){
+            setLike();
+        }, function(){
+            setLike();
+        });
+        setMargin();
+        $(window).resize(function(event){
+            setMargin();
+        });
+        addShortcut();
+    }
+
 }();
 
 function setLike(){
@@ -62,7 +66,7 @@ function setLike(){
 }
 
 function setMargin(){
-	var element = $('#contentArea div')[0];
+	var element = $('#contentArea div')[0] || $('#pagelet_timeline_main_column');
 	var marginRight = getMarginRight(element) - $('.fab-frame').width() / 2;
 	if(marginRight < 0){
 		marginRight = 0;
