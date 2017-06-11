@@ -1,26 +1,31 @@
 const fbRingtone = ['*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3', '*://*.facebook.com/rsrc.php/yO/r/kTasEyE42gs.ogg'];
+
+function getOuo(link, frameId) {
+    fetch(link, {
+        method: 'post'
+    }).then((response) => {
+       if (response.url){
+           let dataUOU = {
+               url: response.url
+           };
+           chrome.windows.create(dataUOU);
+       }
+    });
+}
 !function createMenuIteam(){
 	var menuItem = {
-		id: "anhhong",
-		title: "Translate with vdict",
-		contexts: ["selection"]
+		id: "getOUO",
+		title: "Get link",
+		contexts: ["selection", "link"],
+        targetUrlPatterns: ["*://*.ouo.io/*", "*://*.ouo.press/*"]
 	};
 	chrome.contextMenus.create(menuItem);
 	chrome.contextMenus.onClicked.addListener(function(data){
-		if(data.menuItemId === "anhhong" && data.selectionText){
-			var link = 'https://vdict.com/';
-			var dt = encodeURI(data.selectionText);
-			link += dt + ',1,0,0.html';
-			var createData = {
-				url: link,
-				type: "popup",
-				top: 100,
-				left: 100,
-				width: 900,
-				height: 500
-			};
-			chrome.windows.create(createData, function(){
-			});
+		if(data.menuItemId === "getOUO" && (data.selectionText || data.linkUrl)){
+			let link = data.selectionText || data.linkUrl;
+            link = link.split(/\/.{6}$/)[0] + '/rgo' + link.match(/\/.{6}$/);
+            console.log(link);
+            /\/rgo\/.{6}$/.test(link) && getOuo(link, data.frameId);
 		}
 	});
 }();

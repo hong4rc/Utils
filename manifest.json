@@ -44,7 +44,7 @@
         "matches": ["*://sinhvienit.net/*"],
         "js": ["js/jquery.js", "js/sinhvienit.js"]
     }, {
-        "matches": ["*://ouo.io/go/*", "*://ouo.press/go/*"],
+        "matches": ["*://ouo.io/*", "*://ouo.press/*"],
         "js": ["js/jquery.js", "js/ouo_io.js"]
     }, {
         "matches": ["*://anlink.top/*"],
