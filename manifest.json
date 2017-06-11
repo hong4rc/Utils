@@ -63,6 +63,10 @@
         "matches": ["*://linkneverdie.com/*"],
         "js": ["js/jquery.js", "js/linknerverdie.js"],
         "css": ["css/linkneverdie.css"]
+    }, {
+        "matches": ["*://*.adf.ly/*"],
+        "js": ["js/jquery.js", "js/adfly.js"],
+        "run_at": "document_start"
     }],
     "web_accessible_resources": ["frame.html"],
     "permissions": [
