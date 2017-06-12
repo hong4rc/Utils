@@ -60,6 +60,9 @@ ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
 .zoom[zoom='in']{
     -webkit-transform: rotate(180deg);
 }
+.zoom[zoom='out']{
+    -webkit-transform: rotate(0deg);
+}
 .btn-group button:hover{
-    transition: .1s cubic-bezier(0.0,0.0,0.2,1);
+    transition: opacity .1s cubic-bezier(0.0,0.0,0.2,1);
 }

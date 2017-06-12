@@ -3,6 +3,7 @@ let regExHref = /\/watch\?v=.{11}$/;
 let qsOptions = '?autoplay=true&showinfo=0';
 let sizeDefaultVideo = {'width': 854, 'height': 480};
 let sizeMiniVideo = {'width': 250, 'height': 141};
+let zoom = '.zoom';
 
 !function enableDarkmode() {
     let cookie = document.cookie;
@@ -14,7 +15,7 @@ let sizeMiniVideo = {'width': 250, 'height': 141};
 }();
 function resetDefault() {
     reSize(sizeDefaultVideo.width, sizeDefaultVideo.height);
-    $('.zoom').attr('zoom', 'out');
+    $(zoom).attr('zoom', 'out');
 }
 function showVideo(src) {
     if (document.getElementById('myIframe').src !== src) {
@@ -35,21 +36,21 @@ function reSize(width, height, ) {
     }
     $('#myIframe').attr('width', width).attr('height', height);
 }
+function zoomOut() {
+    reSize(sizeMiniVideo.width, sizeMiniVideo.height);
+    $(zoom).attr('zoom', 'in');
+}
 function setEventClick() {
     $('.close-video').click(() => {
         showVideo('');
     });
-    $('.zoom').click(() => {
-        switch ($('.zoom').attr('zoom')){
+    $(zoom).click(() => {
+        switch ($(zoom).attr('zoom')){
             case 'in':
                 resetDefault();
-                console.log('a');
                 break;
             case 'out':
-                reSize(sizeMiniVideo.width, sizeMiniVideo.height);
-                console.log('b');
-                $('.zoom').attr('zoom', 'in');
-                $('.ytp-play-button.ytp-button', $('#myIframe')).click();
+                zoomOut();
                 break;
             default:
                 console.log('Error');
@@ -58,13 +59,15 @@ function setEventClick() {
 
     let deltaX, deltaY;
     let dragging = false;
+    let quickview;
     $('.reSize').mousedown((event) =>{
         dragging = true;
-        deltaX = event.clientX - $('#quickview')[0].offsetLeft;
-        deltaY = event.clientY - $('#quickview')[0].offsetTop;
+        quickview = $('#quickview')[0];
+        deltaX = event.clientX - quickview.offsetLeft;
+        deltaY = event.clientY - quickview.offsetTop;
         return false;
     });
-    document.onmousemove = function(event){
+    document.onmousemove = event =>{
         event = event || window.event;
         if(dragging){
             let newWidth = $(window).width() - event.clientX + deltaX;
@@ -73,9 +76,16 @@ function setEventClick() {
             return false;
         }
     };
-    $(document).mouseup(function(event){
+    $(document).mouseup(event =>{
         dragging = false;
         event.cancelBubble = true;
+        let iframeWidth = $('#myIframe').attr('width');
+        if (iframeWidth < sizeMiniVideo.width){
+            zoomOut();
+        }
+        if (iframeWidth > sizeDefaultVideo.width){
+            $(zoom).attr('zoom', 'out');
+        }
     });
 
 }
@@ -84,12 +94,12 @@ $(document).ready(() => {
     $.ajax({
         url: chrome.extension.getURL('frame.html'),
         type: 'GET',
-        success: function(data) {
+        success: data =>{
             $('#quickview').html(data);
             setEventClick();
         },
     });
-    $(document).bind('contextmenu', function(event) {
+    $(document).bind('contextmenu', event =>{
         let target = event.target;
         let href = target.href || $(target).parent('h3').parent('a').attr('href');
         if ($(target).is('h3 #video-title') || $(target).is('a.yt-simple-endpoint.style-scope.yt-formatted-string')) {

@@ -23,8 +23,7 @@ function getUrl(code) {
     }
 
     let key = oddStr + evanStr;
-    let url = window.atob(key).substring(2);
-    return url;
+    return window.atob(key).substring(2);
 }
 function redirectUrl(url) {
     window.location = url;

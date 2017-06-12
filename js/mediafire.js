@@ -1,1 +1,1 @@
-window.location.href = $("a.DownloadButtonAd-startDownload.gbtnSecondary").attr('href');
+window.location.href = $('a.DownloadButtonAd-startDownload.gbtnSecondary').attr('href');

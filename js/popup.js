@@ -1,12 +1,12 @@
-var frame1 = '<div class="input-group form-group"><input type="text" class="form-control" value="';
-var frame2 = '"><span class="remove input-group-addon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></div>';
+let frame1 = '<div class="input-group form-group"><input type="text" class="form-control" value="';
+let frame2 = '"><span class="remove input-group-addon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></div>';
 
 getBlockRequest();
 setClick();
 addShortcut();
 
 function addShortcut(){
-	$(document).keydown(function(evt){
+	$(document).keydown(evt =>{
 		if(evt.ctrlKey){
 			switch(evt.keyCode){
 				case 83:
@@ -21,60 +21,60 @@ function getId(param){
 	return $(param).attr('id');
 }
 function setClick(){
-	$('.default-music').click(function(){
+	$('.default-music').click(() =>{
 		setRingtone(false);
 	});
-	$('.save-music').click(function(){
+	$('.save-music').click(() =>{
 		setRingtone(true);
 	});
-	$('.save').click(function(){
+	$('.save').click(() =>{
 		save();
 	});
-	$('.add').click(function(){
+	$('.add').click(() =>{
 		console.warn('add : ');
 		add('');
 	});
-	$('.remove').click(function(){
+	$('.remove').click(() =>{
 		console.warn('remove : ');
 		remove(this);
 	});
-	$('.remove-all').click(function(){
+	$('.remove-all').click(() =>{
 		$('.list').empty();
 		save();
 	});
-	$('.checkbox').click(function(){
-		var now = $(this).attr('aria-valuenow');
+	$('.checkbox').click(() =>{
+		let now = $(this).attr('aria-valuenow');
 		if(now + '' === '0'){
 			now = 1;
 		} else {
 			now = 0;
 		}
 		updateStatus(this, now);
-		var id = getId(this);
+		let id = getId(this);
 		setOption(id, now);
 	});
-	$(".import input[type=file]").change(function(){
-		var reader = new FileReader();
-		reader.onload = function(event){
+	$(".import input[type=file]").change(() =>{
+		let reader = new FileReader();
+		reader.onload = event =>{
 			result = event.target.result;
-			var newList = result.split(",");
+			let newList = result.split(",");
 			setOption('blockRequest', newList);
 			getBlockRequest();
 		};
-		var cc = $(this).get(0).files[0];
+		let cc = $(this).get(0).files[0];
 		reader.readAsText(cc);
 	});
 }
 function save(){
-	var blockRequest = [];
-	$('.list input').each(function(index){
-		var urlBlock = $(this).val().replace(/^\s+|\s+$/gm, '').split(",");
+	let blockRequest = [];
+	$('.list input').each(() =>{
+		let urlBlock = $(this).val().replace(/^\s+|\s+$/gm, '').split(",");
 		console.log(":" + urlBlock);
 		if(urlBlock){
 			blockRequest = blockRequest.concat(urlBlock);
 		}
 	});
-	chrome.storage.sync.set({'blockRequest': blockRequest}, function(){
+	chrome.storage.sync.set({'blockRequest': blockRequest}, () =>{
 		// Notify that we saved.
 		console.info('Settings saved');
 	});
@@ -82,11 +82,11 @@ function save(){
 }
 function updateStatus(element, now){
 	$(element).attr('aria-valuenow', now + 0);
-	if(now == 0){
+	if(now === 0){
 		$(element).children('.glyphicon').addClass('glyphicon-unchecked').removeClass('glyphicon-check');
 		$(element).addClass('btn-info').removeClass('btn-success');
 	} else {
-		$(element).children('.glyphicon').addClass('glyphicon-check').removeClass('glyphicon-unchecked')
+		$(element).children('.glyphicon').addClass('glyphicon-check').removeClass('glyphicon-unchecked');
 		$(element).removeClass('btn-info').addClass('btn-success');
 	}
 }
@@ -110,10 +110,10 @@ function getBlockRequest(){
 			'stopTimeline': 0,
 			'stopGroup': 0
 		},
-		function(data){
+		(data) =>{
 			init(data);
 			if(data.blockRequest.length > 0){
-				data.blockRequest.forEach(function(element){
+				data.blockRequest.forEach(element =>{
 					add(element);
 					console.info(element);
 				});
@@ -132,7 +132,7 @@ function add(element){
 		element = frame1 + element + frame2;
 		$('div.list').append($(element));
 	}
-	$('.remove').click(function(){
+	$('.remove').click(() =>{
 		remove(this);
 	});
 }
@@ -142,20 +142,20 @@ function remove(element){
 }
 function setOption(id, now){
 	console.info('id  = ' + id + ';  now = ' + now);
-	var tmp = {};
+	let tmp = {};
 	tmp[id] = now;
 	id && chrome.storage.sync.set(tmp);
 }
 function setRingtoneText(){
 	chrome.storage.sync.get(
 		{'ringtone': ''},
-		function(data){
+		(data) =>{
 			$('#ringtone').val(data.ringtone);
 		});
 }
 function setRingtone(boo){
-	var ringtone = boo ? $('#ringtone').val() : '';
-	chrome.storage.sync.set({'ringtone': ringtone}, function(){
+	let ringtone = boo ? $('#ringtone').val() : '';
+	chrome.storage.sync.set({'ringtone': ringtone}, () =>{
 		// Notify that we saved.
 		console.info('Set ringtone to :' + ringtone);
 	});
