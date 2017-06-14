@@ -13,7 +13,7 @@ if (board === 1) {
 
 !function onLoad() {
     $('li.menu-item ul').addClass('btn btn-default');
-    $('.list-episode>a').each(() => {
+    $('.list-episode>a').each(function() {
         let string = $(this).html().split('-');
         let ch = string.length;
         if (ch === 3 || string.length > 10) {
@@ -100,7 +100,7 @@ function addButton() {
 function addEventMove() {
     let dragging = false;
     let deltaX, deltaY;
-    $(frame).mousedown((event) => {
+    $(frame).mousedown(function(event) {
         dragging = true;
         deltaX = event.clientX - this.offsetLeft;
         deltaY = event.clientY - this.offsetTop;

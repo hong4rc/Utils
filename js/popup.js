@@ -34,7 +34,7 @@ function setClick(){
 		console.warn('add : ');
 		add('');
 	});
-	$('.remove').click(() =>{
+	$('.remove').click(function() {
 		console.warn('remove : ');
 		remove(this);
 	});
@@ -42,7 +42,7 @@ function setClick(){
 		$('.list').empty();
 		save();
 	});
-	$('.checkbox').click(() =>{
+	$('.checkbox').click(function() {
 		let now = $(this).attr('aria-valuenow');
 		if(now + '' === '0'){
 			now = 1;
@@ -53,7 +53,7 @@ function setClick(){
 		let id = getId(this);
 		setOption(id, now);
 	});
-	$(".import input[type=file]").change(() =>{
+	$(".import input[type=file]").change(function() {
 		let reader = new FileReader();
 		reader.onload = event =>{
 			result = event.target.result;
@@ -67,7 +67,7 @@ function setClick(){
 }
 function save(){
 	let blockRequest = [];
-	$('.list input').each(() =>{
+	$('.list input').each(function() {
 		let urlBlock = $(this).val().replace(/^\s+|\s+$/gm, '').split(",");
 		console.log(":" + urlBlock);
 		if(urlBlock){
@@ -132,7 +132,7 @@ function add(element){
 		element = frame1 + element + frame2;
 		$('div.list').append($(element));
 	}
-	$('.remove').click(() =>{
+	$('.remove').click(function() {
 		remove(this);
 	});
 }
