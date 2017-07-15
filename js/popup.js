@@ -1,5 +1,14 @@
 let frame1 = '<div class="input-group form-group"><input type="text" class="form-control" value="';
 let frame2 = '"><span class="remove input-group-addon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></div>';
+let defaultOptions = {
+    'blockRequest': [],
+    'isEnable': 1,
+    'seenChat': 1,
+    'typingChat': 1,
+    'typingPost': 0,
+    'stopTimeline': 0,
+    'stopGroup': 0
+};
 
 getBlockRequest();
 setClick();
@@ -27,10 +36,12 @@ function setClick(){
 	$('.save-music').click(() =>{
 		setRingtone(true);
 	});
-	$('.save').click(() =>{
-		save();
-	});
-	$('.add').click(() =>{
+	$('.save').click(h);
+    function h() {
+        save();
+    }
+
+    $('.add').click(() =>{
 		console.warn('add : ');
 		add('');
 	});
@@ -101,27 +112,19 @@ function init(data){
 }
 function getBlockRequest(){
 	$('.list').empty();
-	chrome.storage.sync.get({
-			'blockRequest': [],
-			'isEnable': 1,
-			'seenChat': 1,
-			'typingChat': 1,
-			'typingPost': 0,
-			'stopTimeline': 0,
-			'stopGroup': 0
-		},
-		(data) =>{
-			init(data);
-			if(data.blockRequest.length > 0){
-				data.blockRequest.forEach(element =>{
-					add(element);
-					console.info(element);
-				});
-			} else {
-				add('');
-			}
-			$('.export').attr("href", "data:text/plain;base64," + btoa(data.blockRequest.toString()));
-		});
+	chrome.storage.sync.get(defaultOptions,
+        data =>{
+            init(data);
+            if (data.blockRequest.length > 0) {
+                data.blockRequest.forEach(element => {
+                    add(element);
+                    console.info(element);
+                });
+            } else {
+                add('');
+            }
+            $('.export').attr("href", "data:text/plain;base64," + btoa(data.blockRequest.toString()));
+        });
 }
 function add(element){
 	if(element === ''){

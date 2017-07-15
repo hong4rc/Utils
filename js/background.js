@@ -1,4 +1,12 @@
 const fbRingtone = ['*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3', '*://*.facebook.com/rsrc.php/yO/r/kTasEyE42gs.ogg'];
+const defaultOptions = {
+    'seenChat': 1,
+    'typingChat': 1,
+    'typingPost': 0,
+    'stopTimeline': 0,
+    'stopGroup': 0,
+    'ringtone': 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3',
+};
 
 function getOuo(link) {
     fetch(link, {
@@ -39,14 +47,7 @@ function getOuo(link) {
     });
 }();
 !function initFB() {
-    chrome.storage.sync.get({
-        'seenChat': 1,
-        'typingChat': 1,
-        'typingPost': 0,
-        'stopTimeline': 0,
-        'stopGroup': 0,
-        'ringtone': 'http://r1.hot.c68.vdc.nixcdn.com/a21b608ab6f114d5e90d87f89a3d9c4d/592f633a/NhacCuaTui935/ShapeOfYouEdSheeranCover-JFla-4752376.mp3',
-    }, data => {
+    chrome.storage.sync.get(defaultOptions, data => {
         chrome.storage.sync.set({
             'seenChat': data.seenChat,
             'stopTimeline': data.stopTimeline,

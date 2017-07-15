@@ -1,33 +1,40 @@
-a.weakReference{
+a.UFICommentActorName,
+.fwn.fcg .fwb.fcg a[href^="https://www.facebook.com/"],
+.fcg .fwb a.profileLink{
   color: #b310b6 !important;
 }
-a._wpv{
+a._wpv, ._1nb_.fwn.fcg a{
   color: #2f82d5 !important;
   text-decoration: underline !important;
-  font-family: Monospace !important;
+    font-family: Monospace, serif !important;
 }
 #sideNav, .noGrip, div._r_m,div._2pi4, a.profileLink, span.fwb.fcg a{
-  font-family: Monospace !important;
+    font-family: Monospace, serif !important;
 }
-div._568z em{
-  color: #f00 !important;
-}
+
+/*  List your best friend*/
 li._42fz[data-id="100008187521677"],
 li._42fz[data-id="100011401676480"],
-li._42fz[data-id="100004061350564"]{	/*your best friend*/
+li._42fz[data-id="100004061350564"]{
 	border-left: solid #38f;
 	border-right: solid 0.5px #f0f;
 }
+
+/*  Header*/
 ._3u6q ._2s1y,._206m .fbNubFlyoutTitlebar{
 	background: #7713f1 !important;
 }
-a._8_2[href="https://www.facebook.com/phony.97"],
-a._8_2[href="https://www.facebook.com/RemoveU"]{ /*your profile*/
+
+/*  Your profile*/
+a._2nlw[href="https://www.facebook.com/phony.97"],
+a._2nlw[href="https://www.facebook.com/RemoveU"]{ /*your profile*/
     background-image: url(/rsrc.php/v3/yC/r/QRYlLwFgbbH.png);
     background-repeat: no-repeat;
     background-size: auto;
     background-position: calc(100% + 3px) -28px;
 }
+
+/*  NavHeader*/
 ._55y4 .homeSideNav .navHeader {
     background-color: #f6f7f9;
     border: 1px solid #dddfe2;
@@ -36,6 +43,8 @@ a._8_2[href="https://www.facebook.com/RemoveU"]{ /*your profile*/
     margin-left: -5px !important;
     margin-right: -1px !important;
 }
+
+/*  Minimized mesenger*/
 .fbNub._50mz.minimized {
     width: 80px !important;
 }
