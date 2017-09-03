@@ -1,12 +1,9 @@
 {
     "manifest_version": 2,
-
     "name": "Like Facebook",
     "description": "Đi like thuê",
     "version": "0.13",
-
     "author": "Anh Hồng",
-
     "icons": {
         "16": "icon.png",
         "48": "icon.png",
@@ -26,49 +23,132 @@
         "page": "popup.html"
     },
     "background": {
-        "scripts": ["js/background.js"],
+        "scripts": [
+            "js/background.js"
+        ],
         "persistent": true
     },
-    "content_scripts": [{
-        "matches": ["*://*.facebook.com/*"],
-        "js": ["js/jquery.js", "js/facebook.js"],
-        "css": ["css/fab-button.css", "css/fb.css"]
-    }, {
-        "matches": ["*://*.youtube.com/*"],
-        "js": ["js/jquery.js", "js/youtube.js"],
-        "css": ["css/youtube.css"]
-    }, {
-        "matches": ["*://www.mediafire.com/file/*/*"],
-        "js": ["js/jquery.js", "js/mediafire.js"]
-    }, {
-        "matches": ["*://sinhvienit.net/*"],
-        "js": ["js/jquery.js", "js/sinhvienit.js"]
-    }, {
-        "matches": ["*://ouo.io/*", "*://ouo.press/*"],
-        "js": ["js/jquery.js", "js/ouo_io.js"]
-    }, {
-        "matches": ["*://anlink.top/*"],
-        "js": ["js/jquery.js", "js/anlink.js"]
-    }, {
-        "matches": ["*://daotao.dut.udn.vn/sv/*"],
-        "js": ["js/jquery.js", "js/daotao.js"]
-    }, {
-        "matches": ["*://phimbathu.com/*"],
-        "js": ["js/jquery.js", "js/phimbathu.js", "js/bootstrap.min.js"],
-        "css": ["css/fab-button.css", "css/phimbathu.css"]
-    }, {
-        "matches": ["*://www.phimmoi.net/*"],
-        "js": ["js/jquery.js", "js/phimmoi.js"]
-    }, {
-        "matches": ["*://linkneverdie.com/*"],
-        "js": ["js/jquery.js", "js/linknerverdie.js"],
-        "css": ["css/linkneverdie.css"]
-    }, {
-        "matches": ["*://*.adf.ly/*"],
-        "js": ["js/jquery.js", "js/adfly.js"],
-        "run_at": "document_start"
-    }],
-    "web_accessible_resources": ["frame.html"],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.facebook.com/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/facebook.js"
+            ],
+            "css": [
+                "css/fab-button.css",
+                "css/fb.css"
+            ]
+        },
+        {
+            "matches": [
+                "*://*.youtube.com/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/youtube.js"
+            ],
+            "css": [
+                "css/youtube.css"
+            ]
+        },
+        {
+            "matches": [
+                "*://www.mediafire.com/file/*/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/mediafire.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://sinhvienit.net/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/sinhvienit.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://ouo.io/*",
+                "*://ouo.press/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/ouo_io.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://anlink.top/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/anlink.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://daotao.dut.udn.vn/sv/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/daotao.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://phimbathu.com/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/phimbathu.js",
+                "js/bootstrap.min.js"
+            ],
+            "css": [
+                "css/fab-button.css",
+                "css/phimbathu.css"
+            ]
+        },
+        {
+            "matches": [
+                "*://www.phimmoi.net/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/phimmoi.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://linkneverdie.com/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/linknerverdie.js"
+            ],
+            "css": [
+                "css/linkneverdie.css"
+            ]
+        },
+        {
+            "matches": [
+                "*://*.adf.ly/*"
+            ],
+            "js": [
+                "js/jquery.js",
+                "js/adfly.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [
+        "frame.html"
+    ],
     "permissions": [
         "webRequest",
         "webRequestBlocking",

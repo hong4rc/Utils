@@ -1,27 +1,32 @@
-body{
+body {
     min-width: 400px;
 }
-.container{
+
+.container {
     margin-bottom: 2px;
     min-height: 200px;
 }
-div.btn.btn-success{
+
+div.btn.btn-success {
     float: right;
 }
-.blocked{
+
+.blocked {
     font-size: 20px;
     height: 50px;
 }
-div.list{
+
+div.list {
     min-height: 50px;
     max-height: 285px;
     overflow: auto;
 }
-div.btn-group{
+
+div.btn-group {
     padding: 10px 0;
 }
 
-.import input{
+.import input {
     opacity: 0;
     width: 100%;
     height: 100%;
@@ -29,7 +34,8 @@ div.btn-group{
     top: 0;
     left: 0;
 }
-.panel-body{
+
+.panel-body {
     width: 100%;
     padding-top: 0;
     padding-left: 0;

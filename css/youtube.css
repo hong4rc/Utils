@@ -1,36 +1,44 @@
-ytd-playlist-panel-video-renderer[selected], li.currently-playing, li.currently-playing h4.yt-ui-ellipsis{
+ytd-playlist-panel-video-renderer[selected], li.currently-playing, li.currently-playing h4.yt-ui-ellipsis {
     background: #555555 !important;
     transition: all .3s cubic-bezier(.4, 0, .2, 1);
 }
-ytd-playlist-panel-video-renderer:hover, yt-live-chat-text-message-renderer:hover{
+
+ytd-playlist-panel-video-renderer:hover, yt-live-chat-text-message-renderer:hover {
     background: #424242 !important;
 }
-ytd-compact-video-renderer{
+
+ytd-compact-video-renderer {
     border-right: 5px solid #696f79;
 }
-ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
+
+ytd-compact-radio-renderer, ytd-compact-playlist-renderer {
     border-right: 5px solid #696f79;
 }
-.ytp-pause-overlay.ytp-scroll-min{
+
+.ytp-pause-overlay.ytp-scroll-min {
     display: none;
 }
-#quickview{
+
+#quickview {
     visibility: hidden;
     position: fixed;
     z-index: 2000;
     bottom: 0;
     right: 0;
 }
-.controller *{
+
+.controller * {
     color: #fff;
     outline: none;
     border: none;
     text-align: center;
 }
-#quickview:hover .controller{
+
+#quickview:hover .controller {
     opacity: 1;
 }
-.controller{
+
+.controller {
     font-size: 1.6rem;
     color: #fff;
     opacity: 0;
@@ -43,13 +51,15 @@ ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
     top: 0;
     right: 0;
 }
-.controller .btn-group{
+
+.controller .btn-group {
     text-align: right;
     float: left;
     display: inline-block;
 }
-.btn-group button{
-    transition: .5s cubic-bezier(0.4,0.0,1,1);
+
+.btn-group button {
+    transition: .5s cubic-bezier(0.4, 0.0, 1, 1);
     padding: 2px;
     height: 36px;
     width: 36px;
@@ -57,12 +67,15 @@ ytd-compact-radio-renderer, ytd-compact-playlist-renderer{
     border: none;
     float: left;
 }
-.zoom[zoom='in']{
+
+.zoom[zoom='in'] {
     -webkit-transform: rotate(180deg);
 }
-.zoom[zoom='out']{
+
+.zoom[zoom='out'] {
     -webkit-transform: rotate(0deg);
 }
-.btn-group button:hover{
-    transition: opacity .1s cubic-bezier(0.0,0.0,0.2,1);
+
+.btn-group button:hover {
+    transition: opacity .1s cubic-bezier(0.0, 0.0, 0.2, 1);
 }

@@ -1,18 +1,23 @@
-.main-menu .menu-item a:hover,.choose-server li a, #header .suggest-dns, #header .actions-user a, .btn-contact, #btn_autonext.active i{
-	color: #4cb7d8 !important;
+.main-menu .menu-item a:hover, .choose-server li a, #header .suggest-dns, #header .actions-user a, .btn-contact, #btn_autonext.active i {
+    color: #4cb7d8 !important;
 }
-.search-container .fa-search, .note-browser, .note-browser, .btn-report .fa{
-	color: #FFF !important;
+
+.search-container .fa-search, .note-browser, .note-browser, .btn-report .fa {
+    color: #FFF !important;
 }
-.list-episode>a{
-	width: 41px;
+
+.list-episode > a {
+    width: 41px;
 }
-.two-col{
-	width: 86px !important;
+
+.two-col {
+    width: 86px !important;
 }
-.three-col{
-	width: 131px !important;
+
+.three-col {
+    width: 131px !important;
 }
-#header .actions-user{
-	border: 1px solid #e1e1e1 !important;
+
+#header .actions-user {
+    border: 1px solid #e1e1e1 !important;
 }
