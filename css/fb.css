@@ -1,32 +1,49 @@
 a.UFICommentActorName,
-.fwn.fcg .fwb.fcg a[href^="https://www.facebook.com/"],
-.fcg .fwb a.profileLink {
+h6 a,
+h5:not(._1qbu) a {
     color: #2f82d5 !important;
-}
-
-a.weakReference {
-    color: #b310b6 !important;
-}
-
-a._wpv, ._1nb_.fwn.fcg a {
-    color: #2f82d5 !important;
-    text-decoration: underline !important;
-}
-
-#sideNav, .noGrip, div._r_m, div._2pi4, a.profileLink, span.fwb.fcg a {
     font-family: Monospace, serif !important;
 }
 
-/*  List your best friend*/
-li._42fz[data-id="100008187521677"],
-li._42fz[data-id="100011401676480"],
-li._42fz[data-id="100004061350564"] {
+/*Bug color*/
+a.weakReference {
+    color: #b310b6 !important;
+    font-family: Monospace, serif !important;
+}
+
+#sideNav, div._r_m, a.profileLink,
+._51x_,
+.titlebarText, .tickerFeedMessage > .fwb {
+    font-family: Monospace, serif !important;
+}
+
+/*Is online*/
+._568z span, ._3olv._2nlt {
+    background: #FF5722 !important;
+}
+
+._qhr ._55lq {
+    border-radius: 50% 50% 50% 0 !important;
+    width: 32px !important;
+}
+
+/*Round profile*/
+#fbTimelineHeadline .profilePicThumb{
+    border-radius: 50% !important;
+    overflow: auto;
+}
+#fbTimelineHeadline .profilePicThumb .img{
+    border: 0;
+}
+li._42fz:nth-child(3n+2) {
     border-left: solid #38f;
-    border-right: solid 0.5px #f0f;
+    border-right: solid 1px #f0f;
+    border-top: solid 1px #ccc;
 }
 
 /*  Header*/
-._3u6q ._2s1y, ._206m .fbNubFlyoutTitlebar {
+.loggedout_menubar_container,
+._2s1y, ._206m .fbNubFlyoutTitlebar {
     background: #7713f1 !important;
 }
 
