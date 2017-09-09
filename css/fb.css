@@ -28,13 +28,21 @@ a.weakReference {
 }
 
 /*Round profile*/
-#fbTimelineHeadline .profilePicThumb{
+#fbTimelineHeadline .profilePicThumb {
     border-radius: 50% !important;
     overflow: auto;
 }
-#fbTimelineHeadline .profilePicThumb .img{
-    border: 0;
+
+._7ls, ._8o .img, .friendBrowserPhotoCrop {
+    border-radius: 50% !important;
+    overflow: auto;
 }
+
+#fbTimelineHeadline .profilePicThumb .img, ._7lw {
+    border: 0 !important;
+}
+
+/*Chat*/
 li._42fz:nth-child(3n+2) {
     border-left: solid #38f;
     border-right: solid 1px #f0f;
