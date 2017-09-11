@@ -1,6 +1,6 @@
 a.UFICommentActorName,
 h6 a,
-h5:not(._1qbu) a {
+h5:not(._1qbu) a:not(.weakReference) {
     color: #2f82d5 !important;
     font-family: Monospace, serif !important;
 }
