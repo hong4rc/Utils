@@ -58,10 +58,8 @@ li._42fz:nth-child(3n+2) {
 /*  Your profile*/
 a._2nlw[href="https://www.facebook.com/phony.97"],
 a._2nlw[href="https://www.facebook.com/RemoveU"] { /*your profile*/
-    background-image: url(/rsrc.php/v3/yC/r/QRYlLwFgbbH.png);
-    background-repeat: no-repeat;
     background-size: auto;
-    background-position: calc(100% + 3px) -28px;
+    background: url('https://facebook.com/rsrc.php/v3/yC/r/QRYlLwFgbbH.png') no-repeat calc(100% + 3px) -28px;
 }
 
 /*  NavHeader*/

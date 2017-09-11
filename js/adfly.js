@@ -3,10 +3,10 @@ document.addEventListener('DOMNodeRemoved', () => {
 }, false);
 
 function checkPage() {
-    let regexYsmm = /ysmm = '(.*?)';/gi.exec(document.getElementsByTagName('html')[0].innerHTML);
+    let regex = /ysmm = '(.*?)';/gi.exec(document.getElementsByTagName('html')[0].innerHTML);
 
-    if (regexYsmm && regexYsmm[1]) {
-        let url = getUrl(regexYsmm[1]);
+    if (regex && regex[1]) {
+        let url = getUrl(regex[1]);
         redirectUrl(url);
     }
 }
