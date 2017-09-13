@@ -121,6 +121,9 @@
             "js": [
                 "js/jquery.js",
                 "js/phimmoi.js"
+            ],
+            "css":[
+                "css/phimmoi.css"
             ]
         },
         {
