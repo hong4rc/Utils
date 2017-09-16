@@ -122,7 +122,7 @@
                 "js/jquery.js",
                 "js/phimmoi.js"
             ],
-            "css":[
+            "css": [
                 "css/phimmoi.css"
             ]
         },
@@ -147,6 +147,14 @@
                 "js/adfly.js"
             ],
             "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "css": [
+                "css/all_page.css"
+            ]
         }
     ],
     "web_accessible_resources": [
