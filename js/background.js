@@ -131,7 +131,7 @@ function startBlock() {
             urls: data.blockRequest,
         }, ['blocking']);
         for (let p in data.blockRequest) {
-            console.warn(`  |----Block patterns : ${data.blockRequest[p]}`);
+            console.info(`  |----Block patterns : ${data.blockRequest[p]}`);
         }
     });
 }
