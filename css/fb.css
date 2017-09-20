@@ -45,7 +45,6 @@ a.weakReference {
 /*Chat*/
 li._42fz:nth-child(3n+2) {
     border-left: solid #38f;
-    border-right: solid 1px #f0f;
     border-top: solid 1px #ccc;
 }
 
