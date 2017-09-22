@@ -38,7 +38,7 @@ function getOuo(link) {
         id: 'blockFb',
         title: 'Block this Page',
         contexts: ['link'],
-        targetUrlPatterns: ['*://*.facebook.com/*'],
+        targetUrlPatterns: ['*://*.facebook.com/*/?*'],
     };
     chrome.contextMenus.create(getOuoItem);
     chrome.contextMenus.create(blockFb);
@@ -55,14 +55,10 @@ function getOuo(link) {
                 case 'blockFb':
                     let url = new URL(info.linkUrl);
                     let id;
-                    if (url.pathname === "/profile.php") {
-                        id = url.searchParams.get("id");
-                    } else {
-                        id = url.pathname.substr(1);
-                        let index = id.lastIndexOf("-");
-                        if (index >= 0) {
-                            id = id.substr(index + 1);
-                        }
+                    id = url.pathname.substr(1);
+                    let index = id.lastIndexOf("-");
+                    if (index >= 0) {
+                        id = id.substr(index + 1);
                     }
                     blockPage(id, tab);
                     break;
