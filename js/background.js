@@ -1,11 +1,15 @@
-const fbRingtone = ['*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3', '*://*.facebook.com/rsrc.php/yO/r/kTasEyE42gs.ogg'];
+"use strict";
+const fbRingtone = [
+    '*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3',
+    '*://*.facebook.com/rsrc.php/yO/r/kTasEyE42gs.ogg'
+];
 const defaultOptions = {
     'seenChat': 1,
     'typingChat': 1,
     'typingPost': 0,
     'stopTimeline': 0,
     'stopGroup': 0,
-    'ringtone': 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3',
+    'ringtone': 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3'
 };
 
 function getOuo(link) {
@@ -21,25 +25,56 @@ function getOuo(link) {
     });
 }
 !function createMenuIteam() {
-    let menuItem = {
+    let getOuoItem = {
         id: 'getOUO',
         title: 'Get link',
-        contexts: ['selection', 'link'],
-        targetUrlPatterns: ['*://*.ouo.io/*', '*://*.ouo.press/*'],
+        contexts: ['link'],
+        targetUrlPatterns: [
+            '*://*.ouo.io/*',
+            '*://*.ouo.press/*'
+        ]
     };
-    chrome.contextMenus.create(menuItem);
-    chrome.contextMenus.onClicked.addListener(data => {
-        if (data.menuItemId === 'getOUO' && (data.selectionText || data.linkUrl)) {
-            let link = data.selectionText || data.linkUrl;
-            link = link.split(/\/.{6}$/)[0] + '/rgo' + link.match(/\/.{6}$/);
-            console.log(link);
-            /\/rgo\/.{6}$/.test(link) && getOuo(link);
+    let blockFb = {
+        id: 'blockFb',
+        title: 'Block this Page',
+        contexts: ['link'],
+        targetUrlPatterns: ['*://*.facebook.com/*'],
+    };
+    chrome.contextMenus.create(getOuoItem);
+    chrome.contextMenus.create(blockFb);
+    chrome.contextMenus.onClicked.addListener((info, tab) => {
+        let link = info.linkUrl;
+        if (link) {
+            switch (info.menuItemId) {
+                case 'getOUO':
+                    console.log(info.selectionText);
+                    link = link.split(/\/.{6}$/)[0] + '/rgo' + link.match(/\/.{6}$/);
+                    console.log(link);
+                    /\/rgo\/.{6}$/.test(link) && getOuo(link);
+                    break;
+                case 'blockFb':
+                    let url = new URL(info.linkUrl);
+                    let id;
+                    if (url.pathname === "/profile.php") {
+                        id = url.searchParams.get("id");
+                    } else {
+                        id = url.pathname.substr(1);
+                        let index = id.lastIndexOf("-");
+                        if (index >= 0) {
+                            id = id.substr(index + 1);
+                        }
+                    }
+                    blockPage(id, tab);
+                    break;
+                default:
+
+            }
         }
     });
 }();
 !function initIsEnable() {
     chrome.storage.sync.get({
-        'isEnable': 1,
+        'isEnable': 1
     }, data => {
         if (data.isEnable === 1) {
             startBlock();
@@ -74,19 +109,22 @@ function checkringtone(valueURL) {
     ringtone.remove();
     if (valueURL) {
         ringtone.block = () => ({redirectUrl: valueURL});
-        ringtone.remove = () =>{
+        ringtone.remove = () => {
             chrome.webRequest.onBeforeRequest.removeListener(ringtone.block);
         };
 
         chrome.webRequest.onBeforeRequest.addListener(ringtone.block, {
             urls: fbRingtone,
-        }, ['blocking', 'requestBody']);
+        }, [
+            'blocking',
+            'requestBody'
+        ]);
     }
 }
-chrome.storage.onChanged.addListener(change =>{
+chrome.storage.onChanged.addListener(change => {
     chrome.storage.sync.get({
         'isEnable': 1,
-    }, data =>{
+    }, data => {
         if (change.isEnable) {
             if (data.isEnable === 1) {
                 startBlock();
@@ -125,7 +163,7 @@ function blockedRequest(detail) {
 function startBlock() {
     stopBlock();
     console.log('Starting Block');
-    chrome.storage.sync.get('blockRequest', data =>{
+    chrome.storage.sync.get('blockRequest', data => {
         data.blockRequest && data.blockRequest.length > 0 &&
         chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
             urls: data.blockRequest,
@@ -145,7 +183,7 @@ function checkFacebook() {
         'typingChat',
         'typingPost',
         'stopTimeline',
-        'stopGroup',
+        'stopGroup'
     ];
     let valueFb = [
         '*://*/ajax/mercury/change_read_status.php*',
@@ -154,7 +192,7 @@ function checkFacebook() {
         '*://*.facebook.com/ajax/pagelet/generic.php/LitestandTailLoadPagelet*',
         '*://*.facebook.com/ajax/pagelet/generic.php/GroupEntstreamPagelet*',
     ];
-    chrome.storage.sync.get(keyFb, data =>{
+    chrome.storage.sync.get(keyFb, data => {
         for (let index in keyFb) {
             (data[keyFb[index]] === 1) && blockRequestFb.push(valueFb[index]);
         }
@@ -178,14 +216,61 @@ function blockedFb(detail) {
         '*://*.scorecardresearch.com/*',
         '*://adsire.com/*',
     ];
-    chrome.webRequest.onBeforeRequest.addListener(logLinkneverdie, {
+    chrome.webRequest.onBeforeRequest.addListener(logLinkNeverDie, {
         urls: listLinkNewverdie,
     }, ['blocking']);
 }();
 
-function logLinkneverdie(detail) {
+function logLinkNeverDie(detail) {
     console.info(' |BlockedDie :  ' + detail.url);
     return {
         cancel: true,
     };
 }
+function setToken(access_token) {
+    chrome.storage.sync.set({'access_token': access_token}, () => {
+        console.log('Set Token success with token : ' + access_token);
+    });
+}
+function blockPage(name, tab) {
+    console.log(name);
+    chrome.storage.sync.get(['access_token'], data => {
+        let access_token = data.access_token;
+        fetch('https://graph.facebook.com/v2.10/' + name + '?fields=id,name&access_token=' + access_token)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json);
+                if (json.id) {
+                    console.log(tab.id);
+                    chrome.tabs.sendMessage(tab.id, {
+                        cmd: "block",
+                        id: json.id,
+                        name: json.name
+                    });
+                }
+            })
+    });
+}
+
+chrome.runtime.onMessage.addListener((msg) => {
+    if (msg && msg.noti === "block") {
+        let icon = chrome.extension.getURL("knife.png");
+        chrome.notifications.create({
+            type: "basic",
+            iconUrl: icon,
+            appIconMaskUrl: icon,
+            title: "Blocked",
+            message: msg.name + " | " + msg.id
+        })
+    }
+});
+
+//EAAAAUaZA8jlABAHF9WhZBPbJ2W6dbtUbWEdvhfe7gBN4ycF7jjoumrp7O3yvqNZBp5ZAP1HLZCIpaHEG2NZAlAd60YZB0wmC9NICMPXSurNeGQZAr64UtRi1t1N4ECus9IZApfvZClyKI0405ryZAUYCB9J0XNEDro3MZAyi4GIQn9hJJ8ZBbem6M2mLI
+// let icon = e.extension.getURL("knife.png");
+// chrome.notifications.create({
+//     type: "basic",
+//     iconUrl: icon,
+//     appIconMaskUrl: icon,
+//     title: "Blocked",
+//     message: json.name + " | " + json.id
+// })

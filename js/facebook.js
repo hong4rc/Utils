@@ -1,9 +1,10 @@
+"use strict";
 const MAX_LIKE = 25;
 let mainContent = '#contentArea div';
 let frame = '.fab-frame';
 
 function addShortcut() {
-    $(document).keydown(function(evt) {
+    $(document).keydown(function (evt) {
         if (evt.keyCode === 76 && (evt.ctrlKey)) {
             //Ctrl + L
             evt.preventDefault();
@@ -30,22 +31,16 @@ function hideShowFab(element) {
 }
 !function addLikeButton() {
     if ($(mainContent)[0] || $('#pagelet_timeline_main_column').length) {
-        $(document.body).
-            append(
-                '<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button id = "fab-text" class="fab-text fab">0</button></div>');
-        $('.fab-frame').css({
-            'right': '20px',
-            'bottom': '90px',
-        });
-        $('.fab-button').css({
-            'background-color': '#f25268',
-        });
+        $(document.body).append(
+            '<div class="fab-frame"><button id="fab-like" class="fab-button fab">&#10084;</button><button id = "fab-text" class="fab-text fab">0</button></div>');
+        $('.fab-frame').css({'right': '20px', 'bottom': '90px'});
+        $('.fab-button').css({'background-color': '#f25268'});
         $('#fab-like').click(() => {
             like();
             setLike();
         }).hover(() => {
             setLike();
-        }, function() {
+        }, function () {
             setLike();
         });
         $('#fab-text').click(() => {
@@ -90,7 +85,7 @@ function like() {
     let like_btn = $('.UFILikeLink._4x9-._4x9_._48-k').not('.UFILinkBright');
     console.log(like_btn);
     numLike = like_btn.length;
-    like_btn.each(function(index) {
+    like_btn.each(function (index) {
         if (index > MAX_LIKE) {
             return numLike;
         }
@@ -104,3 +99,36 @@ function like() {
     $('#fbRequestsJewel').addClass('hasNew');
     $('#requestsCountValue').html(i).removeClass('hidden_elem');
 }('99+');
+
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    console.log(msg);
+    if (msg.cmd === "block") {
+        let id = msg.id;
+        let name = msg.name;
+        fetch("https://www.facebook.com/privacy/block_page/", {
+            method: "POST",
+            credentials: "include",
+            body: objToForm({
+                page_id: id,
+                __a: 1,
+                fb_dtsg: document.querySelector('[name="fb_dtsg"]').value,
+                confirmed: 1
+            })
+        }).then(() => {
+            chrome.runtime.sendMessage({
+                noti: "block",
+                id: id,
+                name: name
+            });
+
+        });
+    }
+});
+
+function objToForm(obj) {
+    let form = new FormData;
+    Object.keys(obj).map(function (d) {
+        form.append(d, obj[d])
+    });
+    return form;
+}
