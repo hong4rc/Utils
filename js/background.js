@@ -38,7 +38,7 @@ function getOuo(link) {
         id: 'blockFb',
         title: 'Block this Page',
         contexts: ['link'],
-        targetUrlPatterns: ['*://*.facebook.com/*/?*'],
+        targetUrlPatterns: ['*://*.facebook.com/*/*'],
     };
     chrome.contextMenus.create(getOuoItem);
     chrome.contextMenus.create(blockFb);
@@ -54,11 +54,15 @@ function getOuo(link) {
                     break;
                 case 'blockFb':
                     let url = new URL(info.linkUrl);
-                    let id;
-                    id = url.pathname.substr(1);
-                    let index = id.lastIndexOf("-");
+                    let id = url.pathname;
+                    let index = id.lastIndexOf("/groups/");
                     if (index >= 0) {
-                        id = id.substr(index + 1);
+                        return;
+                    }
+                    index = id.lastIndexOf("-");
+                    id = id.substr(1);
+                    if (index > 0) {
+                        id = id.substr(index);
                     }
                     blockPage(id, tab);
                     break;
@@ -229,7 +233,6 @@ function setToken(access_token) {
     });
 }
 function blockPage(name, tab) {
-    console.log(name);
     chrome.storage.sync.get(['access_token'], data => {
         let access_token = data.access_token;
         fetch('https://graph.facebook.com/v2.10/' + name + '?fields=id,name&access_token=' + access_token)
