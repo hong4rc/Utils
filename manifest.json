@@ -36,10 +36,6 @@
             "js": [
                 "js/jquery.js",
                 "js/facebook.js"
-            ],
-            "css": [
-                "css/fab-button.css",
-                "css/fb.css"
             ]
         },
         {
