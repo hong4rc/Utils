@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Like Facebook",
-    "description": "Đi like thuê",
-    "version": "0.13",
+    "name": "Mini Tool",
+    "description": "Công việc nho nhỏ :)",
+    "version": "1.0.1",
     "author": "Anh Hồng",
     "icons": {
         "16": "icon.png",
@@ -15,7 +15,7 @@
             "24": "icon.png",
             "32": "icon.png"
         },
-        "default_title": "Like dạo",
+        "default_title": "Open toolbox",
         "default_popup": "popup.html"
     },
     "options_ui": {
@@ -167,7 +167,6 @@
         "notifications",
         "contextMenus",
         "tabs",
-        "*://*/*",
-        "tts"
+        "*://*/*"
     ]
 }
