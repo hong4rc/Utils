@@ -93,7 +93,6 @@ function getOuo(link) {
         }, () => {
             console.log('Init settings Facebook successfull !!!');
         });
-        checkFacebook();
         checkringtone(data.ringtone);
     });
 }();
@@ -122,20 +121,16 @@ function checkringtone(valueURL) {
     }
 }
 chrome.storage.onChanged.addListener(change => {
-    chrome.storage.sync.get({
-        'isEnable': 1,
-    }, data => {
-        if (change.isEnable) {
-            if (data.isEnable === 1) {
-                startBlock();
-            } else {
-                console.log('Stoping Block');
-                stopBlock();
-            }
-        } else if (data.isEnable === 1 && change.blockRequest) {
+    if (change.isEnable) {
+        if (change.isEnable.newValue === 1) {
             startBlock();
+        } else {
+            console.log('Stoping Block');
+            stopBlock();
         }
-    });
+    } else if (change.isEnable && change.isEnable.newValue === 1 && change.blockRequest) {
+        startBlock();
+    }
     if (change.seenChat || change.typingChat || change.typingPost || change.stopTimeline || change.stopGroup) {
         checkFacebook();
     }
@@ -164,8 +159,7 @@ function startBlock() {
     stopBlock();
     console.log('Starting Block');
     chrome.storage.sync.get('blockRequest', data => {
-        data.blockRequest && data.blockRequest.length > 0 &&
-        chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
+        data.blockRequest && data.blockRequest.length > 0 && chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
             urls: data.blockRequest,
         }, ['blocking']);
         for (let p in data.blockRequest) {
