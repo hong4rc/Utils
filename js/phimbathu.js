@@ -13,7 +13,7 @@ if (board === 1) {
 
 !function onLoad() {
     $('li.menu-item ul').addClass('btn btn-default');
-    $('.list-episode>a').each(function() {
+    $('.list-episode>a').each(function () {
         let string = $(this).html().split('-');
         let ch = string.length;
         if (ch === 3 || string.length > 10) {
@@ -24,16 +24,6 @@ if (board === 1) {
     });
     $('.float-ads').remove();
     $('#balloon_left_1').remove();
-
-    //change icon -> glyphicon
-    $('i.fa.fa-home').addClass('glyphicon glyphicon-home');
-    $('i.fa.fa-align-center').addClass('glyphicon glyphicon-tasks');
-    $('i.fa.fa-globe').addClass('glyphicon glyphicon-globe');
-    $('i.fa.fa-camera-retro').addClass('glyphicon glyphicon-camera');
-    $('i.fa.fa-film').addClass('glyphicon glyphicon-film');
-    $('i.fa.fa-lightbulb-o').addClass('glyphicon glyphicon-fire');
-    $('i.fa.fa-comment').addClass('glyphicon glyphicon-comment');
-    $('i.fa.fa-video-camera').addClass('glyphicon glyphicon-facetime-video');
 }();
 function addFAB() {
     addButton();
@@ -100,7 +90,7 @@ function addButton() {
 function addEventMove() {
     let dragging = false;
     let deltaX, deltaY;
-    $(frame).mousedown(function(event) {
+    $(frame).mousedown(function (event) {
         dragging = true;
         deltaX = event.clientX - this.offsetLeft;
         deltaY = event.clientY - this.offsetTop;
@@ -120,7 +110,7 @@ function addEventMove() {
             return false;
         }
     };
-    $(document).mouseup(function(event) {
+    $(document).mouseup(function (event) {
         dragging = false;
         event.cancelBubble = true;
     });
