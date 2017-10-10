@@ -67,7 +67,7 @@ function setClick(){
 	$(".import input[type=file]").change(function() {
 		let reader = new FileReader();
 		reader.onload = event =>{
-			result = event.target.result;
+			let result = event.target.result;
 			let newList = result.split(",");
 			setOption('blockRequest', newList);
 			getBlockRequest();

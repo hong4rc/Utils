@@ -1,4 +1,4 @@
-let iframeYoutube = '<div id="quickview"></div>';
+let frameYoutube = '<div id="quickView"></div>';
 let regExHref = /\/watch\?v=.{11}$/;
 let qsOptions = '?autoplay=true&showinfo=0';
 let sizeDefaultVideo = {'width': 854, 'height': 480};
@@ -6,7 +6,7 @@ let sizeMiniVideo = {'width': 250, 'height': 141};
 let zoom = '.zoom';
 let height_container = $('#container').height();
 
-!function enableDarkmode() {
+!function enableDarkMode() {
     let cookie = document.cookie;
     let check = cookie.indexOf('VISITOR_INFO1_LIVE=fPQ4jCL6EiE');
     if (check === -1) {
@@ -27,7 +27,7 @@ function showVideo(src) {
     }
 
     let checkSizeFrame = function () {
-        let element = '#myIframe';
+        let element = '#myFrame';
         let width = $(element).attr('width');
         let height = $(element).attr('height');
         width = min(width, $(window).width());
@@ -35,8 +35,8 @@ function showVideo(src) {
         reSize(width, height);
     };
 
-    if (document.getElementById('myIframe').src !== src) {
-        document.getElementById('myIframe').src = src;
+    if (document.getElementById('myFrame').src !== src) {
+        document.getElementById('myFrame').src = src;
         let visibility = 'hidden';
         $(window).off('resize.youtube_video');
         if (src) {
@@ -46,7 +46,7 @@ function showVideo(src) {
         } else {
 
         }
-        $('#quickview').css('visibility', visibility);
+        $('#quickView').css('visibility', visibility);
     }
 }
 function reSize(width, height) {
@@ -55,7 +55,7 @@ function reSize(width, height) {
     } else {
         height = Math.floor(width * sizeDefaultVideo.height / sizeDefaultVideo.width);
     }
-    $('#myIframe').attr('width', width).attr('height', height);
+    $('#myFrame').attr('width', width).attr('height', height);
 }
 function zoomOut() {
     reSize(sizeMiniVideo.width, sizeMiniVideo.height);
@@ -80,12 +80,12 @@ function setEventClick() {
 
     let deltaX, deltaY;
     let dragging = false;
-    let quickview;
+    let quickView;
     $('.reSize').mousedown((event) => {
         dragging = true;
-        quickview = $('#quickview')[0];
-        deltaX = event.clientX - quickview.offsetLeft;
-        deltaY = event.clientY - quickview.offsetTop;
+        quickView = $('#quickView')[0];
+        deltaX = event.clientX - quickView.offsetLeft;
+        deltaY = event.clientY - quickView.offsetTop;
         return false;
     });
     document.onmousemove = event => {
@@ -100,23 +100,23 @@ function setEventClick() {
     $(document).mouseup(event => {
         dragging = false;
         event.cancelBubble = true;
-        let iframeWidth = $('#myIframe').attr('width');
-        if (iframeWidth < sizeMiniVideo.width) {
+        let frameWidth = $('#myFrame').attr('width');
+        if (frameWidth < sizeMiniVideo.width) {
             zoomOut();
         }
-        if (iframeWidth > sizeDefaultVideo.width) {
+        if (frameWidth > sizeDefaultVideo.width) {
             $(zoom).attr('zoom', 'out');
         }
     });
 
 }
 $(document).ready(() => {
-    $(document.body).append(iframeYoutube);
+    $(document.body).append(frameYoutube);
     $.ajax({
         url: chrome.extension.getURL('frame.html'),
         type: 'GET',
         success: data => {
-            $('#quickview').html(data);
+            $('#quickView').html(data);
             setEventClick();
         },
     });

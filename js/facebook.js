@@ -1,5 +1,5 @@
 "use strict";
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((msg) => {
     console.log(msg);
     if (msg.cmd === "block") {
         let id = msg.id;
