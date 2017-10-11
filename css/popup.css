@@ -2,6 +2,10 @@ body {
     min-width: 400px;
 }
 
+.btn {
+    text-align: left;
+}
+
 .container {
     margin-bottom: 2px;
     min-height: 200px;
