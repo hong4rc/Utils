@@ -26,7 +26,7 @@ div.list {
     overflow: auto;
 }
 
-div.btn-group.btn-group-justified>span.btn{
+div.btn-group.btn-group-justified>.btn{
     text-align: center;
 }
 
