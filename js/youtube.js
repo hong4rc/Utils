@@ -6,14 +6,6 @@ let sizeMiniVideo = {'width': 250, 'height': 141};
 let zoom = '.zoom';
 let height_container = $('#container').height();
 
-!function enableDarkMode() {
-    let cookie = document.cookie;
-    let check = cookie.indexOf('VISITOR_INFO1_LIVE=fPQ4jCL6EiE');
-    if (check === -1) {
-        document.cookie = 'VISITOR_INFO1_LIVE=fPQ4jCL6EiE';
-        location.reload();
-    }
-}();
 function resetDefault() {
     reSize(sizeDefaultVideo.width, sizeDefaultVideo.height);
     $(zoom).attr('zoom', 'out');
