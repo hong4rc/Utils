@@ -19,7 +19,7 @@ ytd-compact-radio-renderer, ytd-compact-playlist-renderer {
     display: none;
 }
 
-#quickview {
+#quickView {
     visibility: hidden;
     position: fixed;
     z-index: 2000;
@@ -34,7 +34,7 @@ ytd-compact-radio-renderer, ytd-compact-playlist-renderer {
     text-align: center;
 }
 
-#quickview:hover .controller {
+#quickView:hover .controller {
     opacity: 1;
 }
 

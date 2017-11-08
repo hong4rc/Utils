@@ -1,15 +1,23 @@
 let frameYoutube = '<div id="quickView"></div>';
 let regExHref = /\/watch\?v=.{11}$/;
 let qsOptions = '?autoplay=true&showinfo=0';
-let sizeDefaultVideo = {'width': 854, 'height': 480};
-let sizeMiniVideo = {'width': 250, 'height': 141};
+let sizeDefaultVideo = {
+    'width': 854,
+    'height': 480
+};
+let sizeMiniVideo = {
+    'width': 250,
+    'height': 141
+};
 let zoom = '.zoom';
 let height_container = $('#container').height();
+let myFrame = 'myFrame', jMyFrame = '#' + myFrame;
 
 function resetDefault() {
     reSize(sizeDefaultVideo.width, sizeDefaultVideo.height);
     $(zoom).attr('zoom', 'out');
 }
+
 function showVideo(src) {
     function min(element, window) {
         if (element < window) {
@@ -19,16 +27,15 @@ function showVideo(src) {
     }
 
     let checkSizeFrame = function () {
-        let element = '#myFrame';
-        let width = $(element).attr('width');
-        let height = $(element).attr('height');
+        let width = $(jMyFrame).attr('width');
+        let height = $(jMyFrame).attr('height');
         width = min(width, $(window).width());
         height = min(height, $(window).height() - height_container);
         reSize(width, height);
     };
 
-    if (document.getElementById('myFrame').src !== src) {
-        document.getElementById('myFrame').src = src;
+    if (document.getElementById(myFrame).src !== src) {
+        document.getElementById(myFrame).src = src;
         let visibility = 'hidden';
         $(window).off('resize.youtube_video');
         if (src) {
@@ -41,18 +48,21 @@ function showVideo(src) {
         $('#quickView').css('visibility', visibility);
     }
 }
+
 function reSize(width, height) {
     if (width * sizeDefaultVideo.height >= height * sizeDefaultVideo.width) {
         width = Math.floor(height * sizeDefaultVideo.width / sizeDefaultVideo.height);
     } else {
         height = Math.floor(width * sizeDefaultVideo.height / sizeDefaultVideo.width);
     }
-    $('#myFrame').attr('width', width).attr('height', height);
+    $(jMyFrame).attr('width', width).attr('height', height);
 }
+
 function zoomOut() {
     reSize(sizeMiniVideo.width, sizeMiniVideo.height);
     $(zoom).attr('zoom', 'in');
 }
+
 function setEventClick() {
     $('.close-video').click(() => {
         showVideo('');
@@ -92,7 +102,7 @@ function setEventClick() {
     $(document).mouseup(event => {
         dragging = false;
         event.cancelBubble = true;
-        let frameWidth = $('#myFrame').attr('width');
+        let frameWidth = $(jMyFrame).attr('width');
         if (frameWidth < sizeMiniVideo.width) {
             zoomOut();
         }
@@ -102,6 +112,7 @@ function setEventClick() {
     });
 
 }
+
 $(document).ready(() => {
     $(document.body).append(frameYoutube);
     $.ajax({
