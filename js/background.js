@@ -253,7 +253,7 @@ chrome.runtime.onMessage.addListener((msg) => {
             iconUrl: icon,
             appIconMaskUrl: icon,
             title: "Blocked",
-            message: msg.name + " | " + msg.id
+            message: msg.name + "\n" + msg.id
         })
     }
 });
