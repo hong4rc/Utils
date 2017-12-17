@@ -1,7 +1,7 @@
 "use strict";
 const fbRingtone = [
-    '*://*.facebook.com/rsrc.php/yh/r/taJw7SpZVz2.mp3',
-    '*://*.facebook.com/rsrc.php/yO/r/kTasEyE42gs.ogg'
+    '*://*/rsrc.php/yh/r/taJw7SpZVz2.mp3',
+    '*://*/rsrc.php/yO/r/kTasEyE42gs.ogg'
 ];
 const defaultOptions = {
     'seenChat': 1,
