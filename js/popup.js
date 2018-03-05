@@ -1,5 +1,6 @@
 let frame1 = '<div class="input-group form-group"><input type="text" class="form-control" value="';
 let frame2 = '"><span class="remove input-group-addon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></div>';
+let list = $('div.list');
 let defaultOptions = {
     'blockRequest': [],
     'isEnable': 1,
@@ -116,9 +117,9 @@ function getBlockRequest(){
         data =>{
             init(data);
             if (data.blockRequest.length > 0) {
-                data.blockRequest.forEach(element => {
-                    add(element);
-                    console.info(element);
+                data.blockRequest.forEach(pattern => {
+                    add(pattern);
+                    console.info(pattern);
                 });
             } else {
                 add('');
@@ -126,15 +127,18 @@ function getBlockRequest(){
             $('.export').attr("href", "data:text/plain;base64," + btoa(data.blockRequest.toString()));
         });
 }
-function add(element){
-	if(element === ''){
-		element = frame1 + '*://*.' + frame2;
-		$('div.list').prepend($(element));
+function add(pattern){
+	if(pattern === ''){
+        pattern = '*://*.';
+
 	} else {
-		element = element.replace(/^\s+|\s+$/gm, '');
-		element = frame1 + element + frame2;
-		$('div.list').append($(element));
+        pattern = pattern.replace(/^\s+|\s+$/gm, '');
 	}
+	let element = $(frame1 + pattern + frame2);
+    list.prepend(element);
+    list.animate({
+        scrollTop: element.offset().top - list.offset().top
+    }, 500);
 	$('.remove').click(function() {
 		remove(this);
 	});
