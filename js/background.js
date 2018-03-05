@@ -128,7 +128,7 @@ chrome.storage.onChanged.addListener(change => {
             console.log('Stoping Block');
             stopBlock();
         }
-    } else if (change.isEnable && change.isEnable.newValue === 1 && change.blockRequest) {
+    } else if (change.blockRequest) {
         startBlock();
     }
     if (change.seenChat || change.typingChat || change.typingPost || change.stopTimeline || change.stopGroup) {
@@ -158,8 +158,9 @@ function blockedRequest(detail) {
 function startBlock() {
     stopBlock();
     console.log('Starting Block');
-    chrome.storage.sync.get('blockRequest', data => {
-        data.blockRequest && data.blockRequest.length > 0 && chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
+    chrome.storage.sync.get(['blockRequest', 'isEnable'], data => {
+        data.isEnable && data.blockRequest && data.blockRequest.length > 0
+        && chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
             urls: data.blockRequest,
         }, ['blocking']);
         for (let p in data.blockRequest) {
