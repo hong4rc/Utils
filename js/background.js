@@ -11,7 +11,7 @@ const defaultOptions = {
     'stopGroup': 0,
     'ringtone': 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3'
 };
-
+const GRAPH_API = 'https://graph.facebook.com/v2.10/';
 function getOuo(link) {
     fetch(link, {
         method: 'post',
@@ -223,14 +223,20 @@ function logLinkNeverDie(detail) {
     };
 }
 function setToken(access_token) {
-    chrome.storage.sync.set({'access_token': access_token}, () => {
-        console.log('Set Token success with token : ' + access_token);
-    });
+    fetch(GRAPH_API + 'me?access_token=' + access_token)
+        .then(res => res.json())
+        .then(json => {
+            if (json.id) {
+                chrome.storage.sync.set({'access_token': access_token}, () => {
+                    console.log('Set Token success with token : ' + access_token);
+                });
+            }
+        });
 }
 function blockPage(name, tab) {
     chrome.storage.sync.get(['access_token'], data => {
         let access_token = data.access_token;
-        fetch('https://graph.facebook.com/v2.10/' + name + '?fields=id,name&access_token=' + access_token)
+        fetch(GRAPH_API + '' + name + '?fields=id,name&access_token=' + access_token)
             .then(res => res.json())
             .then(json => {
                 console.log(json);
@@ -242,7 +248,7 @@ function blockPage(name, tab) {
                         name: json.name
                     });
                 }
-            })
+            });
     });
 }
 
@@ -258,13 +264,3 @@ chrome.runtime.onMessage.addListener((msg) => {
         })
     }
 });
-
-//EAAAAUaZA8jlABAHF9WhZBPbJ2W6dbtUbWEdvhfe7gBN4ycF7jjoumrp7O3yvqNZBp5ZAP1HLZCIpaHEG2NZAlAd60YZB0wmC9NICMPXSurNeGQZAr64UtRi1t1N4ECus9IZApfvZClyKI0405ryZAUYCB9J0XNEDro3MZAyi4GIQn9hJJ8ZBbem6M2mLI
-// let icon = e.extension.getURL("knife.png");
-// chrome.notifications.create({
-//     type: "basic",
-//     iconUrl: icon,
-//     appIconMaskUrl: icon,
-//     title: "Blocked",
-//     message: json.name + " | " + json.id
-// })
