@@ -14,44 +14,42 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-//copy static folders to build directory
+//copy static file
 gulp.task('copy', function () {
-    gulp.src('src/fonts/**')
-        .pipe(gulp.dest('build/fonts'));
-    gulp.src(['src/*.png', 'src/LICENSE'])
-        .pipe(gulp.dest('build'));
-    return gulp.src('src/manifest.json')
-        .pipe(cleanJson())
+    return gulp.src(['src/*.png', 'src/*/*.woff2'])
         .pipe(gulp.dest('build'));
 });
 
-//copy and compress HTML files
+//Html, Json, Js, Css
 gulp.task('html', function () {
     return gulp.src('src/*.html')
         .pipe(cleanHtml())
         .pipe(gulp.dest('build'));
 });
-
-//copy and compress JS files
-gulp.task('js', function () {
-    gulp.src('src/js/*.js')
-        .pipe(cleanJs({
-            ext: {
-                min: '.js'
-            },
-            noSource: true
-        }))
-        .pipe(gulp.dest('build/js'))
+gulp.task('json', function () {
+    return gulp.src('src/*.json')
+        .pipe(cleanJson())
+        .pipe(gulp.dest('build'));
 });
-//minify styles
-gulp.task('styles', function () {
+let jsOpt = {
+    ext: {
+        min: '.js'
+    },
+    noSource: true
+};
+gulp.task('js', function () {
+    return gulp.src('src/js/*.js')
+        .pipe(cleanJs(jsOpt))
+        .pipe(gulp.dest('build/js'));
+});
+gulp.task('css', function () {
     return gulp.src('src/css/**')
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(gulp.dest('build/css'));
 });
 
 //build distributable after other tasks completed
-gulp.task('zip', ['html', 'js', 'styles', 'copy'], function () {
+gulp.task('zip', ['html', 'js', 'json', 'css', 'copy'], function () {
     let manifest = require('./src/manifest'),
         distFileName = manifest.name + ' v' + manifest.version + '.zip';
     //build distributable extension
@@ -62,5 +60,5 @@ gulp.task('zip', ['html', 'js', 'styles', 'copy'], function () {
 
 //run all tasks after build directory has been cleaned
 gulp.task('default', ['clean'], function () {
-    gulp.run('zip');
+    gulp.start('zip');
 });
