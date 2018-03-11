@@ -233,6 +233,9 @@ function setToken(access_token) {
             }
         });
 }
+
+let icon = chrome.extension.getURL("knife.png");
+
 function blockPage(name, tab) {
     chrome.storage.sync.get(['access_token'], data => {
         let access_token = data.access_token;
@@ -247,6 +250,13 @@ function blockPage(name, tab) {
                         id: json.id,
                         name: json.name
                     });
+                } else if (json.error){
+                    chrome.notifications.create({
+                        type: "basic",
+                        iconUrl: icon,
+                        title: "error",
+                        message: json.error.message
+                    });
                 }
             });
     });
@@ -254,13 +264,12 @@ function blockPage(name, tab) {
 
 chrome.runtime.onMessage.addListener((msg) => {
     if (msg && msg.noti === "block") {
-        let icon = chrome.extension.getURL("knife.png");
         chrome.notifications.create({
             type: "basic",
             iconUrl: icon,
             appIconMaskUrl: icon,
             title: "Blocked",
             message: msg.name + "\n" + msg.id
-        })
+        });
     }
 });
