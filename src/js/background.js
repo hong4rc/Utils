@@ -1,4 +1,3 @@
-"use strict";
 const fbRingtone = [
     '*://*/rsrc.php/yh/r/taJw7SpZVz2.mp3',
     '*://*/rsrc.php/yO/r/kTasEyE42gs.ogg'
@@ -12,6 +11,7 @@ const defaultOptions = {
     'ringtone': 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3'
 };
 const GRAPH_API = 'https://graph.facebook.com/v2.10/';
+
 function getOuo(link) {
     fetch(link, {
         method: 'post',
@@ -24,7 +24,8 @@ function getOuo(link) {
         }
     });
 }
-!function createMenuIteam() {
+
+function createMenuIteam() {
     let getOuoItem = {
         id: 'getOUO',
         title: 'Get link',
@@ -50,16 +51,18 @@ function getOuo(link) {
                     log(info.selectionText);
                     link = link.split(/\/.{6}$/)[0] + '/rgo' + link.match(/\/.{6}$/);
                     log(link);
-                    /\/rgo\/.{6}$/.test(link) && getOuo(link);
+                    if (/\/rgo\/.{6}$/.test(link)) {
+                        getOuo(link);
+                    }
                     break;
                 case 'blockFb':
                     let url = new URL(info.linkUrl);
                     let id = url.pathname;
-                    let index = id.lastIndexOf("/groups/");
+                    let index = id.lastIndexOf('/groups/');
                     if (index >= 0) {
                         return;
                     }
-                    index = id.lastIndexOf("-");
+                    index = id.lastIndexOf('-');
                     id = id.substr(1);
                     if (index > 0) {
                         id = id.substr(index);
@@ -71,8 +74,9 @@ function getOuo(link) {
             }
         }
     });
-}();
-!function initIsEnable() {
+}
+
+function initIsEnable() {
     chrome.storage.sync.get({
         'isEnable': 1
     }, data => {
@@ -80,8 +84,9 @@ function getOuo(link) {
             startBlock();
         }
     });
-}();
-!function initFB() {
+}
+
+function initFB() {
     chrome.storage.sync.get(defaultOptions, data => {
         chrome.storage.sync.set({
             'seenChat': data.seenChat,
@@ -95,13 +100,19 @@ function getOuo(link) {
         });
         checkringtone(data.ringtone);
     });
-}();
+}
+
+createMenuIteam();
+initIsEnable();
+initFB();
+blockLinkneverDie();
 let ringtone = {
     block: () => {
     },
     remove: () => {
     },
 };
+
 function checkringtone(valueURL) {
 
     log('ringtone : ' + valueURL);
@@ -120,6 +131,7 @@ function checkringtone(valueURL) {
         ]);
     }
 }
+
 chrome.storage.onChanged.addListener(change => {
     if (change.isEnable) {
         if (change.isEnable.newValue === 1) {
@@ -159,10 +171,11 @@ function startBlock() {
     stopBlock();
     log('Starting Block');
     chrome.storage.sync.get(['blockRequest', 'isEnable'], data => {
-        data.isEnable && data.blockRequest && data.blockRequest.length > 0
-        && chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
-            urls: data.blockRequest,
-        }, ['blocking']);
+        if (data.isEnable && data.blockRequest && data.blockRequest.length > 0) {
+            chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
+                urls: data.blockRequest,
+            }, ['blocking']);
+        }
         for (let p in data.blockRequest) {
             console.info(`  |----Block patterns : ${data.blockRequest[p]}`);
         }
@@ -189,12 +202,16 @@ function checkFacebook() {
     ];
     chrome.storage.sync.get(keyFb, data => {
         for (let index in keyFb) {
-            (data[keyFb[index]] === 1) && blockRequestFb.push(valueFb[index]);
+            if (data[keyFb[index]] === 1) {
+                blockRequestFb.push(valueFb[index]);
+            }
         }
         log(blockRequestFb);
-        blockRequestFb.length && chrome.webRequest.onBeforeRequest.addListener(blockedFb, {
-            urls: blockRequestFb,
-        }, ['blocking']);
+        if (blockRequestFb.length) {
+            chrome.webRequest.onBeforeRequest.addListener(blockedFb, {
+                urls: blockRequestFb,
+            }, ['blocking']);
+        }
     });
 }
 
@@ -204,7 +221,8 @@ function blockedFb(detail) {
         cancel: true,
     };
 }
-!function blockLinkneverDie() {
+
+function blockLinkneverDie() {
     let listLinkNewverdie = [
         '*://*.google-analytics.com/analytics.js',
         '*://*.popclck.net/*',
@@ -214,7 +232,7 @@ function blockedFb(detail) {
     chrome.webRequest.onBeforeRequest.addListener(logLinkNeverDie, {
         urls: listLinkNewverdie,
     }, ['blocking']);
-}();
+}
 
 function logLinkNeverDie(detail) {
     console.info(' |BlockedDie :  ' + detail.url);
@@ -222,6 +240,7 @@ function logLinkNeverDie(detail) {
         cancel: true,
     };
 }
+
 function setToken(access_token) {
     fetch(GRAPH_API + 'me?access_token=' + access_token)
         .then(res => res.json())
@@ -234,7 +253,7 @@ function setToken(access_token) {
         });
 }
 
-let icon = chrome.extension.getURL("knife.png");
+let icon = chrome.extension.getURL('knife.png');
 
 function blockPage(name, tab) {
     chrome.storage.sync.get(['access_token'], data => {
@@ -246,15 +265,15 @@ function blockPage(name, tab) {
                 if (json.id) {
                     log(tab.id);
                     chrome.tabs.sendMessage(tab.id, {
-                        cmd: "block",
+                        cmd: 'block',
                         id: json.id,
                         name: json.name
                     });
-                } else if (json.error){
+                } else if (json.error) {
                     chrome.notifications.create({
-                        type: "basic",
+                        type: 'basic',
                         iconUrl: icon,
-                        title: "error",
+                        title: 'error',
                         message: json.error.message
                     });
                 }
@@ -263,17 +282,17 @@ function blockPage(name, tab) {
 }
 
 chrome.runtime.onMessage.addListener((msg) => {
-    if (msg && msg.noti === "block") {
+    if (msg && msg.noti === 'block') {
         chrome.notifications.create({
-            type: "basic",
+            type: 'basic',
             iconUrl: icon,
             appIconMaskUrl: icon,
-            title: "Blocked",
-            message: msg.name + "\n" + msg.id
+            title: 'Blocked',
+            message: msg.name + '\n' + msg.id
         });
     }
 });
 
 function log(...args) {
-    console.log(...args)
+    console.log(...args);
 }

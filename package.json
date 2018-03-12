@@ -10,7 +10,9 @@
         "gulp-clean": "^0.4.0",
         "gulp-clean-css": "^3.9.3",
         "gulp-cleanhtml": "^1.0.3",
+        "gulp-jshint": "^2.1.0",
         "gulp-minify": "^2.1.0",
-        "gulp-zip": "^4.1.0"
+        "gulp-zip": "^4.1.0",
+        "jshint": "^2.9.5"
     }
 }

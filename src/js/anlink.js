@@ -1,2 +1,2 @@
 $('#btn-ketnoi').click();
-$("input.form-control").val("j2team");
+$('input.form-control').val('j2team');

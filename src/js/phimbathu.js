@@ -11,7 +11,7 @@ if (board === 1) {
     $('div.list-episode a').addClass('btn btn-primary');
 }
 
-!function onLoad() {
+function onLoad() {
     $('li.menu-item ul').addClass('btn btn-default');
     $('.list-episode>a').each(function () {
         let string = $(this).html().split('-');
@@ -24,7 +24,8 @@ if (board === 1) {
     });
     $('.float-ads').remove();
     $('#balloon_left_1').remove();
-}();
+}
+onLoad();
 function addFAB() {
     addButton();
     addEventMove();

@@ -6,6 +6,7 @@ let gulp = require('gulp'),
     cleanJs = require('gulp-minify'),
     cleanJson = require('./json-minify'),
     cleanCSS = require('gulp-clean-css'),
+    jshint = require('gulp-jshint'),
     zip = require('gulp-zip');
 
 //clean build directory
@@ -37,7 +38,7 @@ let jsOpt = {
     },
     noSource: true
 };
-gulp.task('js', function () {
+gulp.task('js', ['lint'], function () {
     return gulp.src('src/js/*.js')
         .pipe(cleanJs(jsOpt))
         .pipe(gulp.dest('build/js'));
@@ -46,6 +47,11 @@ gulp.task('css', function () {
     return gulp.src('src/css/**')
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(gulp.dest('build/css'));
+});
+gulp.task('lint', function() {
+    return gulp.src('src/js/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
 });
 
 //build distributable after other tasks completed

@@ -65,11 +65,11 @@ function setClick(){
 		let id = getId(this);
 		setOption(id, now);
 	});
-	$(".import input[type=file]").change(function() {
+	$('.import input[type=file]').change(function() {
 		let reader = new FileReader();
 		reader.onload = event =>{
 			let result = event.target.result;
-			let newList = result.split(",");
+			let newList = result.split(',');
 			setOption('blockRequest', newList);
 			getBlockRequest();
 		};
@@ -80,8 +80,8 @@ function setClick(){
 function save(){
 	let blockRequest = [];
 	$('.list input').each(function() {
-		let urlBlock = $(this).val().replace(/^\s+|\s+$/gm, '').split(",");
-		console.log(":" + urlBlock);
+		let urlBlock = $(this).val().replace(/^\s+|\s+$/gm, '').split(',');
+		console.log(':' + urlBlock);
 		if(urlBlock){
 			blockRequest = blockRequest.concat(urlBlock);
 		}
@@ -124,7 +124,7 @@ function getBlockRequest(){
             } else {
                 add('');
             }
-            $('.export').attr("href", "data:text/plain;base64," + btoa(data.blockRequest.toString()));
+            $('.export').attr('href', 'data:text/plain;base64,' + btoa(data.blockRequest.toString()));
         });
 }
 function add(pattern){
@@ -151,7 +151,9 @@ function setOption(id, now){
 	console.info('id  = ' + id + ';  now = ' + now);
 	let tmp = {};
 	tmp[id] = now;
-	id && chrome.storage.sync.set(tmp);
+	if(id){
+		chrome.storage.sync.set(tmp);
+    }
 }
 function setRingtoneText(){
 	chrome.storage.sync.get(

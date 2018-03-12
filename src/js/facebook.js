@@ -1,12 +1,11 @@
-"use strict";
 chrome.runtime.onMessage.addListener((msg) => {
     console.log(msg);
-    if (msg.cmd === "block") {
+    if (msg.cmd === 'block') {
         let id = msg.id;
         let name = msg.name;
-        fetch("https://www.facebook.com/privacy/block_page/", {
-            method: "POST",
-            credentials: "include",
+        fetch('https://www.facebook.com/privacy/block_page/', {
+            method: 'POST',
+            credentials: 'include',
             body: objToForm({
                 page_id: id,
                 __a: 1,
@@ -15,7 +14,7 @@ chrome.runtime.onMessage.addListener((msg) => {
             })
         }).then(() => {
             chrome.runtime.sendMessage({
-                noti: "block",
+                noti: 'block',
                 id: id,
                 name: name
             });
@@ -25,9 +24,9 @@ chrome.runtime.onMessage.addListener((msg) => {
 });
 
 function objToForm(obj) {
-    let form = new FormData;
+    let form = new FormData();
     Object.keys(obj).map(function (d) {
-        form.append(d, obj[d])
+        form.append(d, obj[d]);
     });
     return form;
 }
