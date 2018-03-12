@@ -1,6 +1,5 @@
 {
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^3.9.3",
