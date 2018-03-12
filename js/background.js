@@ -47,9 +47,9 @@ function getOuo(link) {
         if (link) {
             switch (info.menuItemId) {
                 case 'getOUO':
-                    console.log(info.selectionText);
+                    log(info.selectionText);
                     link = link.split(/\/.{6}$/)[0] + '/rgo' + link.match(/\/.{6}$/);
-                    console.log(link);
+                    log(link);
                     /\/rgo\/.{6}$/.test(link) && getOuo(link);
                     break;
                 case 'blockFb':
@@ -91,7 +91,7 @@ function getOuo(link) {
             'stopGroup': data.stopGroup,
             'ringtone': data.ringtone,
         }, () => {
-            console.log('Init settings Facebook successfull !!!');
+            log('Init settings Facebook successfull !!!');
         });
         checkringtone(data.ringtone);
     });
@@ -104,7 +104,7 @@ let ringtone = {
 };
 function checkringtone(valueURL) {
 
-    console.log('ringtone : ' + valueURL);
+    log('ringtone : ' + valueURL);
     ringtone.remove();
     if (valueURL) {
         ringtone.block = () => ({redirectUrl: valueURL});
@@ -125,7 +125,7 @@ chrome.storage.onChanged.addListener(change => {
         if (change.isEnable.newValue === 1) {
             startBlock();
         } else {
-            console.log('Stoping Block');
+            log('Stoping Block');
             stopBlock();
         }
     } else if (change.blockRequest) {
@@ -157,7 +157,7 @@ function blockedRequest(detail) {
 
 function startBlock() {
     stopBlock();
-    console.log('Starting Block');
+    log('Starting Block');
     chrome.storage.sync.get(['blockRequest', 'isEnable'], data => {
         data.isEnable && data.blockRequest && data.blockRequest.length > 0
         && chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
@@ -171,7 +171,7 @@ function startBlock() {
 
 function checkFacebook() {
     stopBlockFB();
-    console.log('Starting checkFacebook');
+    log('Starting checkFacebook');
     let blockRequestFb = [];
     let keyFb = [
         'seenChat',
@@ -191,7 +191,7 @@ function checkFacebook() {
         for (let index in keyFb) {
             (data[keyFb[index]] === 1) && blockRequestFb.push(valueFb[index]);
         }
-        console.log(blockRequestFb);
+        log(blockRequestFb);
         blockRequestFb.length && chrome.webRequest.onBeforeRequest.addListener(blockedFb, {
             urls: blockRequestFb,
         }, ['blocking']);
@@ -228,7 +228,7 @@ function setToken(access_token) {
         .then(json => {
             if (json.id) {
                 chrome.storage.sync.set({'access_token': access_token}, () => {
-                    console.log('Set Token success with token : ' + access_token);
+                    log('Set Token success with token : ' + access_token);
                 });
             }
         });
@@ -242,9 +242,9 @@ function blockPage(name, tab) {
         fetch(GRAPH_API + '' + name + '?fields=id,name&access_token=' + access_token)
             .then(res => res.json())
             .then(json => {
-                console.log(json);
+                log(json);
                 if (json.id) {
-                    console.log(tab.id);
+                    log(tab.id);
                     chrome.tabs.sendMessage(tab.id, {
                         cmd: "block",
                         id: json.id,
@@ -273,3 +273,7 @@ chrome.runtime.onMessage.addListener((msg) => {
         });
     }
 });
+
+function log(...args) {
+    console.log(...args)
+}
