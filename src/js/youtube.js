@@ -42,8 +42,6 @@ function showVideo(src) {
             visibility = 'visible';
             $(window).on('resize.youtube_video', checkSizeFrame);
             resetDefault();
-        } else {
-
         }
         $('#quickView').css('visibility', visibility);
     }

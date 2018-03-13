@@ -3,7 +3,7 @@
     "eqeqeq": true,
     "indent": 4,
     "devel": true,
-    "noempty"       : true,
+    "noempty": true,
     "browser": true,
     "esversion": 6,
     "quotmark": "single"

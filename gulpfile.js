@@ -48,7 +48,7 @@ gulp.task('css', function () {
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(gulp.dest('build/css'));
 });
-gulp.task('lint', function() {
+gulp.task('lint', function () {
     return gulp.src('src/js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
