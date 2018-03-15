@@ -28,3 +28,7 @@ gulp
 * Tick "Developer mode" > "Load unpacked extension".
 * Choose "build" folder.
 * Done!!!
+
+### Feature
+* Don't show seen and typing of messenger.
+* Block request http with patterns (easy to import and export).
