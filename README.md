@@ -32,3 +32,4 @@ gulp
 ### Feature
 * Don't show seen and typing of messenger.
 * Block request http with patterns (easy to import and export).
+* Change default ringtone facebook call.
