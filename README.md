@@ -30,6 +30,11 @@ gulp
 * Done!!!
 
 ### Feature
-* Don't show seen and typing of messenger.
-* Block request http with patterns (easy to import and export).
+* Don't show seen and typing of messenger (on/off).
+* Block request http with patterns (on/off and easy to import and export).
 * Change default ringtone facebook call.
+
+### Screenshots
+Facebook block options | Block request http(s)
+:---------------------:|:---------------------:
+![alt text](screenshots/fb-options.png "Facebook block options") | ![alt text](screenshots/block-http.png "Block request http(s)")

@@ -6,5 +6,8 @@
     "noempty": true,
     "browser": true,
     "esversion": 6,
+    "newcap": true,
+    "moz": true,
+    "shadow": false,
     "quotmark": "single"
 }
