@@ -1,3 +1,6 @@
+'use strict';
+
+const DEFAULT_TAB = 0;
 Vue.component('tabs', {
     props: {
         options: {
@@ -14,7 +17,7 @@ Vue.component('tabs', {
     }),
     mounted() {
         if (this.tabs.length) {
-            this.selectTab(this.tabs[0].hash);
+            this.selectTab(this.tabs[DEFAULT_TAB].hash);
         }
     },
     created() {
@@ -24,7 +27,7 @@ Vue.component('tabs', {
         findTab(hash) {
             return this.tabs.find(tab => tab.hash === hash);
         },
-        selectTab(selectedTabHash, event) {
+        selectTab(selectedTabHash) {
             const selectedTab = this.findTab(selectedTabHash);
             if (!selectedTab) {
                 return;

@@ -1,7 +1,6 @@
 'use strict';
 
 chrome.runtime.onMessage.addListener(msg => {
-    console.log(msg);
     if (msg.cmd === 'block') {
         const id = msg.id;
         const name = msg.name;
