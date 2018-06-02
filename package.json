@@ -14,6 +14,7 @@
         "gulp-jshint": "^2.1.0",
         "gulp-minify": "^2.1.0",
         "gulp-zip": "^4.1.0",
-        "jshint": "^2.9.5"
+        "jshint": "^2.9.5",
+        "through2": "^2.0.3"
     }
 }
