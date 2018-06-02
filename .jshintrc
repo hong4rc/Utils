@@ -1,13 +1,18 @@
 {
-    "curly": true,
-    "eqeqeq": true,
-    "indent": 4,
-    "devel": true,
-    "noempty": true,
-    "browser": true,
-    "esversion": 6,
-    "newcap": true,
-    "moz": true,
-    "shadow": false,
-    "quotmark": "single"
+  "curly": true,
+  "eqeqeq": true,
+  "indent": 4,
+  "devel": true,
+  "noempty": true,
+  "browser": true,
+  "esversion": 6,
+  "newcap": true,
+  "moz": true,
+  "shadow": false,
+  "globals": {
+    "chrome": true,
+    "Vue": true,
+    "$": true
+  },
+  "quotmark": "single"
 }
