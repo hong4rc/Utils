@@ -1,8 +1,10 @@
-chrome.runtime.onMessage.addListener((msg) => {
+'use strict';
+
+chrome.runtime.onMessage.addListener(msg => {
     console.log(msg);
     if (msg.cmd === 'block') {
-        let id = msg.id;
-        let name = msg.name;
+        const id = msg.id;
+        const name = msg.name;
         fetch('https://www.facebook.com/privacy/block_page/', {
             method: 'POST',
             credentials: 'include',
@@ -24,8 +26,8 @@ chrome.runtime.onMessage.addListener((msg) => {
 });
 
 function objToForm(obj) {
-    let form = new FormData();
-    Object.keys(obj).map(function (d) {
+    const form = new FormData();
+    Object.keys(obj).map(d => {
         form.append(d, obj[d]);
     });
     return form;

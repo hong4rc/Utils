@@ -1,48 +1,57 @@
-let link = $('.btn-see').attr('href');
-let frame = '.fab-frame';
+'use strict';
+
+const link = $('.btn-see').attr('href');
+const frame = '.fab-frame';
+const FIRST = 0;
+const ZERO = 0;
+const BTN_TWO = 2;
+const BTN_THREE = 3;
+const BTN_THREE_LENGTH = 10;
 
 if (link !== undefined) {
     window.location.href = link;
 }
 $('#balloon_left_2').remove();
-let board = $('.episodes').length;
-if (board === 1) {
+const board = $('.episodes').length;
+if (board > FIRST) {
     addFAB();
     $('div.list-episode a').addClass('btn btn-primary');
 }
 
 function onLoad() {
     $('li.menu-item ul').addClass('btn btn-default');
-    $('.list-episode>a').each(function () {
-        let string = $(this).html().split('-');
-        let ch = string.length;
-        if (ch === 3 || string.length > 10) {
-            $(this).addClass('three-col');
-        } else if (ch === 2) {
-            $(this).addClass('two-col');
+    $('.list-episode>a').each((i, elem) => {
+        const string = $(elem).html().split('-');
+        const ch = string.length;
+        if (ch === BTN_THREE || string.length > BTN_THREE_LENGTH) {
+            $(elem).addClass('three-col');
+        } else if (ch === BTN_TWO) {
+            $(elem).addClass('two-col');
         }
     });
     $('.float-ads').remove();
     $('#balloon_left_1').remove();
 }
+
 onLoad();
+
 function addFAB() {
     addButton();
     addEventMove();
     $(window).resize(() => {
         if (getMargin(frame, 'right') + $().width() > $(window).width()) {
-            let marginRight = $(window).width() - $(frame).width();
-            if (marginRight > 0) {
+            const marginRight = $(window).width() - $(frame).width();
+            if (marginRight > FIRST) {
                 $(frame).css({
-                    'right': marginRight + 'px',
+                    right: `${marginRight}px`,
                 });
             }
         }
         if (getMargin(frame, 'bottom') + $(frame).height() > $(window).height()) {
-            let marginBottom = $(window).height() - $(frame).height();
-            if (marginBottom > 0) {
+            const marginBottom = $(window).height() - $(frame).height();
+            if (marginBottom > FIRST) {
                 $(frame).css({
-                    'bottom': marginBottom + 'px',
+                    bottom: `${marginBottom}px`,
                 });
             }
         }
@@ -50,30 +59,29 @@ function addFAB() {
 }
 
 function rotation(total, size, margin) {
-    if (margin <= 0) {
-        margin = 0;
+    if (margin <= ZERO) {
+        margin = ZERO;
     }
-    let result = total - margin - size;
-    if (result < 0) {
-        return 0;
+    const result = total - margin - size;
+    if (result < ZERO) {
+        return ZERO;
     }
     return result;
 }
 
 function getMargin(element, name) {
-    let value = $(element).css(name);
-    return parseInt(value);
+    return parseInt($(element).css(name));
 }
 
 function addButton() {
     $(document.body).append('<div class="fab-frame"></div>');
     $(frame).css({
-        'right': '20px',
-        'bottom': '20px',
+        right: '20px',
+        bottom: '20px',
     });
-    let cc = $('.current')[0];
-    let prev = $($(cc).prev())[0];
-    let next = $($(cc).next())[0];
+    const cc = $('.current')[FIRST];
+    const prev = $($(cc).prev())[FIRST];
+    const next = $($(cc).next())[FIRST];
     if (prev) {
         $(frame).append('<button id="btn-prev" class="fab-button fab">⬸</button>');
     }
@@ -90,28 +98,30 @@ function addButton() {
 
 function addEventMove() {
     let dragging = false;
-    let deltaX, deltaY;
-    $(frame).mousedown(function (event) {
+    let deltaX,
+        deltaY;
+    $(frame).mousedown(event => {
+        const offset = $(frame).offset();
         dragging = true;
-        deltaX = event.clientX - this.offsetLeft;
-        deltaY = event.clientY - this.offsetTop;
+        deltaX = event.clientX - offset.left;
+        deltaY = event.clientY - offset.top;
         return false;
     });
     document.onmousemove = event => {
         event = event || window.event;
         if (dragging) {
-            let marginLeft = event.clientX - deltaX;
-            let marginRight = rotation($(window).width(), $(frame).width(), marginLeft);
-            let marginTop = event.clientY - deltaY;
-            let marginBottom = rotation($(window).height(), $(frame).height(), marginTop);
+            const marginLeft = event.clientX - deltaX;
+            const marginRight = rotation($(window).width(), $(frame).width(), marginLeft);
+            const marginTop = event.clientY - deltaY;
+            const marginBottom = rotation($(window).height(), $(frame).height(), marginTop);
             $(frame).css({
-                'right': marginRight + 'px',
-                'bottom': marginBottom + 'px',
+                right: `${marginRight}px`,
+                bottom: `${marginBottom}px`,
             });
             return false;
         }
     };
-    $(document).mouseup(function (event) {
+    $(document).mouseup(event => {
         dragging = false;
         event.cancelBubble = true;
     });

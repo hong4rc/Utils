@@ -1,3 +1,5 @@
+'use strict';
+
 if (window.location.href.indexOf('S_Greeting.aspx')) {
     $('input#MainContent_Button1').trigger('click');
 }

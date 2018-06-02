@@ -1,17 +1,22 @@
-let frameYoutube = '<div id="quickView"></div>';
-let regExHref = /\/watch\?v=.{11}$/;
-let qsOptions = '?autoplay=true&showinfo=0';
-let sizeDefaultVideo = {
-    'width': 854,
-    'height': 480
+'use strict';
+
+const FIRST = 0;
+const YOUTUBE_ID_LENGTH = 11;
+const frameYoutube = '<div id="quickView"></div>';
+const regExHref = /\/watch\?v=.{11}$/;
+const qsOptions = '?autoplay=true&showinfo=0';
+const sizeDefaultVideo = {
+    width: 854,
+    height: 480
 };
-let sizeMiniVideo = {
-    'width': 250,
-    'height': 141
+const sizeMiniVideo = {
+    width: 250,
+    height: 141
 };
-let zoom = '.zoom';
-let height_container = $('#container').height();
-let myFrame = 'myFrame', jMyFrame = '#' + myFrame;
+const zoom = '.zoom';
+const height_container = $('#container').height();
+const myFrame = 'myFrame',
+    jMyFrame = `#${myFrame}`;
 
 function resetDefault() {
     reSize(sizeDefaultVideo.width, sizeDefaultVideo.height);
@@ -26,7 +31,7 @@ function showVideo(src) {
         return window;
     }
 
-    let checkSizeFrame = function () {
+    const checkSizeFrame = function () {
         let width = $(jMyFrame).attr('width');
         let height = $(jMyFrame).attr('height');
         width = min(width, $(window).width());
@@ -74,16 +79,16 @@ function setEventClick() {
                 zoomOut();
                 break;
             default:
-                console.log('Error');
         }
     });
 
-    let deltaX, deltaY;
+    let deltaX,
+        deltaY;
     let dragging = false;
     let quickView;
-    $('.reSize').mousedown((event) => {
+    $('.reSize').mousedown(event => {
         dragging = true;
-        quickView = $('#quickView')[0];
+        quickView = $('#quickView')[FIRST];
         deltaX = event.clientX - quickView.offsetLeft;
         deltaY = event.clientY - quickView.offsetTop;
         return false;
@@ -91,8 +96,8 @@ function setEventClick() {
     document.onmousemove = event => {
         event = event || window.event;
         if (dragging) {
-            let newWidth = $(window).width() - event.clientX + deltaX;
-            let newHeight = $(window).height() - event.clientY + deltaY;
+            const newWidth = $(window).width() - event.clientX + deltaX;
+            const newHeight = $(window).height() - event.clientY + deltaY;
             reSize(newWidth, newHeight);
             return false;
         }
@@ -100,7 +105,7 @@ function setEventClick() {
     $(document).mouseup(event => {
         dragging = false;
         event.cancelBubble = true;
-        let frameWidth = $(jMyFrame).attr('width');
+        const frameWidth = $(jMyFrame).attr('width');
         if (frameWidth < sizeMiniVideo.width) {
             zoomOut();
         }
@@ -122,12 +127,12 @@ $(document).ready(() => {
         },
     });
     $(document).bind('contextmenu', event => {
-        let target = event.target;
-        let href = target.href || $(target).parent('h3').parent('a').attr('href');
+        const target = event.target;
+        const href = target.href || $(target).parent('h3').parent('a').attr('href');
         if ($(target).is('h3 #video-title') || $(target).is('a.yt-simple-endpoint.style-scope.yt-formatted-string')) {
             if (regExHref.test(href)) {
-                let idVideo = href.substr(-11);
-                let src = 'https://www.youtube.com/embed/' + idVideo;
+                const idVideo = href.substr(-YOUTUBE_ID_LENGTH);
+                const src = `https://www.youtube.com/embed/${idVideo}`;
                 showVideo(src + qsOptions);
                 return false;
             }
