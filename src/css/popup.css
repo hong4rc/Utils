@@ -1,77 +1,141 @@
 body {
     min-width: 400px;
+    font-size: 14px;
+    margin: 6px;
 }
 
-.btn {
-    text-align: left;
+/* new css here*/
+a {
+    text-decoration: none;
+    color: #0277bd;
 }
 
-.container {
-    margin-bottom: 2px;
-    min-height: 200px;
+a:hover {
+    text-decoration: none;
+    color: #2a2a2a;
 }
 
-div.btn.btn-success {
-    float: right;
+/* Check block */
+.blocked-cb {
+    width: calc(100% - 24px);
+    margin: 5px 0;
+    border-radius: 4px;
+    padding: 6px 12px;
+    display: flex;
 }
 
-.blocked {
-    font-size: 20px;
-    height: 50px;
+.blocked-cb input {
+    margin-top: 5px;
 }
 
-div.list {
+.blocked-cb label {
+    margin-left: 10px;
+    font-weight: 400;
+    flex: 1;
+    display: flex;
+    user-select: none;
+}
+
+.groups-addon {
+    display: flex;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.groups-addon .item-addon {
+    padding: 6px 12px;
+    border: solid 1px #bdbdbd;
+    border-radius: 0;
+    color: #616161;
+}
+
+.groups-addon .item-addon.field {
+    flex: 1;
+
+}
+
+.groups-addon .item-addon:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.groups-addon .item-addon:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.hidden {
+    display: none;
+}
+
+.button {
+    user-select: none;
+    text-align: center;
+    display: flex;
+}
+
+span i.g-icon {
+    flex: 1;
+    top: 4px;
+}
+
+.blocked-cb.checked, .button.success {
+    color: #fff;
+    background-color: #66bb6a;
+    border-color: #4caf50;
+}
+
+.blocked-cb, .button.info {
+    color: #fff;
+    background-color: #00b0ff;
+    border-color: #0091ea;
+}
+
+.item-addon label {
+    flex: 1;
+}
+
+label {
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.list-block {
     padding-right: 10px;
     height: 162px;
     overflow: auto;
 }
 
-div.btn-group.btn-group-justified>.btn{
-    text-align: center;
+.remove {
+    border-color: #d32f2f;
+    background-color: #eee;
 }
 
-div.list::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    background-color: #F5F5F5;
+.button.remove {
+    color: #fff;
+    background-color: #d32f2f;
 }
 
-div.list::-webkit-scrollbar {
-    width: 8px;
-    background-color: #F5F5F5;
+.remove:hover {
+    color: #fff;
+    background-color: #c9302c !important;
 }
 
-div.list::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
-    background-color: #555;
+.row:after {
+    clear: both;
+    content: ".";
+    display: block;
+    width: 0;
+    height: 0;
+    margin-bottom: 5px;
 }
 
-div.btn-group {
-    padding: 10px 0;
+.row label {
+    float: left;
+    width: 30%;
 }
 
-.import input {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.panel-body {
-    width: 100%;
-    padding-top: 0;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.input-group.form-group {
-    margin-top: 10px;
-}
-
-#option .checkbox.btn {
-    margin: 5px 0;
-    border-radius: 4px;
+.row label + input {
+    float: left;
+    width: 70%;
 }

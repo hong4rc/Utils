@@ -2,15 +2,112 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/glyphicon.css">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/vue-tabs.css">
     <title>Mini tool</title>
 </head>
 <body>
+<div id="tab-view">
+    <tabs>
+        <tab name="Option Facebook">
+            <div class="groups-addon">
+                <span type="button" class="item-addon remove">↺</span>
+                <input type="text" id="ringtone" class="item-addon field" v-model="ringtone"
+                       title="Url to your ringtone">
+                <span type="button" class="item-addon item-addon button success">➣</span>
+            </div>
+            <block-request id="block-seen-chat">
+                Block the "seen" of Messenger
+            </block-request>
+            <block-request id="block-typing-chat">
+                Block the typing indicator of Messenger
+            </block-request>
+            <block-request id="block-typing-post">
+                Block the typing indicator on Post
+            </block-request>
+            <block-request id="block-timeline">
+                Stop your timeline
+            </block-request>
+        </tab>
+        <tab name="Block request http(s)">
+
+            <div class="groups-addon">
+                <span :class="[enable ? 'success' : 'info']" class="item-addon field button">
+                    <label>
+                        <i class="g-icon" :class="tick"></i>
+                        <input id="enable" class="hidden" type="checkbox" v-model="enable">
+                    </label>
+                </span>
+                <span class="item-addon field button">
+                    <label>
+                        <input type="file" accept="text/plain" class="hidden" @change="readFile($event)">
+                        <i class="g-icon g-icon-import"></i>
+                    </label>
+                </span>
+                <a class="item-addon field" :href="hrefList" download="block-list.txt">
+                    <span class="field button">
+                    <i class="g-icon g-icon-export"></i>
+                </span>
+                </a>
+
+                <span class="item-addon field button info" @click="add()">
+                    <i class="g-icon g-icon-plus-sign"></i>
+                </span>
+            </div>
+            <div class="list-block">
+                <div v-for="(item, i) in listBlock" class="groups-addon">
+                    <input type="text" class="item-addon field" v-model="listBlock[i]">
+                    <span type="button" class="item-addon remove" @click.prevent="removeRun(i)">🗙</span>
+                </div>
+            </div>
+            <div class="groups-addon">
+                <span @click="saveListBlock()" class="item-addon field button success">
+                    <label>Save</label>
+                </span>
+                <span @click="removeAll()" class="item-addon field button remove">
+                    <label>Remove</label>
+                </span>
+            </div>
+        </tab>
+        <tab name="String">
+            <div id="app">
+                <div class="row">
+                    <label for="content">Content</label>
+                    <input id="content" type="text" v-model="msg">
+                </div>
+
+                <div class="row">
+                    <label for="base64">Endcode base64</label>
+                    <input id="base64" type="text" v-model="enBase64">
+                </div>
+                <div class="row">
+                    <label for="base64-decode">Decode base64</label>
+                    <input id="base64-decode" type="text" v-model="deBase64">
+                </div>
+                <div class="row">
+                    <label for="to-lower">To lower</label>
+                    <input id="to-lower" type="text" v-model="lower">
+                </div>
+                <div class="row">
+                    <label for="to-upper">To upper</label>
+                    <input id="to-upper" type="text" v-model="upper">
+                </div>
+                <div class="row">
+                    <label for="full-width">Full width</label>
+                    <input id="full-width" type="text" v-model="fullWidth">
+                </div>
+            </div>
+        </tab>
+    </tabs>
+</div>
+<!--
 <div class="container panel panel-primary">
+
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#option">Option Facebook</a></li>
         <li><a data-toggle="tab" href="#block-request">Block request http(s)</a></li>
+        <li><a data-toggle="tab" href="#string-tool">String</a></li>
     </ul>
     <div class="tab-content">
         <div id="block-request" class="tab-pane fade">
@@ -18,7 +115,8 @@
                 <span id="isEnable" class="checkbox btn btn-success">
                     <i class="glyphicon glyphicon-check"></i></span>
                 <span class="import btn btn-default">
-                    <i class="glyphicon glyphicon-import"></i><input class="file" type="file" accept="text/plain"></span>
+                    <i class="glyphicon glyphicon-import"></i><input class="file" type="file"
+                                                                     accept="text/plain"></span>
                 <a class="export btn btn-default" download="blockList.txt">
                     <i class="glyphicon glyphicon-export"></i></a>
                 <span class="btn btn-success add"><i class="glyphicon glyphicon-plus-sign"></i></span>
@@ -36,7 +134,7 @@
         <div id="option" class="tab-pane fade in active">
             <div class="panel-body btn-group-vertical">
                 <div class="input-group form-group">
-                    <input type="text" id="ringtone" class="form-control" value="" title="Url to your ringtone">
+                    <input type="text" id="Dringtone" class="form-control" value="" title="Url to your ringtone">
                     <span class="default-music input-group-addon btn btn-primary">
                         <i class="glyphicon glyphicon-repeat"></i>
                     </span>
@@ -101,8 +199,10 @@
 
     </div>
 </div>
-
+-->
 <script src="js/jquery.js"></script>
+<script src="js/vue.js"></script>
+<script src="js/vue-tabs.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/popup.js"></script>
 </body>

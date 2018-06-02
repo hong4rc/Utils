@@ -1,23 +1,17 @@
+'use strict';
+
+const FIRST = 0;
+const FORWARD_SLASH_LENGTH = 1;
 const fbRingtone = [
     '*://*/rsrc.php/yh/r/taJw7SpZVz2.mp3',
     '*://*/rsrc.php/yO/r/kTasEyE42gs.ogg'
 ];
-const defaultOptions = {
-    'seenChat': 1,
-    'typingChat': 1,
-    'typingPost': 0,
-    'stopTimeline': 0,
-    'stopGroup': 0,
-    'ringtone': 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3'
-};
 const GRAPH_API = 'https://graph.facebook.com/v2.10/';
 
 function getOuo(link) {
-    fetch(link, {
-        method: 'post',
-    }).then((response) => {
+    fetch(link, {method: 'post'}).then(response => {
         if (response.url) {
-            let dataUOU = {
+            const dataUOU = {
                 url: response.url,
             };
             chrome.windows.create(dataUOU);
@@ -25,8 +19,8 @@ function getOuo(link) {
     });
 }
 
-function createMenuIteam() {
-    let getOuoItem = {
+function createMenuItem() {
+    const getOuoItem = {
         id: 'getOUO',
         title: 'Get link',
         contexts: ['link'],
@@ -35,7 +29,7 @@ function createMenuIteam() {
             '*://*.ouo.press/*'
         ]
     };
-    let blockFb = {
+    const blockFb = {
         id: 'blockFb',
         title: 'Block this Page',
         contexts: ['link'],
@@ -46,25 +40,26 @@ function createMenuIteam() {
     chrome.contextMenus.onClicked.addListener((info, tab) => {
         let link = info.linkUrl;
         if (link) {
+            let id;
+            let index;
             switch (info.menuItemId) {
                 case 'getOUO':
                     log(info.selectionText);
-                    link = link.split(/\/.{6}$/)[0] + '/rgo' + link.match(/\/.{6}$/);
+                    link = `${link.split(/\/.{6}$/).shift()}/rgo${link.match(/\/.{6}$/)}`;
                     log(link);
                     if (/\/rgo\/.{6}$/.test(link)) {
                         getOuo(link);
                     }
                     break;
                 case 'blockFb':
-                    let url = new URL(info.linkUrl);
-                    let id = url.pathname;
-                    let index = id.lastIndexOf('/groups/');
-                    if (index >= 0) {
+                    id = new URL(info.linkUrl).pathname;
+                    index = id.lastIndexOf('/groups/');
+                    if (index >= FIRST) {
                         return;
                     }
                     index = id.lastIndexOf('-');
-                    id = id.substr(1);
-                    if (index > 0) {
+                    id = id.substr(FORWARD_SLASH_LENGTH);
+                    if (index >= FIRST) {
                         id = id.substr(index);
                     }
                     blockPage(id, tab);
@@ -78,76 +73,54 @@ function createMenuIteam() {
 
 function initIsEnable() {
     chrome.storage.sync.get({
-        'isEnable': 1
+        enable: true
     }, data => {
-        if (data.isEnable === 1) {
+        if (data.enable === true) {
             startBlock();
         }
     });
 }
 
-function initFB() {
-    chrome.storage.sync.get(defaultOptions, data => {
-        chrome.storage.sync.set({
-            'seenChat': data.seenChat,
-            'stopTimeline': data.stopTimeline,
-            'typingChat': data.typingChat,
-            'typingPost': data.typingPost,
-            'stopGroup': data.stopGroup,
-            'ringtone': data.ringtone,
-        }, () => {
-            log('Init settings Facebook successfull !!!');
-        });
-        checkringtone(data.ringtone);
-    });
-}
-
-createMenuIteam();
+createMenuItem();
 initIsEnable();
-initFB();
-blockLinkneverDie();
-let ringtone = {
-    block: () => {
-    },
-    remove: () => {
-    },
+let removeRingtone = () => {
+    log('This is identity function !!!');
 };
 
-function checkringtone(valueURL) {
+function setRingTone(valueURL) {
 
-    log('ringtone : ' + valueURL);
-    ringtone.remove();
+    log(`ringtone : ${valueURL}`);
+    removeRingtone();
     if (valueURL) {
-        ringtone.block = () => ({redirectUrl: valueURL});
-        ringtone.remove = () => {
-            chrome.webRequest.onBeforeRequest.removeListener(ringtone.block);
+        const blockFunc = () => ({redirectUrl: valueURL});
+        removeRingtone = () => {
+            chrome.webRequest.onBeforeRequest.removeListener(blockFunc);
         };
 
-        chrome.webRequest.onBeforeRequest.addListener(ringtone.block, {
-            urls: fbRingtone,
-        }, [
-            'blocking',
-            'requestBody'
-        ]);
+        chrome.webRequest.onBeforeRequest.addListener(
+            blockFunc,
+            {urls: fbRingtone},
+            ['blocking', 'requestBody']);
     }
 }
 
 chrome.storage.onChanged.addListener(change => {
-    if (change.isEnable) {
-        if (change.isEnable.newValue === 1) {
+    if (change.enable) {
+        if (change.enable.newValue === true) {
             startBlock();
         } else {
-            log('Stoping Block');
+            log('Stopping Block');
             stopBlock();
         }
-    } else if (change.blockRequest) {
+    }
+    if (change.listBlock) {
         startBlock();
     }
-    if (change.seenChat || change.typingChat || change.typingPost || change.stopTimeline || change.stopGroup) {
+    if (change.fbBlock) {
         checkFacebook();
     }
     if (change.ringtone) {
-        checkringtone(change.ringtone.newValue);
+        setRingTone(change.ringtone.newValue);
     }
 });
 
@@ -156,12 +129,12 @@ function stopBlock() {
 }
 
 function stopBlockFB() {
-    console.info('stopFb');
+    log('stopFb');
     chrome.webRequest.onBeforeRequest.removeListener(blockedFb);
 }
 
 function blockedRequest(detail) {
-    console.info(' |Blocked :  ' + detail.url);
+    log(` |Blocked :  ${detail.url}`);
     return {
         cancel: true,
     };
@@ -170,14 +143,16 @@ function blockedRequest(detail) {
 function startBlock() {
     stopBlock();
     log('Starting Block');
-    chrome.storage.sync.get(['blockRequest', 'isEnable'], data => {
-        if (data.isEnable && data.blockRequest && data.blockRequest.length > 0) {
+    chrome.storage.sync.get(['listBlock', 'enable'], data => {
+        if (data.enable && data.listBlock && data.listBlock.length > FIRST) {
             chrome.webRequest.onBeforeRequest.addListener(blockedRequest, {
-                urls: data.blockRequest,
+                urls: data.listBlock,
             }, ['blocking']);
         }
-        for (let p in data.blockRequest) {
-            console.info(`  |----Block patterns : ${data.blockRequest[p]}`);
+        for (const p in data.listBlock) {
+            if (data.listBlock.hasOwnProperty(p)) {
+                log(`  |----Block patterns : ${data.listBlock[p]}`);
+            }
         }
     });
 }
@@ -185,25 +160,17 @@ function startBlock() {
 function checkFacebook() {
     stopBlockFB();
     log('Starting checkFacebook');
-    let blockRequestFb = [];
-    let keyFb = [
-        'seenChat',
-        'typingChat',
-        'typingPost',
-        'stopTimeline',
-        'stopGroup'
-    ];
-    let valueFb = [
-        '*://*/ajax/mercury/change_read_status.php*',
-        '*://*.facebook.com/ajax/messaging/typ.php?dpr*',
-        '*://*.facebook.com/ufi/typing/*',
-        '*://*.facebook.com/ajax/pagelet/generic.php/LitestandTailLoadPagelet*',
-        '*://*.facebook.com/ajax/pagelet/generic.php/GroupEntstreamPagelet*',
-    ];
-    chrome.storage.sync.get(keyFb, data => {
-        for (let index in keyFb) {
-            if (data[keyFb[index]] === 1) {
-                blockRequestFb.push(valueFb[index]);
+    const blockRequestFb = [];
+    const blockFb = {
+        'block-seen-chat': '*://*/ajax/mercury/change_read_status.php*',
+        'block-typing-chat': '*://*/ajax/messaging/typ.php*',
+        'block-typing-post': '*://*/ufi/typing/*',
+        'block-timeline': '*://*/ajax/pagelet/generic.php/LitestandTailLoadPagelet*',
+    };
+    chrome.storage.sync.get('fbBlock', data => {
+        for (const index in data.fbBlock) {
+            if (data.fbBlock.hasOwnProperty(index) && data.fbBlock[index] === true) {
+                blockRequestFb.push(blockFb[index]);
             }
         }
         log(blockRequestFb);
@@ -216,49 +183,30 @@ function checkFacebook() {
 }
 
 function blockedFb(detail) {
-    console.info(' |Blockedfb :  ' + detail.url);
-    return {
-        cancel: true,
-    };
-}
-
-function blockLinkneverDie() {
-    let listLinkNewverdie = [
-        '*://*.google-analytics.com/analytics.js',
-        '*://*.popclck.net/*',
-        '*://*.scorecardresearch.com/*',
-        '*://adsire.com/*',
-    ];
-    chrome.webRequest.onBeforeRequest.addListener(logLinkNeverDie, {
-        urls: listLinkNewverdie,
-    }, ['blocking']);
-}
-
-function logLinkNeverDie(detail) {
-    console.info(' |BlockedDie :  ' + detail.url);
+    log(` |Blockedfb :  ${detail.url}`);
     return {
         cancel: true,
     };
 }
 
 function setToken(access_token) {
-    fetch(GRAPH_API + 'me?access_token=' + access_token)
+    fetch(`${GRAPH_API}me?access_token=${access_token}`)
         .then(res => res.json())
         .then(json => {
             if (json.id) {
-                chrome.storage.sync.set({'access_token': access_token}, () => {
-                    log('Set Token success with token : ' + access_token);
+                chrome.storage.sync.set({access_token: access_token}, () => {
+                    log(`Set Token success with token : ${access_token}`);
                 });
             }
         });
 }
 
-let icon = chrome.extension.getURL('knife.png');
+const icon = chrome.extension.getURL('knife.png');
 
 function blockPage(name, tab) {
     chrome.storage.sync.get(['access_token'], data => {
-        let access_token = data.access_token;
-        fetch(GRAPH_API + '' + name + '?fields=id,name&access_token=' + access_token)
+        const access_token = data.access_token;
+        fetch(`${String(GRAPH_API) + name}?fields=id,name&access_token=${access_token}`)
             .then(res => res.json())
             .then(json => {
                 log(json);
@@ -281,14 +229,14 @@ function blockPage(name, tab) {
     });
 }
 
-chrome.runtime.onMessage.addListener((msg) => {
+chrome.runtime.onMessage.addListener(msg => {
     if (msg && msg.noti === 'block') {
         chrome.notifications.create({
             type: 'basic',
             iconUrl: icon,
             appIconMaskUrl: icon,
             title: 'Blocked',
-            message: msg.name + '\n' + msg.id
+            message: `${msg.name}\n${msg.id}`
         });
     }
 });

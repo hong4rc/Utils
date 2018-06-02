@@ -1,0 +1,92 @@
+.tabs-component {
+    margin: 0;
+}
+
+.tabs-component-tabs {
+    align-items: stretch;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: -1px;
+}
+
+.tabs-component-tab {
+    font-size: 14px;
+    font-weight: 600;
+    list-style: none;
+    background-color: #fff;
+    border: solid 1px #ddd;
+    border-radius: 3px 3px 0 0;
+    margin-right: .5em;
+    transform: translateY(2px);
+    transition: transform .3s ease;
+}
+
+.tabs-component-tab:not(:last-child) {
+    border-bottom: dotted 1px #ddd;
+}
+
+.tabs-component-tab.is-active a,
+.tabs-component-tab:hover {
+    color: #666;
+}
+
+.tabs-component-tab.is-active {
+    color: #000;
+    border-bottom: solid 1px #fff;
+    z-index: 2;
+    transform: translateY(0);
+}
+
+.tabs-component-tab.is-disabled * {
+    color: #cdcdcd;
+    cursor: not-allowed !important;
+}
+
+.tabs-component-tab-a,
+.tabs-component-tab-a:visited {
+    text-decoration: none;
+}
+
+.tabs-component-tab-a {
+    align-items: center;
+    display: flex;
+    padding: .75em 1em;
+    font-weight: normal;
+}
+
+.tabs-component-panels {
+    position: relative;
+    background-color: #fff;
+    border: solid 1px #ddd;
+    border-radius: 0 6px 6px 6px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .05);
+    padding: 25px 20px;
+}
+
+.tabs-component-tab a:hover {
+    background-color: #eee;
+}
+
+.tabs-component-tab.is-active a:hover {
+    background-color: #fff;
+}
+
+.badge {
+    align-items: center;
+    border-radius: 1.25rem;
+    display: flex;
+    font-size: .75rem;
+    flex-shrink: 0;
+    height: 1.25rem;
+    justify-content: center;
+    line-height: 1.25rem;
+    min-width: 1.25rem;
+    padding: 0 .1em;
+    background-color: #c03;
+    color: #fff;
+    margin-left: .35em;
+    position: absolute;
+    right: -.725em;
+    top: -.725em;
+}

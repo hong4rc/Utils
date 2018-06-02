@@ -1,172 +1,155 @@
-let frame1 = '<div class="input-group form-group"><input type="text" class="form-control" value="';
-let frame2 = '"><span class="remove input-group-addon btn btn-danger"><i class="glyphicon glyphicon-remove"></i></span></div>';
-let list = $('div.list');
-let defaultOptions = {
-    'blockRequest': [],
-    'isEnable': 1,
-    'seenChat': 1,
-    'typingChat': 1,
-    'typingPost': 0,
-    'stopTimeline': 0,
-    'stopGroup': 0
+'use strict';
+
+const FIRST = 0;
+const ONE = 1;
+const BANG_CHAR_CODE = 33;
+const TILDE_CHAR_CODE = 126;
+const RANGE_FULL_WIDTH = 65248;
+const DEFAULT_PATTERN = '*://*.';
+const defaultData = {
+    enable: false,
+    listBlock: [DEFAULT_PATTERN],
+    fbBlock: {
+        'block-seen-chat': true,
+        'block-typing-chat': true,
+        'block-typing-post': true,
+        'block-timeline': false
+    },
+    ringtone: 'set here'
 };
+const readData = new Promise(resolve => {
+    chrome.storage.sync.get(defaultData, data => {
+        resolve(data);
+    });
+});
 
-getBlockRequest();
-setClick();
-addShortcut();
+readData.then(data => {
+    const TAG_MARK = 'app';
 
-function addShortcut(){
-	$(document).keydown(evt =>{
-		if(evt.ctrlKey){
-			switch(evt.keyCode){
-				case 83:
-					evt.preventDefault();
-					$('.save').click();
-					break;
-			}
-		}
-	});
-}
-function getId(param){
-	return $(param).attr('id');
-}
-function setClick(){
-	$('.default-music').click(() =>{
-		setRingtone(false);
-	});
-	$('.save-music').click(() =>{
-		setRingtone(true);
-	});
-	$('.save').click(h);
-    function h() {
-        save();
-    }
-
-    $('.add').click(() =>{
-		console.warn('add : ');
-		add('');
-	});
-	$('.remove').click(function() {
-		console.warn('remove : ');
-		remove(this);
-	});
-	$('.remove-all').click(() =>{
-		$('.list').empty();
-		save();
-	});
-	$('.checkbox').click(function() {
-		let now = $(this).attr('aria-valuenow');
-		if(now + '' === '0'){
-			now = 1;
-		} else {
-			now = 0;
-		}
-		updateStatus(this, now);
-		let id = getId(this);
-		setOption(id, now);
-	});
-	$('.import input[type=file]').change(function() {
-		let reader = new FileReader();
-		reader.onload = event =>{
-			let result = event.target.result;
-			let newList = result.split(',');
-			setOption('blockRequest', newList);
-			getBlockRequest();
-		};
-		let cc = $(this).get(0).files[0];
-		reader.readAsText(cc);
-	});
-}
-function save(){
-	let blockRequest = [];
-	$('.list input').each(function() {
-		let urlBlock = $(this).val().replace(/^\s+|\s+$/gm, '').split(',');
-		console.log(':' + urlBlock);
-		if(urlBlock){
-			blockRequest = blockRequest.concat(urlBlock);
-		}
-	});
-	chrome.storage.sync.set({'blockRequest': blockRequest}, () =>{
-		// Notify that we saved.
-		console.info('Settings saved');
-	});
-	getBlockRequest();
-}
-function updateStatus(element, now){
-	$(element).attr('aria-valuenow', now + 0);
-	if(now === 0){
-		$(element).children('.glyphicon').addClass('glyphicon-unchecked').removeClass('glyphicon-check');
-		$(element).addClass('btn-info').removeClass('btn-success');
-	} else {
-		$(element).children('.glyphicon').addClass('glyphicon-check').removeClass('glyphicon-unchecked');
-		$(element).removeClass('btn-info').addClass('btn-success');
-	}
-}
-function init(data){
-	updateStatus('#isEnable', data.isEnable);
-	updateStatus('#seenChat', data.seenChat);
-	updateStatus('#typingChat', data.typingChat);
-	updateStatus('#typingPost', data.typingPost);
-	updateStatus('#stopTimeline', data.stopTimeline);
-	updateStatus('#stopGroup', data.stopGroup);
-	setRingtoneText();
-}
-function getBlockRequest(){
-	$('.list').empty();
-	chrome.storage.sync.get(defaultOptions,
-        data =>{
-            init(data);
-            if (data.blockRequest.length > 0) {
-                data.blockRequest.forEach(pattern => {
-                    add(pattern);
-                    console.info(pattern);
-                });
-            } else {
-                add('');
+    Vue.component('block-request', {
+        props: {
+            id: {default: ''}
+        },
+        data() {
+            let parent = this.$parent;
+            log('1', parent);
+            while (parent.tagMark !== TAG_MARK) {
+                parent = parent.$parent;
+                if (parent === undefined) {
+                    break;
+                }
+                log(parent);
             }
-            $('.export').attr('href', 'data:text/plain;base64,' + btoa(data.blockRequest.toString()));
-        });
-}
-function add(pattern){
-	if(pattern === ''){
-        pattern = '*://*.';
+            return {
+                checked: false,
+                parent: parent
 
-	} else {
-        pattern = pattern.replace(/^\s+|\s+$/gm, '');
-	}
-	let element = $(frame1 + pattern + frame2);
-    list.prepend(element);
-    list.animate({
-        scrollTop: element.offset().top - list.offset().top
-    }, 500);
-	$('.remove').click(function() {
-		remove(this);
-	});
-}
-function remove(element){
-	console.warn('remove : ' + element);
-	$(element).parent().remove();
-}
-function setOption(id, now){
-	console.info('id  = ' + id + ';  now = ' + now);
-	let tmp = {};
-	tmp[id] = now;
-	if(id){
-		chrome.storage.sync.set(tmp);
-    }
-}
-function setRingtoneText(){
-	chrome.storage.sync.get(
-		{'ringtone': ''},
-		(data) =>{
-			$('#ringtone').val(data.ringtone);
-		});
-}
-function setRingtone(boo){
-	let ringtone = boo ? $('#ringtone').val() : '';
-	chrome.storage.sync.set({'ringtone': ringtone}, () =>{
-		// Notify that we saved.
-		console.info('Set ringtone to :' + ringtone);
-	});
-	setRingtoneText();
+            };
+        },
+        created() {
+            this.checked = this.parent.fbBlock[this.id] === true;
+        },
+        computed: {
+            sendId() {
+                if (this.parent.update && typeof this.parent.update === 'function') {
+                    this.parent.update({key: this.id, value: this.checked});
+                }
+            }
+        },
+        template: `
+            <div :class="{ checked: checked }" class="blocked-cb">
+                <input :id="id" type="checkbox" :value="id" v-model="checked" :change="sendId">
+                <label :for="id"><slot /></label>
+            </div>`
+    });
+
+    new Vue({
+        el: '#tab-view',
+        data() {
+            data.tagMark = TAG_MARK;
+            data.msg = '';
+            return data;
+        },
+        watch: {
+            listBlock(newList) {
+                if (newList.length === FIRST) {
+                    this.add();
+                }
+            }
+        },
+        computed: {
+            hrefList() {
+                return `data:text/plain;base64,${btoa(JSON.stringify(this.listBlock))}`;
+            },
+            tick() {
+                chrome.storage.sync.set({enable: this.enable});
+                if (this.enable) {
+                    return 'g-icon-check';
+                }
+                return 'g-icon-unchecked';
+            },
+            enBase64() {
+                return btoa(this.msg);
+            },
+            deBase64() {
+                try {
+                    return atob(this.msg);
+                } catch (e) {
+                    return 'The string to be decoded is not correctly encoded.';
+                }
+            },
+            lower() {
+                return this.msg.toLocaleLowerCase();
+            },
+            upper() {
+                return this.msg.toLocaleUpperCase();
+            },
+            fullWidth() {
+                return this.msg.split('').map(c => {
+                    const charCode = c.charCodeAt(FIRST);
+                    if (charCode < BANG_CHAR_CODE || charCode > TILDE_CHAR_CODE) {
+                        return c;
+                    }
+                    return String.fromCharCode(charCode + RANGE_FULL_WIDTH);
+                }).join('');
+            }
+        },
+        methods: {
+            update(data) {
+                this.fbBlock[data.key] = data.value;
+                chrome.storage.sync.set({fbBlock: this.fbBlock});
+            },
+            add() {
+                this.listBlock.unshift(DEFAULT_PATTERN);
+            },
+            removeRun(index) {
+                this.listBlock.splice(index, ONE);
+            },
+            readFile(event) {
+                const reader = new FileReader();
+                reader.onload = event => {
+                    const result = event.target.result;
+                    try {
+                        this.listBlock = JSON.parse(result);
+                    } catch (e) {
+                        log(e);
+                    }
+                };
+                const file = event.target.files[FIRST];
+                reader.readAsText(file);
+            },
+            saveListBlock() {
+                log('this.listBlock', this.listBlock);
+                chrome.storage.sync.set({listBlock: this.listBlock});
+            },
+            removeAll() {
+                this.listBlock = [];
+                this.saveListBlock();
+            }
+        }
+    });
+});
+
+function log(...args) {
+    console.log(...args);
 }
