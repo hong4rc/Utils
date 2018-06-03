@@ -71,7 +71,8 @@ function createMenuItem() {
     });
 }
 
-function initIsEnable() {
+function initTask() {
+    checkFacebook();
     chrome.storage.sync.get({
         enable: true
     }, data => {
@@ -82,7 +83,7 @@ function initIsEnable() {
 }
 
 createMenuItem();
-initIsEnable();
+initTask();
 let removeRingtone = () => {
     log('This is identity function !!!');
 };
@@ -167,7 +168,14 @@ function checkFacebook() {
         'block-typing-post': '*://*/ufi/typing/*',
         'block-timeline': '*://*/ajax/pagelet/generic.php/LitestandTailLoadPagelet*',
     };
-    chrome.storage.sync.get('fbBlock', data => {
+    chrome.storage.sync.get({
+        fbBlock: {
+            'block-seen-chat': true,
+            'block-typing-chat': true,
+            'block-typing-post': true,
+            'block-timeline': false
+        }
+    }, data => {
         for (const index in data.fbBlock) {
             if (data.fbBlock.hasOwnProperty(index) && data.fbBlock[index] === true) {
                 blockRequestFb.push(blockFb[index]);
