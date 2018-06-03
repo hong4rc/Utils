@@ -62,8 +62,11 @@ Vue.component('tabs', {
     template: `
         <div class="tabs-component">
             <ul role="tablist" class="tabs-component-tabs">
-                <li v-for="(tab, i) in tabs" :key="i" :class="{ 'is-active': tab.isActive, 'is-disabled': tab.isDisabled }" class="tabs-component-tab" role="presentation" v-show="tab.isVisible" >
-                    <a v-html="tab.header" @click="selectTab(tab.hash, $event)" :href="tab.hash" class="tabs-component-tab-a" role="tab" ></a>
+                <li v-for="(tab, i) in tabs" :key="i" :class="{ 'is-active': tab.isActive, 'is-disabled': tab.isDisabled }"
+                    class="tabs-component-tab" role="presentation" v-show="tab.isVisible" >
+                    <a v-html="tab.header" @click="selectTab(tab.hash, $event)" :href="tab.hash"
+                        class="tabs-component-tab-a" role="tab" >
+                    </a>
                 </li>
             </ul>
             <div class="tabs-component-panels">
@@ -99,5 +102,8 @@ Vue.component('tab', {
                 '#' + a.name.toLowerCase().replace(/ /g, '-');
         },
     },
-    template: '<section v-show="isActive" :aria-hidden="! isActive" class="tabs-component-panel" :id="hash" role="tabpanel"><slot /></section>'
+    template: `
+        <section v-show="isActive" :aria-hidden="! isActive" class="tabs-component-panel" :id="hash" role="tabpanel">
+            <slot />
+        </section>`
 });
