@@ -74,10 +74,14 @@ function createMenuItem() {
 function initTask() {
     checkFacebook();
     chrome.storage.sync.get({
-        enable: true
+        enable: true,
+        ringTone: 'https://cdn.rawgit.com/Hongarc/music/master/Attention.mp3'
     }, data => {
         if (data.enable === true) {
             startBlock();
+        }
+        if(data.ringTone){
+            setRingTone(data.ringTone);
         }
     });
 }
