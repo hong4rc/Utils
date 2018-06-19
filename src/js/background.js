@@ -2,7 +2,7 @@
 
 const FIRST = 0;
 const FORWARD_SLASH_LENGTH = 1;
-const fbRingtone = [
+const fbRingTone = [
     '*://*/rsrc.php/yh/r/taJw7SpZVz2.mp3',
     '*://*/rsrc.php/yO/r/kTasEyE42gs.ogg'
 ];
@@ -84,23 +84,23 @@ function initTask() {
 
 createMenuItem();
 initTask();
-let removeRingtone = () => {
+let removeRingTone = () => {
     log('This is identity function !!!');
 };
 
 function setRingTone(valueURL) {
 
-    log(`ringtone : ${valueURL}`);
-    removeRingtone();
+    log(`RingTone : ${valueURL}`);
+    removeRingTone();
     if (valueURL) {
         const blockFunc = () => ({redirectUrl: valueURL});
-        removeRingtone = () => {
+        removeRingTone = () => {
             chrome.webRequest.onBeforeRequest.removeListener(blockFunc);
         };
 
         chrome.webRequest.onBeforeRequest.addListener(
             blockFunc,
-            {urls: fbRingtone},
+            {urls: fbRingTone},
             ['blocking', 'requestBody']);
     }
 }
@@ -120,8 +120,8 @@ chrome.storage.onChanged.addListener(change => {
     if (change.fbBlock) {
         checkFacebook();
     }
-    if (change.ringtone) {
-        setRingTone(change.ringtone.newValue);
+    if (change.ringTone) {
+        setRingTone(change.ringTone.newValue);
     }
 });
 

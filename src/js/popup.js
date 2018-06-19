@@ -15,7 +15,7 @@ const defaultData = {
         'block-typing-post': true,
         'block-timeline': false
     },
-    ringtone: 'set here'
+    ringTone: 'set here'
 };
 const readData = new Promise(resolve => {
     chrome.storage.sync.get(defaultData, data => {
