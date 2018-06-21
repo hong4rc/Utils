@@ -1,0 +1,45 @@
+/* latin */
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Orbitron Regular'), local('Orbitron-Regular'), url('../fonts/orbitron.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+#clock-panel {
+    background-color: #F3F3F3;
+    max-width: 220px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.tabBlock {
+    background-color: #57574f;
+    border: solid 0 #FFA54F;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    max-width: 200px;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+}
+
+.clock {
+    vertical-align: middle;
+    font-family: Orbitron;
+    font-size: 40px;
+    font-weight: normal;
+    color: #FFF;
+    padding: 0 10px;
+}
+
+.clock-lg {
+    vertical-align: middle;
+    font-family: Orbitron;
+    font-size: 20px;
+    font-weight: normal;
+    color: #FFF;
+}

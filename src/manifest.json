@@ -156,6 +156,9 @@
     "web_accessible_resources": [
         "frame.html"
     ],
+    "chrome_url_overrides": {
+        "newtab": "newTab.html"
+    },
     "permissions": [
         "webRequest",
         "webRequestBlocking",
