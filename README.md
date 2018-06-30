@@ -41,4 +41,4 @@ gulp
 ### Screenshots
 Facebook block options | Block request http(s)
 :---------------------:|:---------------------:
-![alt text](screenshots/fb-options.png "Facebook block options") | ![alt text](screenshots/block-http.png "Block request http(s)")
+![alt text](screenshots/block-fb-event.png "Facebook block options") | ![alt text](screenshots/fb-url.png "Block request http(s)")
