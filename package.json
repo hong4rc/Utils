@@ -6,12 +6,12 @@
         "gulp": "gulp"
     },
     "devDependencies": {
-        "gulp": "^3.9.1",
+        "gulp": "^4.0.0",
         "gulp-clean": "^0.4.0",
         "gulp-clean-css": "^3.9.4",
         "gulp-cleanhtml": "^1.0.3",
         "gulp-eslint": "^4.0.2",
-        "gulp-minify": "^3.0.2",
+        "gulp-minify": "^3.1.0",
         "gulp-zip": "^4.1.0",
         "through2": "^2.0.3"
     }
