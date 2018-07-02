@@ -28,11 +28,11 @@ $(() => {
     // Generate the digits with the needed markup,
     // and add them to the clock
 
-    const digit_holder = clock.find('.digits');
+    const digitHolder = clock.find('.digits');
 
     $.each(positions, (index, elem) => {
         if (elem === ':') {
-            digit_holder.append('<div class="dots">');
+            digitHolder.append('<div class="dots">');
         } else {
 
             const pos = $('<div>');
@@ -45,21 +45,21 @@ $(() => {
             digits[elem] = pos;
 
             // Add the digit elements to the page
-            digit_holder.append(pos);
+            digitHolder.append(pos);
         }
 
     });
 
     // Add the weekday names
 
-    const weekday_names = 'MON TUE WED THU FRI SAT SUN'.split(' '),
-        weekday_holder = clock.find('.weekdays');
+    const weekdayNames = 'MON TUE WED THU FRI SAT SUN'.split(' '),
+        weekdayHolder = clock.find('.weekdays');
 
-    $.each(weekday_names, (index, elem) => {
-        weekday_holder.append(`<span>${elem}</span>`);
+    $.each(weekdayNames, (index, elem) => {
+        weekdayHolder.append(`<span>${elem}</span>`);
     });
 
-    const weekDays = weekday_holder.find('span');
+    const weekDays = weekdayHolder.find('span');
 
     // Run a timer every second and update the clock
 
