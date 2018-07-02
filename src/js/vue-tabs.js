@@ -62,7 +62,8 @@ Vue.component('tabs', {
     template: `
         <div class="tabs-component">
             <ul role="tablist" class="tabs-component-tabs">
-                <li v-for="(tab, i) in tabs" :key="i" :class="{ 'is-active': tab.isActive, 'is-disabled': tab.isDisabled }"
+                <li v-for="(tab, i) in tabs" :key="i"
+                    :class="{ 'is-active': tab.isActive, 'is-disabled': tab.isDisabled }"
                     class="tabs-component-tab" role="presentation" v-show="tab.isVisible" >
                     <a v-html="tab.header" @click="selectTab(tab.hash, $event)" :href="tab.hash"
                         class="tabs-component-tab-a" role="tab" >
