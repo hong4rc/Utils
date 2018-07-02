@@ -6,7 +6,7 @@
         "gulp": "gulp"
     },
     "devDependencies": {
-        "gulp": "^4.0.0",
+        "gulp": "^3.9.1",
         "gulp-clean": "^0.4.0",
         "gulp-clean-css": "^3.9.4",
         "gulp-cleanhtml": "^1.0.3",
