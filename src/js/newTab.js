@@ -59,7 +59,7 @@ $(() => {
         weekday_holder.append(`<span>${elem}</span>`);
     });
 
-    const weekDays = clock.find('.week-days span');
+    const weekDays = weekday_holder.find('span');
 
     // Run a timer every second and update the clock
 
