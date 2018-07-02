@@ -63,10 +63,11 @@ gulp.task('zip', () => gulp.src(['build/**'])
     .pipe(zip(distFileName))
     .pipe(gulp.dest('dist')));
 
-// build distributable after other tasks completed
-gulp.task('debug', gulp.series('file'));
-
 // run all tasks after build directory has been cleaned
 
 gulp.task('file', gulp.parallel('html', 'js', 'json', 'css', 'copy', 'copy_js'));
+
+// build distributable after other tasks completed
+gulp.task('debug', gulp.series('file'));
+
 gulp.task('default', gulp.series('clean', 'file', 'zip'));
