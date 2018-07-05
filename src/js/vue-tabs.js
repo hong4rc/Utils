@@ -36,7 +36,7 @@ Vue.component('tabs', {
                 return;
             }
             this.tabs.forEach(tab => {
-                tab.isActive = (tab.hash === selectedTab.hash);
+                tab.isActive = tab.hash === selectedTab.hash;
             });
             this.activeTabHash = selectedTab.hash;
         },
@@ -47,6 +47,7 @@ Vue.component('tabs', {
             }
             tab.isVisible = visible;
             if (tab.isActive) {
+
                 // If tab is active, set a different one as active.
                 tab.isActive = visible;
                 this.tabs.every(tab => {
@@ -91,16 +92,15 @@ Vue.component('tab', {
             if (!this.badge) {
                 return this.name;
             }
-            return this.name + `<span class="badge">${this.badge}</span>`;
+            return `${this.name}<span class="badge">${this.badge}</span>`;
         },
         hash(a) {
-            //console.log('hash', a);
             if (this.isDisabled) {
                 return '#';
             }
-            return this.id ?
-                '#' + a.id :
-                '#' + a.name.toLowerCase().replace(/ /g, '-');
+            return this.id
+                ? `#${a.id}`
+                : `#${a.name.toLowerCase().replace(/ /g, '-')}`;
         },
     },
     template: `

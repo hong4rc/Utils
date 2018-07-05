@@ -150,6 +150,7 @@ readData.then(data => {
     });
 });
 
-function log(...args) {
-    console.log(...args);
+function log() {
+
+    // console.log(...args);
 }

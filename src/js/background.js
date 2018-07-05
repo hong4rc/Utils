@@ -80,7 +80,7 @@ function initTask() {
         if (data.enable === true) {
             startBlock();
         }
-        if(data.ringTone){
+        if (data.ringTone) {
             setRingTone(data.ringTone);
         }
     });
