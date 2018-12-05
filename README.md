@@ -2,7 +2,7 @@
 
 [![GitHub last commit](https://img.shields.io/github/last-commit/Hongarc/Utils.svg)](https://github.com/Hongarc/Utils)
 [![Build Status](https://travis-ci.org/Hongarc/Utils.svg?branch=master)](https://travis-ci.org/Hongarc/Utils)
-[![Built with Gulp](https://img.shields.io/badge/Build%20with-Gulp-cf4647.svg)](http://gulpjs.com/)
+[![Built with Gulp](https://img.shields.io/badge/Build%20with-Gulp-cf4647.svg)](http://gulpjs.com/) [![Greenkeeper badge](https://badges.greenkeeper.io/Hongarc/Utils.svg)](https://greenkeeper.io/)
 
 ### Before installing
 ```
